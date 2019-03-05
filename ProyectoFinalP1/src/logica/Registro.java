@@ -3,6 +3,7 @@ package logica;
 public class Registro {
 
 	private String nombre;
+	private int rony;
 
 	
 	public Registro(String nombre) {
