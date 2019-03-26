@@ -8,15 +8,15 @@ public class Evento {
 	private Comision laComision;
 	private String tipoEvento;
 	private Date fechaEvento;
-	private String recursos[];
+	private ArrayList<String> recursos;
 	private String areaEvento;
 	private int cantAsistentes;
 	private Proyecto elProyecto;
 	private String nombreEvento;
 	private String identificador;
 	
-	public Evento(Comision laComision, String tipoEvento, Date fechaEvento, String[] recursos, String areaEvento,
-			int cantAsistentes, Proyecto elProyecto, String nombreEvento, String identificador) {
+	public Evento(Comision laComision, String tipoEvento, Date fechaEvento, ArrayList<String> recursos,
+			String areaEvento, int cantAsistentes, Proyecto elProyecto, String nombreEvento, String identificador) {
 		super();
 		this.laComision = laComision;
 		this.tipoEvento = tipoEvento;
@@ -53,11 +53,11 @@ public class Evento {
 		this.fechaEvento = fechaEvento;
 	}
 
-	public String[] getRecursos() {
+	public ArrayList<String> getRecursos() {
 		return recursos;
 	}
 
-	public void setRecursos(String[] recursos) {
+	public void setRecursos(ArrayList<String> recursos) {
 		this.recursos = recursos;
 	}
 
@@ -100,6 +100,8 @@ public class Evento {
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
 	}
+	
+	
 	
 	
 }
