@@ -96,7 +96,7 @@ public class PlanificacionEvento {
 	
 	public void insertarEvento(Evento e1) {
 		
-		losEventos.add(p1);
+		losEventos.add(e1);
 	}
 	public void insertarRecuso(String recurso) {
 		
@@ -107,7 +107,7 @@ public class PlanificacionEvento {
 		
 		Persona per=null;
 		for (Persona aux : lasPersonas) {
-			if(aux.getCedula.equalsIgnoreCase(cedula)) {
+			if(aux.getCedula().equalsIgnoreCase(cedula)) {
 				per=aux;
 			}
 		}
@@ -118,7 +118,7 @@ public class PlanificacionEvento {
 		Comision lasComi= null;
 		
 		for (Comision aux : lasComisiones) {
-			if(aux.getIdentificador.equalsIgnoreCase(Codigo)) {
+			if(aux.getCodigo().equalsIgnoreCase(Codigo)) {
 				
 				lasComi=aux;
 			}
@@ -146,7 +146,7 @@ public class PlanificacionEvento {
 		Evento event=null;
 		
 		for (Evento aux : losEventos) {
-			if(aux.getElProyecto.getNombreProyecto.equalsIgnoreCase(nombreProy)) {
+			if(aux.getElProyecto().getNombreProyecto().equalsIgnoreCase(nombreProy)) {
 				
 				event=aux;
 			}	
