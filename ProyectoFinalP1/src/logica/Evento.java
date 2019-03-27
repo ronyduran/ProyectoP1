@@ -5,103 +5,130 @@ import java.util.Date;
 
 public class Evento {
 
-	private Comision laComision;
+	private ArrayList<Comision> lasComisiones;
 	private String tipoEvento;
 	private Date fechaEvento;
 	private ArrayList<String> recursos;
-	private String areaEvento;
 	private int cantAsistentes;
-	private Proyecto elProyecto;
+	private ArrayList<Trabajo> losTrabajos;
 	private String nombreEvento;
 	private String identificador;
+	private boolean estado;
 	
-	public Evento(Comision laComision, String tipoEvento, Date fechaEvento, ArrayList<String> recursos,
-			String areaEvento, int cantAsistentes, Proyecto elProyecto, String nombreEvento, String identificador) {
+	
+	public Evento(String tipoEvento, Date fechaEvento, ArrayList<String> recursos,int cantAsistentes, String nombreEvento, String identificador) {
+		
 		super();
-		this.laComision = laComision;
+		this.lasComisiones = new ArrayList();
 		this.tipoEvento = tipoEvento;
 		this.fechaEvento = fechaEvento;
 		this.recursos = recursos;
-		this.areaEvento = areaEvento;
 		this.cantAsistentes = cantAsistentes;
-		this.elProyecto = elProyecto;
+		this.losTrabajos = new ArrayList();
 		this.nombreEvento = nombreEvento;
 		this.identificador = identificador;
+		this.estado = true;
 	}
 
-	public Comision getLaComision() {
-		return laComision;
+
+	public ArrayList<Comision> getLasComisiones() {
+		return lasComisiones;
 	}
 
-	public void setLaComision(Comision laComision) {
-		this.laComision = laComision;
-	}
 
 	public String getTipoEvento() {
 		return tipoEvento;
 	}
 
-	public void setTipoEvento(String tipoEvento) {
-		this.tipoEvento = tipoEvento;
-	}
 
 	public Date getFechaEvento() {
 		return fechaEvento;
 	}
 
-	public void setFechaEvento(Date fechaEvento) {
-		this.fechaEvento = fechaEvento;
-	}
 
 	public ArrayList<String> getRecursos() {
 		return recursos;
 	}
 
-	public void setRecursos(ArrayList<String> recursos) {
-		this.recursos = recursos;
-	}
-
-	public String getAreaEvento() {
-		return areaEvento;
-	}
-
-	public void setAreaEvento(String areaEvento) {
-		this.areaEvento = areaEvento;
-	}
 
 	public int getCantAsistentes() {
 		return cantAsistentes;
 	}
 
-	public void setCantAsistentes(int cantAsistentes) {
-		this.cantAsistentes = cantAsistentes;
+
+	public ArrayList<Trabajo> getLosTrabajos() {
+		return losTrabajos;
 	}
 
-	public Proyecto getElProyecto() {
-		return elProyecto;
-	}
-
-	public void setElProyecto(Proyecto elProyecto) {
-		this.elProyecto = elProyecto;
-	}
 
 	public String getNombreEvento() {
 		return nombreEvento;
 	}
 
-	public void setNombreEvento(String nombreEvento) {
-		this.nombreEvento = nombreEvento;
-	}
 
 	public String getIdentificador() {
 		return identificador;
 	}
 
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+
+	public void setLasComisiones(ArrayList<Comision> lasComisiones) {
+		this.lasComisiones = lasComisiones;
+	}
+
+
+	public void setTipoEvento(String tipoEvento) {
+		this.tipoEvento = tipoEvento;
+	}
+
+
+	public void setFechaEvento(Date fechaEvento) {
+		this.fechaEvento = fechaEvento;
+	}
+
+
+	public void setRecursos(ArrayList<String> recursos) {
+		this.recursos = recursos;
+	}
+
+
+	public void setCantAsistentes(int cantAsistentes) {
+		this.cantAsistentes = cantAsistentes;
+	}
+
+
+	public void setLosTrabajos(ArrayList<Trabajo> losTrabajos) {
+		this.losTrabajos = losTrabajos;
+	}
+
+
+	public void setNombreEvento(String nombreEvento) {
+		this.nombreEvento = nombreEvento;
+	}
+
+
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
 	}
+
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 	
+	public void insertarTrabajo(Trabajo t1) {
+		
+		losTrabajos.add(t1);
+	}
 	
+public void insertarComision(Comision c1) {
+		
+		lasComisiones.add(c1);
+	}
 	
 	
 }

@@ -9,7 +9,7 @@ public class PlanificacionEvento {
 	private ArrayList<Comision> lasComisiones;
 	private ArrayList<Persona> lasPersonas;
 	private ArrayList<Evento> losEventos;
-	private ArrayList<Proyecto> losProyectos;
+	private ArrayList<Trabajo> losTrabajos;
 	private ArrayList<String> recursos;
 	private static PlanificacionEvento laPlanificacion;
 	
@@ -18,7 +18,7 @@ public class PlanificacionEvento {
 		this.lasComisiones = new ArrayList();
 		this.lasPersonas = new ArrayList();
 		this.losEventos = new ArrayList();
-		this.losProyectos = new ArrayList();
+		this.losTrabajos = new ArrayList();
 		this.recursos =new ArrayList();
 	}
 	
@@ -43,8 +43,8 @@ public class PlanificacionEvento {
 		return losEventos;
 	}
 
-	public ArrayList<Proyecto> getLosProyectos() {
-		return losProyectos;
+	public ArrayList<Trabajo> getLosTrabajos() {
+		return losTrabajos;
 	}
 
 	public ArrayList<String> getRecursos() {
@@ -67,8 +67,8 @@ public class PlanificacionEvento {
 		this.losEventos = losEventos;
 	}
 
-	public void setLosProyectos(ArrayList<Proyecto> losProyectos) {
-		this.losProyectos = losProyectos;
+	public void setLosProyectos(ArrayList<Trabajo> losTrabajos) {
+		this.losTrabajos = losTrabajos;
 	}
 
 	public void setRecursos(ArrayList<String> recursos) {
@@ -84,14 +84,18 @@ public class PlanificacionEvento {
 		lasPersonas.add(p1);
 	}
 	
-	public void insertarProyecto(Proyecto pr1) {
+	public void insertarTrabajo(Trabajo pr1) {
 		
-		losProyectos.add(pr1);
+		losTrabajos.add(pr1);
+		BuscarComisionPorCodigo(pr1.getLaComision().getCodigo()).insertarTrabajo(pr1);
+		BuscarEventoCodigo(pr1.getElEvento().getIdentificador()).insertarTrabajo(pr1);
+		((Participante)buscarPersonaPorCedula(pr1.getElParticipante().getCedula())).insertarTrabajo(pr1);
 	}
 	
 	public void insertarComision(Comision c1) {
 		
 		lasComisiones.add(c1);
+		BuscarEventoCodigo(c1.getElEvento().getIdentificador()).insertarComision(c1);
 	}
 	
 	public void insertarEvento(Evento e1) {
@@ -114,7 +118,7 @@ public class PlanificacionEvento {
 		return per;		
 	}
 	
-	public Comision BuscarComunionesPorCodigo (String Codigo) {
+	public Comision BuscarComisionPorCodigo (String Codigo) {
 		Comision lasComi= null;
 		
 		for (Comision aux : lasComisiones) {
@@ -127,31 +131,23 @@ public class PlanificacionEvento {
 		return lasComi;
 	}
 	
-	
-	public Proyecto BuscarProyectoPorIdentificador(String Identificador) {
-		
-		Proyecto proyec=null;
-		
-		for (Proyecto aux : losProyectos) {
-			if(aux.getIdentificador().equalsIgnoreCase(Identificador)) {
-				
-				proyec=aux;
-			}	
-		}
-		return proyec;
-	}
-	
-	public Evento BuscarEventoPorProyecto(String nombreProy) {
-		
-		Evento event=null;
+	public Evento BuscarEventoCodigo (String Codigo) {
+		Evento elEvento= null;
 		
 		for (Evento aux : losEventos) {
-			if(aux.getElProyecto().getNombreProyecto().equalsIgnoreCase(nombreProy)) {
+			if(aux.getIdentificador().equalsIgnoreCase(Codigo)) {
 				
-				event=aux;
-			}	
+				elEvento=aux;
+			}
 		}
-		return event;
+		
+		return elEvento;
 	}
+	
+	
+	
+	
+	
+	
 	
 }

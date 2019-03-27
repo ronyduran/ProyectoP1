@@ -10,14 +10,18 @@ public class Comision {
 	private String codigo;
 	private Date fechaCreacion;
 	private Jurado presidente;
+	private Evento elEvento;
+	private ArrayList<Trabajo> losTrabajos;
 	
-	public Comision(ArrayList<Jurado> misJurados, String area, String codigo, Date fechaCreacion, Jurado presidente) {
+	public Comision(ArrayList<Jurado> misJurados, String area, String codigo, Date fechaCreacion, Jurado presidente, Evento elEvento) {
 		super();
 		this.misJurados = misJurados;
 		this.area = area;
 		this.codigo = codigo;
 		this.fechaCreacion = fechaCreacion;
 		this.presidente = presidente;
+		this.elEvento=elEvento;
+		this.losTrabajos= new ArrayList();
 	}
 
 	public ArrayList<Jurado> getMisJurados() {
@@ -60,8 +64,27 @@ public class Comision {
 		this.presidente = presidente;
 	}
 
+	public Evento getElEvento() {
+		return elEvento;
+	}
+
+	public ArrayList<Trabajo> getLosTrabajos() {
+		return losTrabajos;
+	}
+
+	public void setElEvento(Evento elEvento) {
+		this.elEvento = elEvento;
+	}
+
+	public void setLosTrabajos(ArrayList<Trabajo> losTrabajos) {
+		this.losTrabajos = losTrabajos;
+	}
+
 	
-	
+	public void insertarTrabajo(Trabajo t1) {
+		
+		losTrabajos.add(t1);
+	}
 	
 	
 }

@@ -4,20 +4,25 @@ import java.util.ArrayList;
 
 public class Participante extends Persona {
 	
-	ArrayList<Proyecto> losProyectos;
+	ArrayList<Trabajo> losTrabajos;
 
 	public Participante(String cedula, String nombre, String telefono, String direccion, String sexo,
-			String gradoAcademico, ArrayList<Proyecto> losProyectos) {
+			String gradoAcademico, ArrayList<Trabajo> losProyectos) {
 		super(cedula, nombre, telefono, direccion, sexo, gradoAcademico);
-		this.losProyectos = new ArrayList();
+		this.losTrabajos = new ArrayList();
 	}
 
-	public ArrayList<Proyecto> getLosProyectos() {
-		return losProyectos;
+	public ArrayList<Trabajo> getLosTrabajos() {
+		return losTrabajos;
 	}
 
-	public void setLosProyectos(ArrayList<Proyecto> losProyectos) {
-		this.losProyectos = losProyectos;
+	public void setLosTrabajos(ArrayList<Trabajo> losProyectos) {
+		this.losTrabajos = losProyectos;
+	}
+	
+	public void insertarTrabajo(Trabajo t1) {
+		
+		losTrabajos.add(t1);
 	}
 
 }

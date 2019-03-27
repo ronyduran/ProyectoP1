@@ -2,43 +2,41 @@ package logica;
 
 import java.util.ArrayList;
 
-public class Proyecto {
+public class Trabajo {
 
-	private String nombreProyecto;
-	private String areaProyecto;
+	private String nombreTrabajo;
+	private String areaTrabajo;
 	private String descripcion;
-	private ArrayList<Persona> losParticipantes;
+	private Persona elParticipante;
 	private Evento elEvento;
 	private Comision laComision;
 	private String identificador;
 	
-	public Proyecto(String nombreProyecto, String areaProyecto, String descripcion, ArrayList<Persona> losParticipantes,
-			Evento elEvento, Comision laComision, String identificador) {
+	public Trabajo(String nombreProyecto, String areaProyecto, String descripcion,
+			Evento elEvento, Comision laComision, String identificador, Persona elParticipante) {
 		super();
-		this.nombreProyecto = nombreProyecto;
-		this.areaProyecto = areaProyecto;
+		this.nombreTrabajo = nombreProyecto;
+		this.areaTrabajo = areaProyecto;
 		this.descripcion = descripcion;
-		this.losParticipantes = losParticipantes;
+		this.elParticipante= elParticipante;
 		this.elEvento = elEvento;
 		this.laComision = laComision;
 		this.identificador=identificador;
 	}
 
-	public String getNombreProyecto() {
-		return nombreProyecto;
+	public String getNombreTrabajo() {
+		return nombreTrabajo;
 	}
 
-	public String getAreaProyecto() {
-		return areaProyecto;
+	public String getAreaTrabajo() {
+		return areaTrabajo;
 	}
 
 	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public ArrayList<Persona> getLosParticipantes() {
-		return losParticipantes;
-	}
+	
 
 	public Evento getElEvento() {
 		return elEvento;
@@ -48,22 +46,19 @@ public class Proyecto {
 		return laComision;
 	}
 
-	public void setNombreProyecto(String nombreProyecto) {
-		this.nombreProyecto = nombreProyecto;
+	public void setNombreTrabajo(String nombreProyecto) {
+		this.nombreTrabajo = nombreProyecto;
 	}
 
-	public void setAreaProyecto(String areaProyecto) {
-		this.areaProyecto = areaProyecto;
+	public void setAreaTrabajo(String areaProyecto) {
+		this.areaTrabajo = areaProyecto;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-	public void setLosParticipantes(ArrayList<Persona> losParticipantes) {
-		this.losParticipantes = losParticipantes;
-	}
-
+	
 	public void setElEvento(Evento elEvento) {
 		this.elEvento = elEvento;
 	}
@@ -78,6 +73,14 @@ public class Proyecto {
 
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
+	}
+
+	public Persona getElParticipante() {
+		return elParticipante;
+	}
+
+	public void setElParticipante(Persona elParticipante) {
+		this.elParticipante = elParticipante;
 	}
 	
 	
