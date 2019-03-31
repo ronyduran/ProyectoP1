@@ -13,12 +13,12 @@ public class Comision {
 	private Evento elEvento;
 	private ArrayList<Trabajo> losTrabajos;
 	
-	public Comision(ArrayList<Jurado> misJurados, String area, String codigo, Date fechaCreacion, Jurado presidente, Evento elEvento) {
+	public Comision(ArrayList<Jurado> misJurados, String area, String codigo,Jurado presidente, Evento elEvento) {
 		super();
 		this.misJurados = misJurados;
 		this.area = area;
 		this.codigo = codigo;
-		this.fechaCreacion = fechaCreacion;
+		this.fechaCreacion = new Date();
 		this.presidente = presidente;
 		this.elEvento=elEvento;
 		this.losTrabajos= new ArrayList();
