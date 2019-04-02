@@ -12,11 +12,11 @@ public class Trabajo {
 	private Comision laComision;
 	private String identificador;
 	
-	public Trabajo(String nombreProyecto, String areaProyecto, String descripcion,
+	public Trabajo(String nombreTrabajo, String areaTrabajo, String descripcion,
 			Evento elEvento, Comision laComision, String identificador, Persona elParticipante) {
 		super();
-		this.nombreTrabajo = nombreProyecto;
-		this.areaTrabajo = areaProyecto;
+		this.nombreTrabajo = nombreTrabajo;
+		this.areaTrabajo = areaTrabajo;
 		this.descripcion = descripcion;
 		this.elParticipante= elParticipante;
 		this.elEvento = elEvento;

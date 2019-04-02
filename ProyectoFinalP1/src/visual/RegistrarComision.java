@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class RegistrarComision extends JDialog {
 
@@ -49,23 +51,9 @@ public class RegistrarComision extends JDialog {
 	private JComboBox cbxPresidente;
 	private JComboBox cbxEvento;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		try {
-			RegistrarComision dialog = new RegistrarComision();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-
-	/**
-	 * Create the dialog.
-	 */
+	
 	public RegistrarComision() {
+		setTitle("Registro de Comision");
 		setResizable(false);
 		setBounds(100, 100, 462, 400);
 		getContentPane().setLayout(new BorderLayout());
@@ -75,60 +63,79 @@ public class RegistrarComision extends JDialog {
 		
 		{
 			JPanel panel = new JPanel();
-			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel.setBounds(12, 13, 432, 304);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JPanel panel_1 = new JPanel();
-				panel_1.setBounds(12, 13, 408, 144);
+				panel_1.setBounds(12, 13, 408, 151);
 				panel.add(panel_1);
 				panel_1.setLayout(null);
 				{
 					JLabel lblAreaDeEspecialidad = new JLabel("Area de Especialidad:");
-					lblAreaDeEspecialidad.setBounds(12, 0, 128, 16);
+					lblAreaDeEspecialidad.setBounds(226, 13, 128, 16);
 					panel_1.add(lblAreaDeEspecialidad);
 				}
 				{
 					cbxArea = new JComboBox();
+					cbxArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Fisica", "Biologia", "Quimica", "Informatica", "Matematica", "Geologia"}));
 					cbxArea.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							loadPresidente();
-							loadTableLista();
+							loadTableLista("");
 						}
 					});
-					cbxArea.setBounds(12, 29, 128, 22);
+					cbxArea.setBounds(226, 42, 170, 22);
 					panel_1.add(cbxArea);
 				}
 				{
 					JLabel lblPresidente = new JLabel("Presidente:");
-					lblPresidente.setBounds(12, 64, 128, 16);
+					lblPresidente.setBounds(12, 76, 128, 16);
 					panel_1.add(lblPresidente);
 				}
 				{
 					cbxPresidente = new JComboBox();
-					cbxPresidente.setBounds(12, 93, 128, 22);
+					cbxPresidente.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							String presidente= cbxPresidente.getSelectedItem().toString();
+							String[] partes = presidente.split("-");
+							String cedula = partes[0]; 
+							
+							loadTableLista(cedula);
+							loadTableElegido(cedula);
+						}
+					});
+					cbxPresidente.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
+					
+					
+					
+					cbxPresidente.setBounds(12, 93, 158, 22);
 					panel_1.add(cbxPresidente);
 				}
 				{
 					JLabel lblCdigo = new JLabel("C\u00F3digo:");
-					lblCdigo.setBounds(268, 0, 128, 16);
+					lblCdigo.setBounds(12, 13, 128, 16);
 					panel_1.add(lblCdigo);
 				}
 				{
 					txtCodigo = new JTextField();
-					txtCodigo.setBounds(268, 29, 128, 22);
+					txtCodigo.setEditable(false);
+					txtCodigo.setBounds(12, 41, 158, 22);
 					panel_1.add(txtCodigo);
 					txtCodigo.setColumns(10);
+					txtCodigo.setText("Comi-"+PlanificacionEvento.getInstance().getCodComision());
 				}
 				{
 					JLabel lblEvento = new JLabel("Evento:");
-					lblEvento.setBounds(268, 64, 128, 16);
+					lblEvento.setBounds(226, 76, 128, 16);
 					panel_1.add(lblEvento);
 				}
 				{
 					cbxEvento = new JComboBox();
-					cbxEvento.setBounds(268, 93, 128, 22);
+					cbxEvento.setBounds(226, 93, 170, 22);
+					cbxEvento.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
 					panel_1.add(cbxEvento);
 				}
 				{
@@ -196,7 +203,7 @@ public class RegistrarComision extends JDialog {
 					String cedula = (String)tableLista.getValueAt(fila, 0);
 					Jurado j1 = (Jurado)PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula);
 					listaJurado.add(j1);
-					loadTableElegido();
+					loadTableElegido("");
 				}
 			});
 			btnAgregar.setBounds(184, 166, 64, 25);
@@ -209,7 +216,7 @@ public class RegistrarComision extends JDialog {
 					String cedula = (String)tableElegido.getValueAt(fila, 0);
 					Jurado j1 = (Jurado)PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula);
 					listaJurado.remove(j1);
-					loadTableElegido();
+					loadTableElegido("");
 				}
 			});
 			btnEliminar.setBounds(184, 208, 64, 25);
@@ -231,10 +238,15 @@ public class RegistrarComision extends JDialog {
 						listaJurado.removeAll(listaJurado);
 						Jurado elPresidente = (Jurado)buscarPersonaByNombre((String)cbxPresidente.getSelectedItem());
 						Evento elEvento = buscarEventoByNombre((String)cbxEvento.getSelectedItem());
+						if(losJurados!=null && cbxArea.getSelectedIndex()!=0 && elPresidente!=null && elEvento!=null) {
 						aux = new Comision(losJurados, area, codigo, elPresidente, elEvento);
 						PlanificacionEvento.getInstance().insertarComision(aux);
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
-						dispose();
+						PlanificacionEvento.getInstance().setCodComision(PlanificacionEvento.getInstance().getCodComision()+1);
+						dispose();}else {
+							
+							JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
+						}
 					}
 				});
 				btnRegistrar.setActionCommand("OK");
@@ -257,34 +269,36 @@ public class RegistrarComision extends JDialog {
 		loadEvento();
 	}
 	
-	public static void loadTableLista() {
+	public static void loadTableLista(String cedula) {
 		model.setRowCount(0);
 		
 		fila = new Object[model.getColumnCount()];
 		for (int i = 0; i < PlanificacionEvento.getInstance().getLasPersonas().size(); i++) {
 			if (PlanificacionEvento.getInstance().getLasPersonas().get(i) instanceof Jurado) {
+				if(!PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula().equalsIgnoreCase(cedula)) {
 				if (((Jurado)(PlanificacionEvento.getInstance().getLasPersonas().get(i))).getArea().equalsIgnoreCase((String) cbxArea.getSelectedItem())) {
 					fila[0] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula();
 					fila[1] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre();
 					model.addRow(fila);
-				}
+				}}
 				
 			}				
 		}	
 		
 	}
-    public static void loadTableElegido() {
+    public static void loadTableElegido(String cedula) {
 		
 		
 		
 		model_1.setRowCount(0);
 		fila_1 = new Object[model_1.getColumnCount()];
 		for (int i = 0; i < listaJurado.size(); i++) {
+			if(!listaJurado.get(i).getCedula().equalsIgnoreCase(cedula)) {
 			fila_1[0] = listaJurado.get(i).getCedula();
 			fila_1[1] = listaJurado.get(i).getNombre();
 			
 			model_1.addRow(fila_1);
-		}
+		}}
 	}
     
     private void loadPresidente() {
@@ -292,7 +306,8 @@ public class RegistrarComision extends JDialog {
 		for (int i = 0; i < PlanificacionEvento.getInstance().getLasPersonas().size(); i++) {
 			if (PlanificacionEvento.getInstance().getLasPersonas().get(i) instanceof Jurado) {
 				if (((Jurado)(PlanificacionEvento.getInstance().getLasPersonas().get(i))).getArea().equalsIgnoreCase((String) cbxArea.getSelectedItem())) {
-					cbxPresidente.addItem((String) PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre());
+				cbxPresidente.addItem(new String(PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula()+"-"+PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre()));
+				
 				}
 				
 			}				

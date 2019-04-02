@@ -12,6 +12,8 @@ public class PlanificacionEvento {
 	private ArrayList<Trabajo> losTrabajos;
 	private ArrayList<String> recursos;
 	private static PlanificacionEvento laPlanificacion;
+	private int codTrabjo;
+	private int codComision;
 	
 	private  PlanificacionEvento() {
 		super();
@@ -20,6 +22,8 @@ public class PlanificacionEvento {
 		this.losEventos = new ArrayList();
 		this.losTrabajos = new ArrayList();
 		this.recursos =new ArrayList();
+		this.codTrabjo=1;
+		this.setCodComision(1);
 	}
 	
 	public static PlanificacionEvento getInstance() { 
@@ -51,9 +55,7 @@ public class PlanificacionEvento {
 		return recursos;
 	}
 
-	public static PlanificacionEvento getLaPlanificacion() {
-		return laPlanificacion;
-	}
+	
 
 	public void setLasComisiones(ArrayList<Comision> lasComisiones) {
 		this.lasComisiones = lasComisiones;
@@ -75,9 +77,7 @@ public class PlanificacionEvento {
 		this.recursos = recursos;
 	}
 
-	public static void setLaPlanificacion(PlanificacionEvento laPlanificacion) {
-		PlanificacionEvento.laPlanificacion = laPlanificacion;
-	}
+	
 
 	public void insertarPersona(Persona p1) {
 		
@@ -142,6 +142,22 @@ public class PlanificacionEvento {
 		}
 		
 		return elEvento;
+	}
+
+	public int getCodTrabjo() {
+		return codTrabjo;
+	}
+
+	public void setCodTrabjo(int codTrabjo) {
+		this.codTrabjo = codTrabjo;
+	}
+
+	public int getCodComision() {
+		return codComision;
+	}
+
+	public void setCodComision(int codComision) {
+		this.codComision = codComision;
 	}
 	
 	

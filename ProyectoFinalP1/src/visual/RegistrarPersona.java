@@ -21,6 +21,8 @@ import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class RegistrarPersona extends JDialog {
 
@@ -30,28 +32,15 @@ public class RegistrarPersona extends JDialog {
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
 	private JTextField txtGrado;
-	private JTextField txtArea;
 	private JRadioButton rdbtnMasc;
 	private JRadioButton rdbtnFem;
 	private String sexo;
 	private JPanel panel;
-
+	private JComboBox cbxArea;
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
-		try {
-			RegistrarPersona dialog = new RegistrarPersona(1);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-
-	/**
-	 * Create the dialog.
-	 */
+	
 	public RegistrarPersona(int elec) {
 		setResizable(false);
 		if (elec==1) {
@@ -152,17 +141,16 @@ public class RegistrarPersona extends JDialog {
 		lblArea.setBounds(12, 193, 56, 16);
 		panel.add(lblArea);
 		
-		txtArea = new JTextField();
-		
-		txtArea.setBounds(129, 190, 116, 22);
-		panel.add(txtArea);
-		txtArea.setColumns(10);
+		cbxArea = new JComboBox();
+		cbxArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Fisica", "Biologia", "Quimica", "Informatica", "Matematica", "Geologia"}));
+		cbxArea.setBounds(129, 190, 116, 22);
+		panel.add(cbxArea);
 		if (elec==1) {
 			lblArea.setVisible(false);
-			txtArea.setVisible(false);
+			cbxArea.setVisible(false);
 		}else if (elec==2) {
 			lblArea.setVisible(true);
-			txtArea.setVisible(true);
+			cbxArea.setVisible(true);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -180,15 +168,31 @@ public class RegistrarPersona extends JDialog {
 						String gradoAcademico = txtGrado.getText();
 						
 						if (elec==1) {
-							aux = new Participante(cedula, nombre, telefono, direccion, sexo, gradoAcademico,new ArrayList());
+							
+							if(!cedula.contentEquals("")&& !nombre.equalsIgnoreCase("")&& !telefono.equalsIgnoreCase("") && !gradoAcademico.equalsIgnoreCase("")) {
+							aux = new Participante(cedula, nombre, telefono, direccion, sexo, gradoAcademico);
+							PlanificacionEvento.getInstance().insertarPersona(aux);
+							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+							}else {
+								JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
+								
+							}
 						}
 						if (elec==2) {
-							String area = txtArea.getText();
+							String area = cbxArea.getSelectedItem().toString();
+							if(!cedula.contentEquals("")&& !nombre.equalsIgnoreCase("")&& !telefono.equalsIgnoreCase("") && !gradoAcademico.equalsIgnoreCase("") &&cbxArea.getSelectedIndex()!=0) {
 							aux = new Jurado(cedula, nombre, telefono, direccion, sexo, gradoAcademico, area);
+							PlanificacionEvento.getInstance().insertarPersona(aux);
+							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+							clean();
+							}else {
+								JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
+								
+							}
 						}
-						PlanificacionEvento.getInstance().insertarPersona(aux);
-						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
-						clean();
+						
+						
 					}
 				});
 				btnRegistar.setActionCommand("OK");
@@ -208,13 +212,14 @@ public class RegistrarPersona extends JDialog {
 		}
 	}
 	private void clean() {
-		txtArea.setText("");
+
 		txtCedula.setText("");
 		txtDireccion.setText("");
 		txtGrado.setText("");
 		txtNombre.setText("");
 		txtTelefono.setText("");
-		sexo="";
+		cbxArea.setSelectedIndex(0);
+	
 		
 	}
 }

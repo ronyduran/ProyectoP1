@@ -7,7 +7,7 @@ public class Participante extends Persona {
 	ArrayList<Trabajo> losTrabajos;
 
 	public Participante(String cedula, String nombre, String telefono, String direccion, String sexo,
-			String gradoAcademico, ArrayList<Trabajo> losProyectos) {
+			String gradoAcademico) {
 		super(cedula, nombre, telefono, direccion, sexo, gradoAcademico);
 		this.losTrabajos = new ArrayList();
 	}
