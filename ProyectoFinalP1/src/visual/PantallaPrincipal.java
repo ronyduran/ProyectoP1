@@ -51,27 +51,27 @@ public class PantallaPrincipal extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnEvento = new JMenu("Evento");
-		mnEvento.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		mnEvento.setFont(new Font("Segoe UI Historic", Font.BOLD, 17));
 		menuBar.add(mnEvento);
 		
 		JMenuItem mntmInscripcinDeTrabajo = new JMenuItem("Creacion de Evento");
-		mntmInscripcinDeTrabajo.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		mntmInscripcinDeTrabajo.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnEvento.add(mntmInscripcinDeTrabajo);
 		
 		JMenuItem mntmListadosDeTrabajos = new JMenuItem("Listados de Eventos");
-		mntmListadosDeTrabajos.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		mntmListadosDeTrabajos.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnEvento.add(mntmListadosDeTrabajos);
 		
 		JMenuItem mntmCancelarmodificar = new JMenuItem("Cancelar/Modificar");
-		mntmCancelarmodificar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		mntmCancelarmodificar.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnEvento.add(mntmCancelarmodificar);
 		
 		JMenu mnTrabajo = new JMenu("Trabajo");
-		mnTrabajo.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		mnTrabajo.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		menuBar.add(mnTrabajo);
 		
 		JMenuItem mntmRegistrarTrabajo = new JMenuItem("Registrar trabajo");
-		mntmRegistrarTrabajo.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		mntmRegistrarTrabajo.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mntmRegistrarTrabajo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -84,15 +84,15 @@ public class PantallaPrincipal extends JFrame {
 		mnTrabajo.add(mntmRegistrarTrabajo);
 		
 		JMenuItem mntmListadoDeTrabajos = new JMenuItem("Listado de trabajos");
-		mntmListadoDeTrabajos.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		mntmListadoDeTrabajos.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnTrabajo.add(mntmListadoDeTrabajos);
 		
 		JMenu mnJurado = new JMenu("Jurado");
-		mnJurado.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		mnJurado.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		menuBar.add(mnJurado);
 		
 		JMenuItem mntmRegistrarJurado = new JMenuItem("Registrar Jurado");
-		mntmRegistrarJurado.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		mntmRegistrarJurado.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mntmRegistrarJurado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegistrarPersona regP = new RegistrarPersona(2);
@@ -105,15 +105,15 @@ public class PantallaPrincipal extends JFrame {
 		mnJurado.add(mntmRegistrarJurado);
 		
 		JMenuItem mntmListadoDeJurados = new JMenuItem("Listado de Jurados");
-		mntmListadoDeJurados.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		mntmListadoDeJurados.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnJurado.add(mntmListadoDeJurados);
 		
 		JMenu mnComisin = new JMenu("Comisi\u00F3n");
-		mnComisin.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		mnComisin.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		menuBar.add(mnComisin);
 		
 		JMenuItem mntmRegistrarComisin = new JMenuItem("Registrar Comisi\u00F3n");
-		mntmRegistrarComisin.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		mntmRegistrarComisin.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mntmRegistrarComisin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegistrarComision RegC = new RegistrarComision();
@@ -125,15 +125,15 @@ public class PantallaPrincipal extends JFrame {
 		mnComisin.add(mntmRegistrarComisin);
 		
 		JMenuItem mntmListadosDeComisiones = new JMenuItem("Listados de Comisiones");
-		mntmListadosDeComisiones.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		mntmListadosDeComisiones.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnComisin.add(mntmListadosDeComisiones);
 		
 		JMenu mnParticipantes = new JMenu("Participantes");
-		mnParticipantes.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		mnParticipantes.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		menuBar.add(mnParticipantes);
 		
 		JMenuItem mntmListadosDeParticipantes = new JMenuItem("Listados de Participantes");
-		mntmListadosDeParticipantes.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		mntmListadosDeParticipantes.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnParticipantes.add(mntmListadosDeParticipantes);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
