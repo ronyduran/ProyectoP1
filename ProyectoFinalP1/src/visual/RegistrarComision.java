@@ -96,17 +96,19 @@ public class RegistrarComision extends JDialog {
 				}
 				{
 					cbxPresidente = new JComboBox();
-					cbxPresidente.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
+					cbxPresidente.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if(cbxPresidente.getSelectedIndex()>0) {
 							String presidente= cbxPresidente.getSelectedItem().toString();
 							String[] partes = presidente.split("-");
 							String cedula = partes[0]; 
 							
 							loadTableLista(cedula);
 							loadTableElegido(cedula);
+							}
 						}
 					});
+					
 					cbxPresidente.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
 					
 					
