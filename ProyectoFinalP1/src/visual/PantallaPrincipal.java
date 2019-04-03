@@ -55,6 +55,14 @@ public class PantallaPrincipal extends JFrame {
 		menuBar.add(mnEvento);
 		
 		JMenuItem mntmInscripcinDeTrabajo = new JMenuItem("Creacion de Evento");
+		mntmInscripcinDeTrabajo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CrearEvento ev= new CrearEvento();
+				ev.setModal(true);
+				ev.setVisible(true);
+				
+			}
+		});
 		mntmInscripcinDeTrabajo.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnEvento.add(mntmInscripcinDeTrabajo);
 		

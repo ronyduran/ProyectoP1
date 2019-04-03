@@ -27,6 +27,9 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class RegistrarTrabajo extends JDialog {
 
@@ -38,7 +41,7 @@ public class RegistrarTrabajo extends JDialog {
 	private JComboBox cbxArea;
 	private JComboBox cbxEvento;
 	private JComboBox cbxComision;
-	private JTextPane txtDescripcion;
+	private JTextArea txtDescripcion;
 	
 	public RegistrarTrabajo() {
 		setResizable(false);
@@ -94,7 +97,9 @@ public class RegistrarTrabajo extends JDialog {
 					if(p2!=null) {
 					
 					txtCedula.setText(p2.getCedula());
-					txtNombrePart.setText(p2.getNombre());}
+					txtNombrePart.setText(p2.getNombre());
+					
+					}
 					}else {
 						
 						JOptionPane.showMessageDialog(null, "Ingrese la informacion", "Validación", JOptionPane.WARNING_MESSAGE);
@@ -146,8 +151,19 @@ public class RegistrarTrabajo extends JDialog {
 		panel.add(lblAreaDelTrabajo);
 		
 		 cbxArea = new JComboBox();
+		 cbxArea.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 		if(cbxArea.getSelectedIndex()>0) {
+		 		String area= cbxArea.getSelectedItem().toString();
+		 		loadEvento(area);
+		 		
+				
+				
+		 		}
+		 	}
+		 });
 		cbxArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Fisica", "Biologia", "Quimica", "Informatica", "Matematica", "Geologia"}));
-		cbxArea.setBounds(148, 110, 173, 20);
+		cbxArea.setBounds(148, 110, 222, 20);
 		panel.add(cbxArea);
 		
 		JLabel lblEventoAParticipar = new JLabel("Evento a participar");
@@ -155,8 +171,25 @@ public class RegistrarTrabajo extends JDialog {
 		panel.add(lblEventoAParticipar);
 		
 		cbxEvento = new JComboBox();
+			
+		cbxEvento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(cbxArea.getSelectedIndex()>0 & cbxEvento.getSelectedIndex()>0) {
+			 		String area= cbxArea.getSelectedItem().toString();
+			 		String evento= cbxEvento.getSelectedItem().toString();
+			 		String[] partes = evento.split("~~");
+					String id = partes[0]; 
+					Evento even=PlanificacionEvento.getInstance().BuscarEventoCodigo(id);
+			 		
+					loadComisiones(area, even);
+					
+			 		}
+				
+			}
+		});
 		cbxEvento.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
-		cbxEvento.setBounds(148, 149, 173, 20);
+		cbxEvento.setBounds(148, 149, 222, 20);
 		panel.add(cbxEvento);
 		
 		JLabel lblComisionSupervisora = new JLabel("Comision supervisora");
@@ -165,14 +198,14 @@ public class RegistrarTrabajo extends JDialog {
 		
 		cbxComision = new JComboBox();
 		cbxComision.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
-		cbxComision.setBounds(148, 188, 174, 20);
+		cbxComision.setBounds(148, 188, 222, 20);
 		panel.add(cbxComision);
 		
 		JLabel lblBreveDescripcin = new JLabel("Breve Descripci\u00F3n");
 		lblBreveDescripcin.setBounds(12, 218, 107, 16);
 		panel.add(lblBreveDescripcin);
 		
-		txtDescripcion = new JTextPane();
+		txtDescripcion = new JTextArea();
 		txtDescripcion.setBounds(12, 247, 358, 68);
 		panel.add(txtDescripcion);
 		setLocationRelativeTo(null);
@@ -191,9 +224,13 @@ public class RegistrarTrabajo extends JDialog {
 					String area=cbxArea.getSelectedItem().toString();
 					String descripcion=txtDescripcion.getText();
 					String comision= cbxComision.getSelectedItem().toString();
+					String[]partes = comision.split("-");
+					String codigocomi=partes[0];
 					String evento= cbxEvento.getSelectedItem().toString();
-					Comision c1=PlanificacionEvento.getInstance().BuscarComisionPorCodigo(comision);	
-					Evento e1= PlanificacionEvento.getInstance().BuscarEventoCodigo(evento);
+					String []partes2=evento.split("~~");
+					String codigoEven=partes2[0];
+					Comision c1=PlanificacionEvento.getInstance().BuscarComisionPorCodigo(codigocomi);	
+					Evento e1= PlanificacionEvento.getInstance().BuscarEventoCodigo(codigoEven);
 					
 					if(!cedula.equalsIgnoreCase("") && p1!=null && !nombreTrab.equalsIgnoreCase("") && cbxArea.getSelectedIndex()!=0 && c1!=null && e1!=null && !descripcion.equalsIgnoreCase("")) {
 					
@@ -214,7 +251,7 @@ public class RegistrarTrabajo extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -226,7 +263,36 @@ public class RegistrarTrabajo extends JDialog {
 			}
 		}
 	}
-	
+	 private void loadEvento(String area) {
+	    	
+		 
+		 	cbxEvento.removeAllItems();
+	    	boolean encontrado=false;
+	    	cbxEvento.addItem(new String("Seleccione"));
+		 	for (Evento aux : PlanificacionEvento.getInstance().getLosEventos()) {
+	    		for (int i = 0; i < PlanificacionEvento.getInstance().getLasComisiones().size(); i++) {
+	    		if(aux.getLasComisiones().get(i).getArea().equalsIgnoreCase(area)) {}
+	    		encontrado=true;
+	    	}
+	    		if(encontrado==true) {
+	    			cbxEvento.addItem((String) aux.getIdentificador()+"~~"+aux.getNombreEvento());
+	    		}
+		 	}
+	    			
+	    
+	    	cbxEvento.setSelectedItem(0);
+	    }
+	 
+	 private void loadComisiones(String area,Evento e) {
+	    	cbxComision.removeAllItems();
+	    	cbxComision.addItem(new String("Seleccione"));
+	    	for (Comision aux : e.getLasComisiones()) {
+	    		if(aux.getArea().equalsIgnoreCase(area)) {
+	    		cbxComision.addItem((String) aux.getCodigo()+"-"+aux.getArea());}
+			}
+
+	    	cbxComision.setSelectedItem(0);
+	    }
 	
 	private void clean() {
 		txtCedula.setText("");

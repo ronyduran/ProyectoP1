@@ -238,8 +238,13 @@ public class RegistrarComision extends JDialog {
 						ArrayList<Jurado> losJurados = new ArrayList();
 						losJurados.addAll(listaJurado);
 						listaJurado.removeAll(listaJurado);
-						Jurado elPresidente = (Jurado)buscarPersonaByNombre((String)cbxPresidente.getSelectedItem());
+						String Presidente= cbxPresidente.getSelectedItem().toString();
+						String [] partes= Presidente.split("-");
+						String cedula= partes[0];
+						
+						Jurado elPresidente = (Jurado) PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula);
 						Evento elEvento = buscarEventoByNombre((String)cbxEvento.getSelectedItem());
+						
 						if(losJurados!=null && cbxArea.getSelectedIndex()!=0 && elPresidente!=null && elEvento!=null) {
 						aux = new Comision(losJurados, area, codigo, elPresidente, elEvento);
 						PlanificacionEvento.getInstance().insertarComision(aux);
@@ -305,6 +310,7 @@ public class RegistrarComision extends JDialog {
     
     private void loadPresidente() {
 		cbxPresidente.removeAllItems();
+		cbxPresidente.addItem(new String("Seleccione"));
 		for (int i = 0; i < PlanificacionEvento.getInstance().getLasPersonas().size(); i++) {
 			if (PlanificacionEvento.getInstance().getLasPersonas().get(i) instanceof Jurado) {
 				if (((Jurado)(PlanificacionEvento.getInstance().getLasPersonas().get(i))).getArea().equalsIgnoreCase((String) cbxArea.getSelectedItem())) {
@@ -314,17 +320,19 @@ public class RegistrarComision extends JDialog {
 				
 			}				
 		}
-		cbxPresidente.insertItemAt((String)"<Seleccione>", 0);
+		//cbxPresidente.insertItemAt(new String("<Seleccione>"), 0);
 		cbxPresidente.setSelectedIndex(0);
 	}
     
     private void loadEvento() {
     	cbxEvento.removeAllItems();
+    	cbxEvento.addItem(new String("Seleccione"));
     	for (int i = 0; i < PlanificacionEvento.getInstance().getLosEventos().size(); i++) {
     		cbxEvento.addItem((String) PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento());
 			
 		}
-    	cbxEvento.insertItemAt((String)"<Seleccione>", 0);
+    
+    	//cbxEvento.insertItemAt(new String("<Seleccione>"), 0);
     	cbxEvento.setSelectedItem(0);
     }
     private Persona buscarPersonaByNombre(String nombre) {
