@@ -32,6 +32,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.Font;
 
 public class RegistrarComision extends JDialog {
 
@@ -54,6 +55,7 @@ public class RegistrarComision extends JDialog {
 
 	
 	public RegistrarComision() {
+		setFont(new Font("Dialog", Font.PLAIN, 14));
 		setTitle("Registro de Comision");
 		setResizable(false);
 		setBounds(100, 100, 462, 400);
@@ -65,6 +67,7 @@ public class RegistrarComision extends JDialog {
 		elegirJurado.addAll(PlanificacionEvento.getInstance().getLasPersonas());
 		{
 			JPanel panel = new JPanel();
+			panel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel.setBounds(12, 13, 432, 304);
 			contentPanel.add(panel);
@@ -76,11 +79,13 @@ public class RegistrarComision extends JDialog {
 				panel_1.setLayout(null);
 				{
 					JLabel lblAreaDeEspecialidad = new JLabel("Area de Especialidad:");
-					lblAreaDeEspecialidad.setBounds(226, 13, 128, 16);
+					lblAreaDeEspecialidad.setFont(new Font("Tahoma", Font.PLAIN, 15));
+					lblAreaDeEspecialidad.setBounds(226, 13, 158, 16);
 					panel_1.add(lblAreaDeEspecialidad);
 				}
 				{
 					cbxArea = new JComboBox();
+					cbxArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 					cbxArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Fisica", "Biologia", "Quimica", "Informatica", "Matematica", "Geologia"}));
 					cbxArea.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -89,16 +94,18 @@ public class RegistrarComision extends JDialog {
 							
 						}
 					});
-					cbxArea.setBounds(226, 42, 170, 22);
+					cbxArea.setBounds(226, 42, 182, 22);
 					panel_1.add(cbxArea);
 				}
 				{
 					JLabel lblPresidente = new JLabel("Presidente:");
-					lblPresidente.setBounds(12, 76, 128, 16);
+					lblPresidente.setFont(new Font("Tahoma", Font.PLAIN, 15));
+					lblPresidente.setBounds(0, 77, 128, 16);
 					panel_1.add(lblPresidente);
 				}
 				{
 					cbxPresidente = new JComboBox();
+					cbxPresidente.setFont(new Font("Tahoma", Font.PLAIN, 15));
 					cbxPresidente.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							if(cbxPresidente.getSelectedIndex()>0) {
@@ -116,36 +123,41 @@ public class RegistrarComision extends JDialog {
 					
 					
 					
-					cbxPresidente.setBounds(12, 93, 158, 22);
+					cbxPresidente.setBounds(0, 93, 158, 22);
 					panel_1.add(cbxPresidente);
 				}
 				{
 					JLabel lblCdigo = new JLabel("C\u00F3digo:");
-					lblCdigo.setBounds(12, 13, 128, 16);
+					lblCdigo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+					lblCdigo.setBounds(0, 13, 128, 22);
 					panel_1.add(lblCdigo);
 				}
 				{
 					txtCodigo = new JTextField();
+					txtCodigo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 					txtCodigo.setEditable(false);
-					txtCodigo.setBounds(12, 41, 158, 22);
+					txtCodigo.setBounds(0, 42, 158, 22);
 					panel_1.add(txtCodigo);
 					txtCodigo.setColumns(10);
 					txtCodigo.setText("Comi-"+PlanificacionEvento.getInstance().getCodComision());
 				}
 				{
 					JLabel lblEvento = new JLabel("Evento:");
+					lblEvento.setFont(new Font("Tahoma", Font.PLAIN, 15));
 					lblEvento.setBounds(226, 76, 128, 16);
 					panel_1.add(lblEvento);
 				}
 				{
 					cbxEvento = new JComboBox();
-					cbxEvento.setBounds(226, 93, 170, 22);
+					cbxEvento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					cbxEvento.setBounds(226, 93, 182, 22);
 					cbxEvento.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
 					panel_1.add(cbxEvento);
 				}
 				{
-					JLabel lblElegirJurado = new JLabel("Elegir Jurado");
-					lblElegirJurado.setBounds(0, 128, 128, 16);
+					JLabel lblElegirJurado = new JLabel("Elegir Jurado:");
+					lblElegirJurado.setFont(new Font("Tahoma", Font.PLAIN, 15));
+					lblElegirJurado.setBounds(0, 128, 128, 23);
 					panel_1.add(lblElegirJurado);
 				}
 			}
@@ -202,6 +214,7 @@ public class RegistrarComision extends JDialog {
 			}
 			
 			btnAgregar = new JButton("\u2192");
+			btnAgregar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			btnAgregar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int fila = tableLista.getSelectedRow();
@@ -221,6 +234,7 @@ public class RegistrarComision extends JDialog {
 			panel.add(btnAgregar);
 			
 			btnEliminar = new JButton("\u2190");
+			btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 15));
 			btnEliminar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int fila = tableElegido.getSelectedRow();
@@ -244,6 +258,7 @@ public class RegistrarComision extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnRegistrar = new JButton("Registrar");
+				btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Comision aux = null;
@@ -280,6 +295,7 @@ public class RegistrarComision extends JDialog {
 			}
 			{
 				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						listaJurado.removeAll(listaJurado);
@@ -358,27 +374,15 @@ public class RegistrarComision extends JDialog {
 		
 		cbxPresidente.setSelectedIndex(0);
 	}
-    /*private void loadPresidente() {
-		cbxPresidente.removeAllItems();
-		cbxPresidente.addItem(new String("Seleccione"));
-		for (int i = 0; i < PlanificacionEvento.getInstance().getLasPersonas().size(); i++) {
-			if (PlanificacionEvento.getInstance().getLasPersonas().get(i) instanceof Jurado) {
-				if (((Jurado)(PlanificacionEvento.getInstance().getLasPersonas().get(i))).getArea().equalsIgnoreCase((String) cbxArea.getSelectedItem())) {
-				cbxPresidente.addItem(new String(PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula()+"-"+PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre()));
-				
-				}
-			}				
-		}
-		
-		cbxPresidente.setSelectedIndex(0);
-	}*/
+    
     private void loadEvento() {
     	cbxEvento.removeAllItems();
     	boolean encontrado=false;
     	cbxEvento.addItem(new String("Seleccione"));
 	 	for (Evento aux : PlanificacionEvento.getInstance().getLosEventos()) {
+	 		if(aux.isEstado()==true) {
     			cbxEvento.addItem((String) aux.getIdentificador()+"~~"+aux.getNombreEvento());
-	 	}
+	 	}}
 
     	cbxEvento.setSelectedItem(0);
     }

@@ -272,12 +272,14 @@ public class RegistrarTrabajo extends JDialog {
 	    	cbxEvento.addItem(new String("Seleccione"));
 		 	for (Evento aux : PlanificacionEvento.getInstance().getLosEventos()) {
 	    		for (int i = 0; i < PlanificacionEvento.getInstance().getLasComisiones().size(); i++) {
+	    		
 	    		if(aux.getLasComisiones().get(i).getArea().equalsIgnoreCase(area)) {}
 	    		encontrado=true;
 	    	}
 	    		if(encontrado==true) {
+	    			if(aux.isEstado()==true) {
 	    			cbxEvento.addItem((String) aux.getIdentificador()+"~~"+aux.getNombreEvento());
-	    		}
+	    		}}
 		 	}
 	    			
 	    

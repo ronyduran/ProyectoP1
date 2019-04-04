@@ -34,24 +34,29 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.JList;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+
+import java.awt.Font;
 
 public class CrearEvento extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCodigo;
 	private JTextField txtNombreEvento;
-	private JTextField txtFecha;
 	private JComboBox cbxTipoEvento;
-	private JSpinner spnCantAsist;
 	private JList jlistRecursos;
+	private JDateChooser dateChooser;
 	
 	
 	public CrearEvento() {
 		setTitle("Crear Evento");
-		setBounds(100, 100, 449, 543);
+		setBounds(100, 100, 404, 543);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -61,7 +66,7 @@ public class CrearEvento extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "Informaciones Generales", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(12, 13, 407, 447);
+			panel.setBounds(12, 13, 374, 447);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
@@ -72,7 +77,7 @@ public class CrearEvento extends JDialog {
 			{
 				txtCodigo = new JTextField();
 				txtCodigo.setEditable(false);
-				txtCodigo.setBounds(69, 25, 138, 22);
+				txtCodigo.setBounds(69, 25, 145, 22);
 				panel.add(txtCodigo);
 				txtCodigo.setColumns(10);
 				txtCodigo.setText("Evento-"+PlanificacionEvento.getInstance().getCodEvento());
@@ -84,7 +89,7 @@ public class CrearEvento extends JDialog {
 			}
 			{
 				txtNombreEvento = new JTextField();
-				txtNombreEvento.setBounds(69, 60, 301, 22);
+				txtNombreEvento.setBounds(69, 60, 293, 22);
 				panel.add(txtNombreEvento);
 				txtNombreEvento.setColumns(10);
 			}
@@ -93,69 +98,42 @@ public class CrearEvento extends JDialog {
 				lblFecha.setBounds(12, 108, 56, 16);
 				panel.add(lblFecha);
 			}
-			{
-				txtFecha = new JTextField();
-				txtFecha.setEditable(false);
-				txtFecha.setBounds(69, 105, 166, 22);
-				panel.add(txtFecha);
-				txtFecha.setColumns(10);
-			}
 			
-			JButton btnFecha = new JButton("Elegir Fecha");
-			btnFecha.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					Date fechaDelEVento=null;
-					JCalendar calendario = new JCalendar();
-					calendario.setMinSelectableDate(new Date());
-					calendario.setPreferredSize(new Dimension(300,400));
-					String message ="Fecha del evento:\n";
-					Object[] params = {message,calendario};
-					if(JOptionPane.showConfirmDialog(null,params,"Confirmacion de prestamo", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION) {
-						fechaDelEVento=calendario.getDate();
-						SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-						String fechaEvento= formatter.format(fechaDelEVento);
-						txtFecha.setText(fechaEvento);
-					}
-					
-				}
-			});
-			btnFecha.setBounds(257, 104, 115, 25);
-			panel.add(btnFecha);
-			
-			JLabel lblTipoDeEvento = new JLabel("Tipo de Evento");
+			JLabel lblTipoDeEvento = new JLabel("Tipo");
 			lblTipoDeEvento.setBounds(12, 160, 97, 16);
 			panel.add(lblTipoDeEvento);
 			
 			 cbxTipoEvento = new JComboBox();
 			 cbxTipoEvento.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Congreso", "Jornada", "Mesa Redonda"}));
-			cbxTipoEvento.setBounds(122, 157, 248, 22);
+			cbxTipoEvento.setBounds(69, 157, 293, 22);
 			panel.add(cbxTipoEvento);
-			
-			JLabel lblCantidadDeAsistentes = new JLabel("Cantidad de Asistentes");
-			lblCantidadDeAsistentes.setBounds(12, 205, 138, 16);
-			panel.add(lblCantidadDeAsistentes);
-			
-			spnCantAsist = new JSpinner();
-			spnCantAsist.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-			spnCantAsist.setBounds(175, 202, 89, 22);
-			panel.add(spnCantAsist);
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setBorder(new TitledBorder(null, "Recursos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_1.setBounds(12, 236, 383, 198);
+			panel_1.setBounds(12, 199, 350, 235);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
 			
 			 
 			
 			jlistRecursos = new JList();
-			jlistRecursos.setBounds(91, 13, 197, 172);
+			jlistRecursos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			jlistRecursos.setBounds(12, 23, 326, 199);
 			panel_1.add(jlistRecursos);
 			jlistRecursos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
+			//DefaultListCellRenderer cellRenderer = (DefaultListCellRenderer)jlistRecursos.getCellRenderer();
+			//cellRenderer.setHorizontalAlignment(SwingConstants .CENTER);
 			jlistRecursos.setModel(CargarJListRecursos());
 			jlistRecursos.setSelectionBackground(Color.LIGHT_GRAY);
+			
+			dateChooser = new JDateChooser();
+			dateChooser.setDateFormatString("dd-MMM-yyyy");
+			dateChooser.setBounds(69, 108, 293, 22);
+			panel.add(dateChooser);
+			dateChooser.setMinSelectableDate(new Date());
+			JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
+			editor.setEditable(false);
+			
 			
 			 for (MouseListener mouseListener : jlistRecursos.getMouseListeners()) {
 			        jlistRecursos.removeMouseListener(mouseListener);
@@ -184,35 +162,21 @@ public class CrearEvento extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						
 						String tipoEvento= cbxTipoEvento.getSelectedItem().toString();
-						Date fechaEvento = null;
-						if(!txtFecha.getText().equalsIgnoreCase("")) {
-						SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-						try {
-							fechaEvento = formatter.parse(txtFecha.getText());
-						} catch (ParseException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}catch (Exception e2) {
-							// TODO: handle exception
-						}
-
-						
-						}
-						
+						Date fechaEvento = dateChooser.getDate();
 						int [] indices= jlistRecursos.getSelectedIndices();
 						ArrayList<String> recursos=new ArrayList<String>();
 						for (int i = 0; i < indices.length; i++) {
 							recursos.add(PlanificacionEvento.getInstance().getRecursos().get(indices[i]));
 						}
 						
-						//System.out.println(recursos);
-						int cantAsistentes= new Integer(spnCantAsist.getValue().toString());
+						
+						
 						String nombreEvento= txtNombreEvento.getText();
 						String identificador= txtCodigo.getText();
 						
 						
-						if(fechaEvento!=null && !nombreEvento.equalsIgnoreCase("")&& cantAsistentes>0 && cbxTipoEvento.getSelectedIndex()>0 && !jlistRecursos.isSelectionEmpty()) {
-						Evento event=new Evento(tipoEvento, fechaEvento, recursos, cantAsistentes, nombreEvento, identificador);
+						if(fechaEvento!=null && !nombreEvento.equalsIgnoreCase("")&& cbxTipoEvento.getSelectedIndex()>0 && !jlistRecursos.isSelectionEmpty()) {
+						Evento event=new Evento(tipoEvento, fechaEvento, recursos, nombreEvento, identificador);
 						PlanificacionEvento.getInstance().insertarEvento(event);
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 						PlanificacionEvento.getInstance().setCodEvento(PlanificacionEvento.getInstance().getCodEvento()+1);
@@ -243,10 +207,9 @@ public class CrearEvento extends JDialog {
 	
 	private void clean() {
 		txtCodigo.setText("Evento-"+PlanificacionEvento.getInstance().getCodEvento());
-		txtFecha.setText("");
+		dateChooser.cleanup();
 		txtNombreEvento.setText("");
 		cbxTipoEvento.setSelectedIndex(0);
-		spnCantAsist.setValue(Integer.parseInt("1"));
 		jlistRecursos.clearSelection();
 		
 	}
@@ -256,7 +219,7 @@ public class CrearEvento extends JDialog {
 		DefaultListModel recursos = new DefaultListModel();
 		
 		for (String aux : PlanificacionEvento.getInstance().getRecursos()) {
-			recursos.addElement(aux);	
+			recursos.addElement("-"+aux);	
 		}
 		
 		return recursos;

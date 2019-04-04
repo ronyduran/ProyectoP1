@@ -14,9 +14,10 @@ public class Evento {
 	private String nombreEvento;
 	private String identificador;
 	private boolean estado;
+	private String justificacion;
 	
 	
-	public Evento(String tipoEvento, Date fechaEvento, ArrayList<String> recursos,int cantAsistentes, String nombreEvento, String identificador) {
+	public Evento(String tipoEvento, Date fechaEvento, ArrayList<String> recursos,String nombreEvento, String identificador) {
 		
 		super();
 		this.lasComisiones = new ArrayList();
@@ -28,6 +29,7 @@ public class Evento {
 		this.nombreEvento = nombreEvento;
 		this.identificador = identificador;
 		this.estado = true;
+		this.setJustificacion(null);
 	}
 
 
@@ -120,15 +122,35 @@ public class Evento {
 		this.estado = estado;
 	}
 	
+	public String getJustificacion() {
+		return justificacion;
+	}
+
+
+	public void setJustificacion(String justificacion) {
+		this.justificacion = justificacion;
+	}
+	
 	public void insertarTrabajo(Trabajo t1) {
 		
 		losTrabajos.add(t1);
+	}
+	
+	public void comprobarfecha() {
+		Date actual=new Date();
+		if(actual.getTime()>fechaEvento.getTime()) {
+			estado=false;
+		}
+		
 	}
 	
 public void insertarComision(Comision c1) {
 		
 		lasComisiones.add(c1);
 	}
+
+
+
 	
 	
 }

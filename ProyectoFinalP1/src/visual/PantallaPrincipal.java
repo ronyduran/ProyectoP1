@@ -7,6 +7,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logica.Evento;
+import logica.PlanificacionEvento;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -14,10 +18,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class PantallaPrincipal extends JFrame {
+public class PantallaPrincipal extends JFrame implements Runnable  {
 
 	private JPanel contentPane;
 	private Dimension dim;
+	Thread h1;
 
 	/**
 	 * Launch the application.
@@ -51,8 +56,13 @@ public class PantallaPrincipal extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnEvento = new JMenu("Evento");
-		mnEvento.setFont(new Font("Segoe UI Historic", Font.BOLD, 17));
+		mnEvento.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		menuBar.add(mnEvento);
+		
+		h1 = new Thread(this);
+	     h1.start();
+	     
+	   
 		
 		JMenuItem mntmInscripcinDeTrabajo = new JMenuItem("Creacion de Evento");
 		mntmInscripcinDeTrabajo.addActionListener(new ActionListener() {
@@ -71,6 +81,13 @@ public class PantallaPrincipal extends JFrame {
 		mnEvento.add(mntmListadosDeTrabajos);
 		
 		JMenuItem mntmCancelarmodificar = new JMenuItem("Cancelar/Modificar");
+		mntmCancelarmodificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CancelarPosponer cp=new CancelarPosponer();
+				cp.setModal(true);
+				cp.setVisible(true);
+			}
+		});
 		mntmCancelarmodificar.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnEvento.add(mntmCancelarmodificar);
 		
@@ -163,6 +180,22 @@ public class PantallaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+	}
+
+	@Override
+	public void run() {//// esto es para que siempre se mantenga comprobando si el evento esta activo 
+		Thread ct = Thread.currentThread();
+        while (ct == h1) {
+        	for (Evento aux :  PlanificacionEvento.getInstance().getLosEventos()) {
+				aux.comprobarfecha();	
+			}
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+        }
+		
 	}
 
 }

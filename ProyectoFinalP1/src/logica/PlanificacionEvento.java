@@ -26,7 +26,7 @@ public class PlanificacionEvento {
 		this.lasPersonas = new ArrayList();
 		this.losEventos = new ArrayList();
 		this.losTrabajos = new ArrayList();
-		this.recursos =new ArrayList(Arrays.asList("local","proyector","mesas","sillas"));
+		this.recursos =new ArrayList(Arrays.asList("Local","Proyector","Mesas","Sillas", "Microfonos y Bocinas","Podium","Computador"));
 		this.codTrabjo=1;
 		this.codComision=1;
 		this.setCodEvento(1);
