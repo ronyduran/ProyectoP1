@@ -5,11 +5,13 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
 import logica.Jurado;
 import logica.Participante;
@@ -27,7 +29,8 @@ import javax.swing.DefaultComboBoxModel;
 public class RegistrarPersona extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtCedula;
+	//private JTextField txtCedula;
+	private JFormattedTextField txtCedula;
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
@@ -68,9 +71,19 @@ public class RegistrarPersona extends JDialog {
 		lblCedula.setBounds(12, 19, 56, 16);
 		panel.add(lblCedula);
 		
-		txtCedula = new JTextField();
-		txtCedula.setBounds(129, 16, 116, 22);
-		panel.add(txtCedula);
+		
+		try
+		{
+		   MaskFormatter mascara = new MaskFormatter("###-###");
+		   txtCedula = new JFormattedTextField(mascara);
+			txtCedula.setBounds(129, 16, 116, 22);
+			panel.add(txtCedula);
+		   
+		}
+		catch (Exception e)
+		{
+		  
+		}
 		txtCedula.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");

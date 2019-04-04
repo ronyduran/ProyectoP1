@@ -43,6 +43,7 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 
 import java.awt.Font;
+import javax.swing.UIManager;
 
 public class CrearEvento extends JDialog {
 
@@ -71,11 +72,13 @@ public class CrearEvento extends JDialog {
 			panel.setLayout(null);
 			{
 				JLabel lblCdigo = new JLabel("C\u00F3digo");
+				lblCdigo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				lblCdigo.setBounds(12, 28, 56, 16);
 				panel.add(lblCdigo);
 			}
 			{
 				txtCodigo = new JTextField();
+				txtCodigo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				txtCodigo.setEditable(false);
 				txtCodigo.setBounds(69, 25, 145, 22);
 				panel.add(txtCodigo);
@@ -84,32 +87,38 @@ public class CrearEvento extends JDialog {
 			}
 			{
 				JLabel lblNombre = new JLabel("Nombre");
+				lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				lblNombre.setBounds(12, 61, 56, 16);
 				panel.add(lblNombre);
 			}
 			{
 				txtNombreEvento = new JTextField();
+				txtNombreEvento.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				txtNombreEvento.setBounds(69, 60, 293, 22);
 				panel.add(txtNombreEvento);
 				txtNombreEvento.setColumns(10);
 			}
 			{
 				JLabel lblFecha = new JLabel("Fecha");
+				lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				lblFecha.setBounds(12, 108, 56, 16);
 				panel.add(lblFecha);
 			}
 			
 			JLabel lblTipoDeEvento = new JLabel("Tipo");
+			lblTipoDeEvento.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			lblTipoDeEvento.setBounds(12, 160, 97, 16);
 			panel.add(lblTipoDeEvento);
 			
 			 cbxTipoEvento = new JComboBox();
+			 cbxTipoEvento.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			 cbxTipoEvento.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Congreso", "Jornada", "Mesa Redonda"}));
 			cbxTipoEvento.setBounds(69, 157, 293, 22);
 			panel.add(cbxTipoEvento);
 			
 			JPanel panel_1 = new JPanel();
-			panel_1.setBorder(new TitledBorder(null, "Recursos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Recursos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			
 			panel_1.setBounds(12, 199, 350, 235);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
@@ -117,7 +126,7 @@ public class CrearEvento extends JDialog {
 			 
 			
 			jlistRecursos = new JList();
-			jlistRecursos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			jlistRecursos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			jlistRecursos.setBounds(12, 23, 326, 199);
 			panel_1.add(jlistRecursos);
 			jlistRecursos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -127,6 +136,11 @@ public class CrearEvento extends JDialog {
 			jlistRecursos.setSelectionBackground(Color.LIGHT_GRAY);
 			
 			dateChooser = new JDateChooser();
+			dateChooser.getCalendarButton().setPreferredSize(new Dimension(22, 19));
+			dateChooser.getCalendarButton().setMinimumSize(new Dimension(23, 17));
+			dateChooser.getCalendarButton().setMaximumSize(new Dimension(23, 17));
+			dateChooser.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 15));
+			dateChooser.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			dateChooser.setDateFormatString("dd-MMM-yyyy");
 			dateChooser.setBounds(69, 108, 293, 22);
 			panel.add(dateChooser);
