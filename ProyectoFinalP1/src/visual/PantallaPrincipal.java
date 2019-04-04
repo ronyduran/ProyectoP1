@@ -77,6 +77,14 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mnEvento.add(mntmInscripcinDeTrabajo);
 		
 		JMenuItem mntmListadosDeTrabajos = new JMenuItem("Listados de Eventos");
+		mntmListadosDeTrabajos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarEvento ListE = new ListarEvento();
+				ListE.setModal(true);
+				ListE.setVisible(true);
+				ListE.setLocationRelativeTo(null);
+			}
+		});
 		mntmListadosDeTrabajos.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnEvento.add(mntmListadosDeTrabajos);
 		
@@ -158,6 +166,14 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mnComisin.add(mntmRegistrarComisin);
 		
 		JMenuItem mntmListadosDeComisiones = new JMenuItem("Listados de Comisiones");
+		mntmListadosDeComisiones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarComision ListC = new ListarComision();
+				ListC.setModal(true);
+				ListC.setLocationRelativeTo(null);
+				ListC.setVisible(true);
+			}
+		});
 		mntmListadosDeComisiones.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnComisin.add(mntmListadosDeComisiones);
 		
