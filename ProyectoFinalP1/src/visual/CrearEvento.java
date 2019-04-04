@@ -1,32 +1,42 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import com.toedter.calendar.JCalendar;
+
 
 import logica.Evento;
 import logica.PlanificacionEvento;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JList;
 
 public class CrearEvento extends JDialog {
 
@@ -36,6 +46,7 @@ public class CrearEvento extends JDialog {
 	private JTextField txtFecha;
 	private JComboBox cbxTipoEvento;
 	private JSpinner spnCantAsist;
+	private JList jlistRecursos;
 	
 	
 	public CrearEvento() {
@@ -50,7 +61,7 @@ public class CrearEvento extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "Informaciones Generales", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(12, 13, 407, 435);
+			panel.setBounds(12, 13, 407, 447);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
@@ -132,9 +143,36 @@ public class CrearEvento extends JDialog {
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setBorder(new TitledBorder(null, "Recursos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_1.setBounds(12, 236, 383, 186);
+			panel_1.setBounds(12, 236, 383, 198);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
+			
+			 
+			
+			jlistRecursos = new JList();
+			jlistRecursos.setBounds(91, 13, 197, 172);
+			panel_1.add(jlistRecursos);
+			jlistRecursos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+			jlistRecursos.setModel(CargarJListRecursos());
+			jlistRecursos.setSelectionBackground(Color.LIGHT_GRAY);
+			
+			 for (MouseListener mouseListener : jlistRecursos.getMouseListeners()) {
+			        jlistRecursos.removeMouseListener(mouseListener);
+			    }
+			    jlistRecursos.addMouseListener(new MouseAdapter() {
+			        @Override
+			        public void mouseClicked(MouseEvent e) {
+			            int index = jlistRecursos.locationToIndex(e.getPoint());
+			            if (jlistRecursos.isSelectedIndex(index)) {
+			                jlistRecursos.removeSelectionInterval(index, index);
+			            } else {
+			                jlistRecursos.addSelectionInterval(index, index);
+			            }
+			            jlistRecursos.requestFocusInWindow();
+			        }
+			    });
+			
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -157,14 +195,24 @@ public class CrearEvento extends JDialog {
 						}catch (Exception e2) {
 							// TODO: handle exception
 						}
+
 						
 						}
+						
+						int [] indices= jlistRecursos.getSelectedIndices();
+						ArrayList<String> recursos=new ArrayList<String>();
+						for (int i = 0; i < indices.length; i++) {
+							recursos.add(PlanificacionEvento.getInstance().getRecursos().get(indices[i]));
+						}
+						
+						//System.out.println(recursos);
 						int cantAsistentes= new Integer(spnCantAsist.getValue().toString());
 						String nombreEvento= txtNombreEvento.getText();
 						String identificador= txtCodigo.getText();
 						
-						if(fechaEvento!=null && !nombreEvento.equalsIgnoreCase("")&& cantAsistentes>0 && cbxTipoEvento.getSelectedIndex()>0) {
-						Evento event=new Evento(tipoEvento, fechaEvento, null, cantAsistentes, nombreEvento, identificador);
+						
+						if(fechaEvento!=null && !nombreEvento.equalsIgnoreCase("")&& cantAsistentes>0 && cbxTipoEvento.getSelectedIndex()>0 && !jlistRecursos.isSelectionEmpty()) {
+						Evento event=new Evento(tipoEvento, fechaEvento, recursos, cantAsistentes, nombreEvento, identificador);
 						PlanificacionEvento.getInstance().insertarEvento(event);
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 						PlanificacionEvento.getInstance().setCodEvento(PlanificacionEvento.getInstance().getCodEvento()+1);
@@ -199,7 +247,19 @@ public class CrearEvento extends JDialog {
 		txtNombreEvento.setText("");
 		cbxTipoEvento.setSelectedIndex(0);
 		spnCantAsist.setValue(Integer.parseInt("1"));
+		jlistRecursos.clearSelection();
 		
 	}
 	
+	
+	public static DefaultListModel CargarJListRecursos() {
+		DefaultListModel recursos = new DefaultListModel();
+		
+		for (String aux : PlanificacionEvento.getInstance().getRecursos()) {
+			recursos.addElement(aux);	
+		}
+		
+		return recursos;
+
+	}
 }

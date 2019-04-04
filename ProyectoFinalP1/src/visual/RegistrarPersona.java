@@ -142,7 +142,12 @@ public class RegistrarPersona extends JDialog {
 		panel.add(cbxArea);
 		
 		cbxGradoAca = new JComboBox();
-		cbxGradoAca.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Bachiller", "Licenciado", "Mag\u00EDster", "Doctorado"}));
+		if(elec==1) {
+		cbxGradoAca.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Bachiller", "Licenciado", "Mag\u00EDster", "Doctorado"}));}
+		if(elec==2) {
+			cbxGradoAca.setModel(new DefaultComboBoxModel(new String[] {"Seleccione",  "Licenciado", "Mag\u00EDster", "Doctorado"}));
+			
+		}
 		cbxGradoAca.setBounds(129, 161, 116, 22);
 		panel.add(cbxGradoAca);
 		
@@ -172,9 +177,13 @@ public class RegistrarPersona extends JDialog {
 							
 							if(!cedula.contentEquals("")&& !nombre.equalsIgnoreCase("")&& !telefono.equalsIgnoreCase("") && cbxGradoAca.getSelectedIndex() !=0) {
 							aux = new Participante(cedula, nombre, telefono, direccion, sexo, gradoAcademico);
+							if(PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula)==null) {
 							PlanificacionEvento.getInstance().insertarPersona(aux);
 							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
-							dispose();
+							dispose();}else {
+								
+								JOptionPane.showMessageDialog(null, "Este participante ya exixte", "Validación", JOptionPane.WARNING_MESSAGE);
+							}
 							}else {
 								JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
 								
@@ -184,9 +193,12 @@ public class RegistrarPersona extends JDialog {
 							String area = cbxArea.getSelectedItem().toString();
 							if(!cedula.contentEquals("")&& !nombre.equalsIgnoreCase("")&& !telefono.equalsIgnoreCase("") && cbxGradoAca.getSelectedIndex()!=0 &&cbxArea.getSelectedIndex()!=0) {
 							aux = new Jurado(cedula, nombre, telefono, direccion, sexo, gradoAcademico, area);
+							if(PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula)==null) {
 							PlanificacionEvento.getInstance().insertarPersona(aux);
 							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
-							clean();
+							clean();}else { 
+								JOptionPane.showMessageDialog(null, "Este participante ya exixte", "Validación", JOptionPane.WARNING_MESSAGE);
+							}
 							}else {
 								JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
 								

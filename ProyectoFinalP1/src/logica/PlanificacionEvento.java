@@ -1,6 +1,9 @@
 package logica;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 import org.w3c.dom.ls.LSOutput;
 
@@ -16,23 +19,27 @@ public class PlanificacionEvento {
 	private int codComision;
 	private int codEvento;
 	
+	
 	private  PlanificacionEvento() {
 		super();
 		this.lasComisiones = new ArrayList();
 		this.lasPersonas = new ArrayList();
 		this.losEventos = new ArrayList();
 		this.losTrabajos = new ArrayList();
-		this.recursos =new ArrayList();
+		this.recursos =new ArrayList(Arrays.asList("local","proyector","mesas","sillas"));
 		this.codTrabjo=1;
 		this.codComision=1;
 		this.setCodEvento(1);
+		
 	}
 	
 	public static PlanificacionEvento getInstance() { 
 		
 		if (laPlanificacion== null) {
 			laPlanificacion= new PlanificacionEvento();
+			
 		}
+		
 		
 		return laPlanificacion;
 	}

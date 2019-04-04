@@ -224,7 +224,7 @@ public class RegistrarTrabajo extends JDialog {
 					String area=cbxArea.getSelectedItem().toString();
 					String descripcion=txtDescripcion.getText();
 					String comision= cbxComision.getSelectedItem().toString();
-					String[]partes = comision.split("-");
+					String[]partes = comision.split("~~");
 					String codigocomi=partes[0];
 					String evento= cbxEvento.getSelectedItem().toString();
 					String []partes2=evento.split("~~");
@@ -232,15 +232,16 @@ public class RegistrarTrabajo extends JDialog {
 					Comision c1=PlanificacionEvento.getInstance().BuscarComisionPorCodigo(codigocomi);	
 					Evento e1= PlanificacionEvento.getInstance().BuscarEventoCodigo(codigoEven);
 					
-					if(!cedula.equalsIgnoreCase("") && p1!=null && !nombreTrab.equalsIgnoreCase("") && cbxArea.getSelectedIndex()!=0 && c1!=null && e1!=null && !descripcion.equalsIgnoreCase("")) {
+					if(p1!=null && !nombreTrab.equalsIgnoreCase("") && cbxArea.getSelectedIndex()>0 && c1!=null && e1!=null && !descripcion.equalsIgnoreCase("")) {
 					
 					Trabajo tr1=new Trabajo(nombreTrab, area, descripcion, e1, c1, codigo, p1);
 					PlanificacionEvento.getInstance().insertarTrabajo(tr1);
+					
 					PlanificacionEvento.getInstance().setCodTrabjo(PlanificacionEvento.getInstance().getCodTrabjo()+1);
 					JOptionPane.showMessageDialog(null, "Registro Exitoso", "Información", JOptionPane.INFORMATION_MESSAGE);
 					clean();
 					}else {  
-						JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);
 						
 					}
 					
@@ -288,7 +289,7 @@ public class RegistrarTrabajo extends JDialog {
 	    	cbxComision.addItem(new String("Seleccione"));
 	    	for (Comision aux : e.getLasComisiones()) {
 	    		if(aux.getArea().equalsIgnoreCase(area)) {
-	    		cbxComision.addItem((String) aux.getCodigo()+"-"+aux.getArea());}
+	    		cbxComision.addItem((String) aux.getCodigo()+"~~"+aux.getArea());}
 			}
 
 	    	cbxComision.setSelectedItem(0);
