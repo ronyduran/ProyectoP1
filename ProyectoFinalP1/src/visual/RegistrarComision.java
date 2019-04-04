@@ -241,16 +241,19 @@ public class RegistrarComision extends JDialog {
 						String Presidente= cbxPresidente.getSelectedItem().toString();
 						String [] partes= Presidente.split("-");
 						String cedula= partes[0];
+						String evento=cbxEvento.getSelectedItem().toString();
+						String []partes2=evento.split("~~");
+						String codigoEven=partes2[0];
 						
 						Jurado elPresidente = (Jurado) PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula);
-						Evento elEvento = buscarEventoByNombre((String)cbxEvento.getSelectedItem());
+						Evento elEvento = PlanificacionEvento.getInstance().BuscarEventoCodigo(codigoEven);
 						
 						if(losJurados!=null && cbxArea.getSelectedIndex()!=0 && elPresidente!=null && elEvento!=null) {
 						aux = new Comision(losJurados, area, codigo, elPresidente, elEvento);
 						PlanificacionEvento.getInstance().insertarComision(aux);
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 						PlanificacionEvento.getInstance().setCodComision(PlanificacionEvento.getInstance().getCodComision()+1);
-						dispose();}else {
+						clean();}else {
 							
 							JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
 						}
@@ -317,42 +320,29 @@ public class RegistrarComision extends JDialog {
 				cbxPresidente.addItem(new String(PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula()+"-"+PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre()));
 				
 				}
-				
 			}				
 		}
-		//cbxPresidente.insertItemAt(new String("<Seleccione>"), 0);
+		
 		cbxPresidente.setSelectedIndex(0);
 	}
     
     private void loadEvento() {
     	cbxEvento.removeAllItems();
+    	boolean encontrado=false;
     	cbxEvento.addItem(new String("Seleccione"));
-    	for (int i = 0; i < PlanificacionEvento.getInstance().getLosEventos().size(); i++) {
-    		cbxEvento.addItem((String) PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento());
-			
-		}
-    
-    	//cbxEvento.insertItemAt(new String("<Seleccione>"), 0);
+	 	for (Evento aux : PlanificacionEvento.getInstance().getLosEventos()) {
+    			cbxEvento.addItem((String) aux.getIdentificador()+"~~"+aux.getNombreEvento());
+	 	}
+
     	cbxEvento.setSelectedItem(0);
     }
-    private Persona buscarPersonaByNombre(String nombre) {
-    	Persona p1 = null;
-    	for (int i = 0; i < PlanificacionEvento.getInstance().getLasPersonas().size(); i++) {
-			if (PlanificacionEvento.getInstance().getLasPersonas().get(i) instanceof Jurado) {
-				if (PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre().equalsIgnoreCase(nombre)) {
-					p1= PlanificacionEvento.getInstance().getLasPersonas().get(i);
-				}
-			}
-		}
-    	return p1;
-    }
-    private Evento buscarEventoByNombre(String nombre) {
-    	Evento e1 = null;
-    	for (int i = 0; i < PlanificacionEvento.getInstance().getLosEventos().size(); i++) {
-			if (PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento().equalsIgnoreCase(nombre)) {
-				e1= PlanificacionEvento.getInstance().getLosEventos().get(i);
-			}
-		}
-    	return e1;
-    }
+    
+    private void clean() {
+		txtCodigo.setText("Comi-"+PlanificacionEvento.getInstance().getCodComision());
+		cbxArea.setSelectedIndex(0);
+		cbxEvento.setSelectedIndex(0);
+		cbxPresidente.setSelectedIndex(0);
+	}
+    
+   
 }

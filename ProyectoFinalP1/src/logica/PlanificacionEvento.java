@@ -14,6 +14,7 @@ public class PlanificacionEvento {
 	private static PlanificacionEvento laPlanificacion;
 	private int codTrabjo;
 	private int codComision;
+	private int codEvento;
 	
 	private  PlanificacionEvento() {
 		super();
@@ -23,7 +24,8 @@ public class PlanificacionEvento {
 		this.losTrabajos = new ArrayList();
 		this.recursos =new ArrayList();
 		this.codTrabjo=1;
-		this.setCodComision(1);
+		this.codComision=1;
+		this.setCodEvento(1);
 	}
 	
 	public static PlanificacionEvento getInstance() { 
@@ -158,6 +160,14 @@ public class PlanificacionEvento {
 
 	public void setCodComision(int codComision) {
 		this.codComision = codComision;
+	}
+
+	public int getCodEvento() {
+		return codEvento;
+	}
+
+	public void setCodEvento(int codEvento) {
+		this.codEvento = codEvento;
 	}
 	
 	

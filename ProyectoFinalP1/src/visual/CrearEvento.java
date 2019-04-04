@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -9,12 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import com.toedter.calendar.JCalendar;
+
 import logica.Evento;
 import logica.PlanificacionEvento;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
@@ -23,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SpinnerNumberModel;
 
 public class CrearEvento extends JDialog {
 
@@ -32,7 +36,7 @@ public class CrearEvento extends JDialog {
 	private JTextField txtFecha;
 	private JComboBox cbxTipoEvento;
 	private JSpinner spnCantAsist;
-	private int i=0;
+	
 	
 	public CrearEvento() {
 		setTitle("Crear Evento");
@@ -60,7 +64,7 @@ public class CrearEvento extends JDialog {
 				txtCodigo.setBounds(69, 25, 138, 22);
 				panel.add(txtCodigo);
 				txtCodigo.setColumns(10);
-				txtCodigo.setText("Evento-"+i+1);
+				txtCodigo.setText("Evento-"+PlanificacionEvento.getInstance().getCodEvento());
 			}
 			{
 				JLabel lblNombre = new JLabel("Nombre");
@@ -87,6 +91,24 @@ public class CrearEvento extends JDialog {
 			}
 			
 			JButton btnFecha = new JButton("Elegir Fecha");
+			btnFecha.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					Date fechaDelEVento=null;
+					JCalendar calendario = new JCalendar();
+					calendario.setMinSelectableDate(new Date());
+					calendario.setPreferredSize(new Dimension(300,400));
+					String message ="Fecha del evento:\n";
+					Object[] params = {message,calendario};
+					if(JOptionPane.showConfirmDialog(null,params,"Confirmacion de prestamo", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION) {
+						fechaDelEVento=calendario.getDate();
+						SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+						String fechaEvento= formatter.format(fechaDelEVento);
+						txtFecha.setText(fechaEvento);
+					}
+					
+				}
+			});
 			btnFecha.setBounds(257, 104, 115, 25);
 			panel.add(btnFecha);
 			
@@ -104,6 +126,7 @@ public class CrearEvento extends JDialog {
 			panel.add(lblCantidadDeAsistentes);
 			
 			spnCantAsist = new JSpinner();
+			spnCantAsist.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 			spnCantAsist.setBounds(175, 202, 89, 22);
 			panel.add(spnCantAsist);
 			
@@ -123,21 +146,33 @@ public class CrearEvento extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						
 						String tipoEvento= cbxTipoEvento.getSelectedItem().toString();
-						/*SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-						Date fechaEvento = new Date();
+						Date fechaEvento = null;
+						if(!txtFecha.getText().equalsIgnoreCase("")) {
+						SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 						try {
 							fechaEvento = formatter.parse(txtFecha.getText());
 						} catch (ParseException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
-						}*/
+						}catch (Exception e2) {
+							// TODO: handle exception
+						}
+						
+						}
 						int cantAsistentes= new Integer(spnCantAsist.getValue().toString());
 						String nombreEvento= txtNombreEvento.getText();
 						String identificador= txtCodigo.getText();
 						
-						Evento event=new Evento(tipoEvento, null, null, cantAsistentes, nombreEvento, identificador);
+						if(fechaEvento!=null && !nombreEvento.equalsIgnoreCase("")&& cantAsistentes>0 && cbxTipoEvento.getSelectedIndex()>0) {
+						Evento event=new Evento(tipoEvento, fechaEvento, null, cantAsistentes, nombreEvento, identificador);
 						PlanificacionEvento.getInstance().insertarEvento(event);
-						i++;
+						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+						PlanificacionEvento.getInstance().setCodEvento(PlanificacionEvento.getInstance().getCodEvento()+1);
+						clean();
+						}else {
+							
+							JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);
+						}
 						
 					}
 				});
@@ -157,4 +192,14 @@ public class CrearEvento extends JDialog {
 			}
 		}
 	}
+	
+	private void clean() {
+		txtCodigo.setText("Evento-"+PlanificacionEvento.getInstance().getCodEvento());
+		txtFecha.setText("");
+		txtNombreEvento.setText("");
+		cbxTipoEvento.setSelectedIndex(0);
+		spnCantAsist.setValue(Integer.parseInt("1"));
+		
+	}
+	
 }
