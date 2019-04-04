@@ -38,22 +38,7 @@ public class ListarParticipante extends JDialog {
 	private JComboBox cbxSexo;
 	private JComboBox cbxGrado;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			ListarParticipante dialog = new ListarParticipante();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
+	
 	public ListarParticipante() {
 		setTitle("Listar Participante");
 		setBounds(100, 100, 1000, 540);
@@ -61,6 +46,12 @@ public class ListarParticipante extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
+		
+		
+		
 		{
 			JPanel panel = new JPanel();
 			panel.setBounds(12, 13, 958, 432);
@@ -82,9 +73,13 @@ public class ListarParticipante extends JDialog {
 			btnBuscar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String cedula = txtBuscar.getText();
+					cbxGrado.setSelectedIndex(0);
+					cbxSexo.setSelectedIndex(0);
 					if (!cedula.equalsIgnoreCase("")) {
 						Participante p1 = (Participante)PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula);
-						loadTableParticipanteCedula(p1);
+						if(p1!=null) {
+						loadTableParticipanteCedula(p1);}else {
+							JOptionPane.showMessageDialog(null, "Este participante no existe", "Validación", JOptionPane.WARNING_MESSAGE);}
 					}else {
 						JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);
 					}
@@ -109,8 +104,19 @@ public class ListarParticipante extends JDialog {
 			cbxSexo = new JComboBox();
 			cbxSexo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (cbxSexo.getSelectedIndex()==0) {
+					if (cbxSexo.getSelectedIndex()>0 && cbxGrado.getSelectedIndex()==0) {
+						String sexo=cbxSexo.getSelectedItem().toString();
+						loadTableParticipanteFiltro(sexo, "");
+					}
+					if(cbxSexo.getSelectedIndex()>0 && cbxGrado.getSelectedIndex()>0) {
 						
+						String sexo=cbxSexo.getSelectedItem().toString();
+						String grado= cbxGrado.getSelectedItem().toString();
+						loadTableParticipanteFiltro(sexo, grado);
+					}
+					if(cbxSexo.getSelectedIndex()==0 && cbxGrado.getSelectedIndex()==0) {
+						
+						loadTableParticipante();
 					}
 				}
 			});
@@ -131,7 +137,19 @@ public class ListarParticipante extends JDialog {
 			cbxGrado = new JComboBox();
 			cbxGrado.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					if (cbxGrado.getSelectedIndex()>0 && cbxSexo.getSelectedIndex()==0) {
+						String grado= cbxGrado.getSelectedItem().toString();
+						loadTableParticipanteFiltro("", "grado");
+					}
+					if(cbxGrado.getSelectedIndex()>0 && cbxSexo.getSelectedIndex()>0) {
+						
+						String sexo=cbxSexo.getSelectedItem().toString();
+						String grado= cbxGrado.getSelectedItem().toString();
+						loadTableParticipanteFiltro(sexo, grado);
+					}if(cbxSexo.getSelectedIndex()==0 && cbxGrado.getSelectedIndex()==0) {
+						
+						loadTableParticipante();
+					}
 				}
 			});
 			cbxGrado.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Bachiller", "Licenciado", "Mag\u00EDster", "Doctorado"}));
@@ -223,15 +241,14 @@ public class ListarParticipante extends JDialog {
 	    model.addRow(fila);
 			
 	}
-	public void loadTableParticipanteFiltro() {
+	public void loadTableParticipanteFiltro(String sexo, String grado) {
 		model.setRowCount(0);
 		fila = new Object[model.getColumnCount()];
-		
-		
-			
-		
+
 		for (int i = 0; i < PlanificacionEvento.getInstance().getLasPersonas().size(); i++) {
 			if (PlanificacionEvento.getInstance().getLasPersonas().get(i) instanceof Participante){
+				if(!sexo.equalsIgnoreCase("")&& grado.equalsIgnoreCase("")) {
+				if(PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo().equalsIgnoreCase(sexo)) {
 				fila[0] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula();
 				fila[1] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre();
 				fila[2] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo();
@@ -239,7 +256,29 @@ public class ListarParticipante extends JDialog {
 			    fila[4] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getTelefono();
 			    fila[5] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getDireccion();
 			    model.addRow(fila);
+				}}
 				
+				if(sexo.equalsIgnoreCase("")&& !grado.equalsIgnoreCase("")) {
+					if(PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico().equalsIgnoreCase(grado)) {
+				fila[0] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula();
+				fila[1] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre();
+				fila[2] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo();
+			    fila[3] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico();
+			    fila[4] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getTelefono();
+			    fila[5] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getDireccion();
+			    model.addRow(fila);
+				}}
+				
+				if(!sexo.equalsIgnoreCase("")&& !grado.equalsIgnoreCase("")) {
+					if(PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo().equalsIgnoreCase(sexo)&&PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico().equalsIgnoreCase(grado)) {
+				fila[0] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula();
+				fila[1] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre();
+				fila[2] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo();
+			    fila[3] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico();
+			    fila[4] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getTelefono();
+			    fila[5] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getDireccion();
+			    model.addRow(fila);
+				}}
 			}
 		}
 	}

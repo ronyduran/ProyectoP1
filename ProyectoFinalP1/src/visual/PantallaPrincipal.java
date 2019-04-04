@@ -113,6 +113,14 @@ public class PantallaPrincipal extends JFrame {
 		mnJurado.add(mntmRegistrarJurado);
 		
 		JMenuItem mntmListadoDeJurados = new JMenuItem("Listado de Jurados");
+		mntmListadoDeJurados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ListarJurados lu=new ListarJurados();
+				lu.setModal(true);
+				lu.setVisible(true);
+			}
+		});
 		mntmListadoDeJurados.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnJurado.add(mntmListadoDeJurados);
 		
@@ -141,6 +149,14 @@ public class PantallaPrincipal extends JFrame {
 		menuBar.add(mnParticipantes);
 		
 		JMenuItem mntmListadosDeParticipantes = new JMenuItem("Listados de Participantes");
+		mntmListadosDeParticipantes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarParticipante lp=new ListarParticipante();
+				
+				lp.setModal(true);
+				lp.setVisible(true);
+			}
+		});
 		mntmListadosDeParticipantes.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnParticipantes.add(mntmListadosDeParticipantes);
 		contentPane = new JPanel();

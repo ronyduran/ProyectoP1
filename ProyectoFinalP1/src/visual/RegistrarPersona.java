@@ -110,7 +110,9 @@ public class RegistrarPersona extends JDialog {
 		
 		rdbtnMasc = new JRadioButton("\u2642");
 		rdbtnMasc.setSelected(true);
+		sexo = "Hombre";
 		rdbtnMasc.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				rdbtnFem.setSelected(false);
 				rdbtnMasc.setSelected(true);
