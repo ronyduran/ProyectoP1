@@ -269,7 +269,7 @@ public class RegistrarComision extends JDialog {
 						losJurados.addAll(listaJurado);
 						listaJurado.removeAll(listaJurado);
 						String Presidente= cbxPresidente.getSelectedItem().toString();
-						String [] partes= Presidente.split("-");
+						String [] partes= Presidente.split("~~");
 						String cedula= partes[0];
 						String evento=cbxEvento.getSelectedItem().toString();
 						String []partes2=evento.split("~~");
@@ -366,7 +366,7 @@ public class RegistrarComision extends JDialog {
 		for (int i = 0; i < elegirJurado.size(); i++) {
 			if (elegirJurado.get(i) instanceof Jurado) {
 				if (((Jurado)(elegirJurado.get(i))).getArea().equalsIgnoreCase((String) cbxArea.getSelectedItem())) {
-				cbxPresidente.addItem(new String(elegirJurado.get(i).getCedula()+"-"+elegirJurado.get(i).getNombre()));
+				cbxPresidente.addItem(new String(elegirJurado.get(i).getCedula()+"~~"+elegirJurado.get(i).getNombre()));
 				
 				}
 			}				
