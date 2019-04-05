@@ -21,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -184,6 +186,7 @@ public class ListarComision extends JDialog {
 	
 	public void loadTableComisiones() {
 		model.setRowCount(0);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		fila = new Object[model.getColumnCount()];
 		for (int i = 0; i < PlanificacionEvento.getInstance().getLasComisiones().size(); i++) {
 			
@@ -191,7 +194,7 @@ public class ListarComision extends JDialog {
 				fila[1] = PlanificacionEvento.getInstance().getLasComisiones().get(i).getArea();
 				fila[2] = PlanificacionEvento.getInstance().getLasComisiones().get(i).getPresidente().getNombre();
 			    fila[3] = PlanificacionEvento.getInstance().getLasComisiones().get(i).getElEvento().getNombreEvento();
-			    fila[4] = PlanificacionEvento.getInstance().getLasComisiones().get(i).getFechaCreacion();
+			    fila[4] = formatter.format(PlanificacionEvento.getInstance().getLasComisiones().get(i).getFechaCreacion());
 			    model.addRow(fila);
 				
 			
@@ -200,18 +203,20 @@ public class ListarComision extends JDialog {
 	
 	public void loadTableComisionByCodigo(Comision c1) {
 		model.setRowCount(0);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		fila = new Object[model.getColumnCount()];
 		
 		fila[0] = c1.getCodigo();
 		fila[1] = c1.getArea();
 		fila[2] = c1.getPresidente().getNombre();
 	    fila[3] = c1.getElEvento().getNombreEvento();
-	    fila[4] = c1.getFechaCreacion();
+	    fila[4] = formatter.format(c1.getFechaCreacion());
 	    model.addRow(fila);
 			
 	}
 	public void loadTableComisionFiltro(String area) {
 		model.setRowCount(0);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		fila = new Object[model.getColumnCount()];
 		for (int i = 0; i < PlanificacionEvento.getInstance().getLasComisiones().size(); i++) {
 			
@@ -220,7 +225,7 @@ public class ListarComision extends JDialog {
 					fila[1] = PlanificacionEvento.getInstance().getLasComisiones().get(i).getArea();
 					fila[2] = PlanificacionEvento.getInstance().getLasComisiones().get(i).getPresidente().getNombre();
 				    fila[3] = PlanificacionEvento.getInstance().getLasComisiones().get(i).getElEvento().getNombreEvento();
-				    fila[4] = PlanificacionEvento.getInstance().getLasComisiones().get(i).getFechaCreacion();
+				    fila[4] = formatter.format(PlanificacionEvento.getInstance().getLasComisiones().get(i).getFechaCreacion());
 				    model.addRow(fila);
 				}
 			
