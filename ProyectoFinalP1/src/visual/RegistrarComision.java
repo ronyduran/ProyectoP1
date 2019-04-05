@@ -110,7 +110,7 @@ public class RegistrarComision extends JDialog {
 						public void actionPerformed(ActionEvent e) {
 							if(cbxPresidente.getSelectedIndex()>0) {
 							String presidente= cbxPresidente.getSelectedItem().toString();
-							String[] partes = presidente.split("-");
+							String[] partes = presidente.split("~~");
 							String cedula = partes[0]; 
 							
 							loadTableLista(cedula);
@@ -223,7 +223,7 @@ public class RegistrarComision extends JDialog {
 					listaJurado.add(j1);
 					elegirJurado.remove(j1);
 					String presidente= cbxPresidente.getSelectedItem().toString();
-					String[] partes = presidente.split("-");
+					String[] partes = presidente.split("~~");
 					String cedulaPresi = partes[0];
 					loadTableElegido(cedulaPresi);
 					loadTableLista(cedulaPresi);
@@ -243,7 +243,7 @@ public class RegistrarComision extends JDialog {
 					elegirJurado.add(j1);
 					listaJurado.remove((Persona)j1);
 					String presidente= cbxPresidente.getSelectedItem().toString();
-					String[] partes = presidente.split("-");
+					String[] partes = presidente.split("~~");
 					String cedulaPresi = partes[0];
 					loadTableElegido(cedulaPresi);
 					loadTableLista(cedulaPresi);
