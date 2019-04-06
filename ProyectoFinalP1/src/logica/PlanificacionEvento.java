@@ -152,6 +152,19 @@ public class PlanificacionEvento {
 		
 		return elEvento;
 	}
+	
+	public Trabajo  BuscarTrabajoPorCodigo (String Codigo) {
+		Trabajo elTrabajo= null;
+		
+		for (Trabajo aux : losTrabajos) {
+			if(aux.getIdentificador().equalsIgnoreCase(Codigo)) {
+				
+				elTrabajo=aux;
+			}
+		}
+		
+		return elTrabajo;
+	}
 
 	public int getCodTrabjo() {
 		return codTrabjo;
