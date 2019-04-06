@@ -117,6 +117,14 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mnTrabajo.add(mntmRegistrarTrabajo);
 		
 		JMenuItem mntmListadoDeTrabajos = new JMenuItem("Listado de trabajos");
+		mntmListadoDeTrabajos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarTrabajo lt = new ListarTrabajo();
+				lt.setModal(true);
+				lt.setVisible(true);
+				
+			}
+		});
 		mntmListadoDeTrabajos.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnTrabajo.add(mntmListadoDeTrabajos);
 		

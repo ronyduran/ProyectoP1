@@ -397,7 +397,7 @@ public class RegistrarComision extends JDialog {
 		cbxPresidente.setSelectedIndex(0);
 		loadTableElegido("");
 		loadTableLista("");
-		elegirJurado.addAll(PlanificacionEvento.getInstance().getLasPersonas());
+		
 	}
     
    
