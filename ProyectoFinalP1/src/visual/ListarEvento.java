@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.JComboBox;
@@ -34,6 +35,8 @@ public class ListarEvento extends JDialog {
 	private String identificador = "";
 	private JTable tableEventos;
 	private JTextField txtBuscar;
+	private JComboBox cbxTipo;
+	private JComboBox cbxEstado;
 
 	/**
 	 * Launch the application.
@@ -118,7 +121,23 @@ public class ListarEvento extends JDialog {
 					panel_1.add(lblTipo);
 				}
 				{
-					JComboBox cbxTipo = new JComboBox();
+					cbxTipo = new JComboBox();
+					cbxTipo.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if (cbxTipo.getSelectedIndex() > 0 && cbxEstado.getSelectedIndex()==0) {
+								String tipo = cbxTipo.getSelectedItem().toString();
+								loadTableEventoFiltro(tipo,"");
+							}
+							if (cbxTipo.getSelectedIndex() > 0 && cbxEstado.getSelectedIndex()>0) {
+								String tipo = cbxTipo.getSelectedItem().toString();
+								String estado = cbxEstado.getSelectedItem().toString();
+								loadTableEventoFiltro(tipo,estado);
+							}
+							if (cbxTipo.getSelectedIndex()==0 && cbxEstado.getSelectedIndex()==0) {
+								loadTableEvento();
+							}
+						}
+					});
 					cbxTipo.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Congreso", "Jornada", "Mesa Redonda"}));
 					cbxTipo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 					cbxTipo.setBounds(497, 9, 116, 25);
@@ -131,7 +150,23 @@ public class ListarEvento extends JDialog {
 					panel_1.add(lblEstado);
 				}
 				{
-					JComboBox cbxEstado = new JComboBox();
+					cbxEstado = new JComboBox();
+					cbxEstado.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if (cbxTipo.getSelectedIndex() == 0 && cbxEstado.getSelectedIndex() > 0) {
+								String estado = cbxEstado.getSelectedItem().toString();
+								loadTableEventoFiltro("",estado);
+							}
+							if (cbxTipo.getSelectedIndex() > 0 && cbxEstado.getSelectedIndex()>0) {
+								String tipo = cbxTipo.getSelectedItem().toString();
+								String estado = cbxEstado.getSelectedItem().toString();
+								loadTableEventoFiltro(tipo,estado);
+							}
+							if (cbxTipo.getSelectedIndex()==0 && cbxEstado.getSelectedIndex()==0) {
+								loadTableEvento();
+							}
+						}
+					});
 					cbxEstado.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Activo", "No activo "}));
 					cbxEstado.setFont(new Font("Tahoma", Font.PLAIN, 15));
 					cbxEstado.setBounds(690, 9, 116, 25);
@@ -148,7 +183,7 @@ public class ListarEvento extends JDialog {
 					scrollPane.setBounds(0, 0, 934, 307);
 					panel_2.add(scrollPane, BorderLayout.CENTER);
 					{
-						String[] header = {"Código","Nombre","Tipo","Asistencia","Fecha","Estado"};		
+						String[] header = {"Código","Nombre","Tipo","Fecha","Estado"};		
 						model = new DefaultTableModel();
 						model.setColumnIdentifiers(header);
 						
@@ -167,6 +202,14 @@ public class ListarEvento extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnLimpiar = new JButton("Limpiar");
+				btnLimpiar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						txtBuscar.setText("");
+						cbxEstado.setSelectedIndex(0);
+						cbxTipo.setSelectedIndex(0);
+						loadTableEvento();
+					}
+				});
 				btnLimpiar.setActionCommand("OK");
 				buttonPane.add(btnLimpiar);
 				getRootPane().setDefaultButton(btnLimpiar);
@@ -187,33 +230,138 @@ public class ListarEvento extends JDialog {
 	
 	public void loadTableEvento() {
 		model.setRowCount(0);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		fila = new Object[model.getColumnCount()];
 		for (int i = 0; i < PlanificacionEvento.getInstance().getLosEventos().size(); i++) {
-			
-				fila[0] = PlanificacionEvento.getInstance().getLosEventos().get(i).getIdentificador();
-				fila[1] = PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento();
-				fila[2] = PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento();
-			    fila[3] = PlanificacionEvento.getInstance().getLosEventos().get(i).getCantAsistentes();
-			    fila[4] = PlanificacionEvento.getInstance().getLosEventos().get(i).getFechaEvento();
-			    fila[5] = PlanificacionEvento.getInstance().getLosEventos().get(i).isEstado();
+			fila[0] = PlanificacionEvento.getInstance().getLosEventos().get(i).getIdentificador();
+			fila[1] = PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento();
+			fila[2] = PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento();
+		    
+		    fila[3] = formatter.format(PlanificacionEvento.getInstance().getLosEventos().get(i).getFechaEvento());
+		    
+			if (PlanificacionEvento.getInstance().getLosEventos().get(i).isEstado()==true) {
+				
+			    fila[4] = "Activo";			    
 			    
-			    model.addRow(fila);
+			}else {
+			    fila[4] = "No Activo";
+			    
+			    
+			}
+			model.addRow(fila);	
 				
 			
 		}
 	}
 	public void loadTableEventoByCodigo(Evento e1) {
 		model.setRowCount(0);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		fila = new Object[model.getColumnCount()];
 		
 		fila[0] = e1.getIdentificador();
 		fila[1] = e1.getNombreEvento();
 		fila[2] = e1.getTipoEvento();
-	    fila[3] = e1.getCantAsistentes();
-	    fila[4] = e1.getFechaEvento();
-	    fila[5] = e1.isEstado();
+	    
+	    fila[3] = formatter.format(e1.getFechaEvento());
+	    
+	    if (e1.isEstado()==true) {
+			
+		    fila[4] = "Activo";			    
+		    
+		}else {
+		    fila[4] = "No Activo";
+		    
+		    
+		}
 	    model.addRow(fila);
 			
+	}
+	public void loadTableEventoFiltro(String tipo,String estado) {
+		model.setRowCount(0);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		fila = new Object[model.getColumnCount()];
+		for (int i = 0; i < PlanificacionEvento.getInstance().getLosEventos().size(); i++) {
+			
+			if (!tipo.equalsIgnoreCase("") && estado.equalsIgnoreCase("")) {
+				if (PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento().equalsIgnoreCase(tipo)) {
+					fila[0] = PlanificacionEvento.getInstance().getLosEventos().get(i).getIdentificador();
+					fila[1] = PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento();
+					fila[2] = PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento();
+				    
+				    fila[3] = formatter.format(PlanificacionEvento.getInstance().getLosEventos().get(i).getFechaEvento());
+				    
+					if (PlanificacionEvento.getInstance().getLosEventos().get(i).isEstado()==true) {
+						
+					    fila[4] = "Activo";			    
+					    
+					}else {
+					    fila[4] = "No Activo";
+					    
+					    
+					}
+					model.addRow(fila);
+				}
+				
+				
+			}
+			
+			if (tipo.equalsIgnoreCase("") && !estado.equalsIgnoreCase("")) {
+				if (cbxEstado.getSelectedItem().toString().equalsIgnoreCase("Activo")) {
+					if (PlanificacionEvento.getInstance().getLosEventos().get(i).isEstado()==true) {
+						fila[0] = PlanificacionEvento.getInstance().getLosEventos().get(i).getIdentificador();
+						fila[1] = PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento();
+						fila[2] = PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento();
+					    
+					    fila[3] = formatter.format(PlanificacionEvento.getInstance().getLosEventos().get(i).getFechaEvento());
+					    fila[4] = "Activo";
+					    model.addRow(fila);
+					}
+				}
+				if (cbxEstado.getSelectedItem().toString().equalsIgnoreCase("No Activo")) {
+					if (PlanificacionEvento.getInstance().getLosEventos().get(i).isEstado()==false) {
+						fila[0] = PlanificacionEvento.getInstance().getLosEventos().get(i).getIdentificador();
+						fila[1] = PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento();
+						fila[2] = PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento();
+					    
+					    fila[3] = formatter.format(PlanificacionEvento.getInstance().getLosEventos().get(i).getFechaEvento());
+					    fila[4] = "No Activo";
+					    model.addRow(fila);
+					}
+				}
+				
+				
+			}
+			
+			if (!tipo.equalsIgnoreCase("")&& !estado.equalsIgnoreCase("")) {
+				if (PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento().equalsIgnoreCase(tipo) && cbxEstado.getSelectedItem().toString().equalsIgnoreCase("Activo")) {
+					if (PlanificacionEvento.getInstance().getLosEventos().get(i).isEstado()==true) {
+						fila[0] = PlanificacionEvento.getInstance().getLosEventos().get(i).getIdentificador();
+						fila[1] = PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento();
+						fila[2] = PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento();
+					    
+					    fila[3] = formatter.format(PlanificacionEvento.getInstance().getLosEventos().get(i).getFechaEvento());
+					    fila[4] = "Activo";
+					    model.addRow(fila);
+					}
+				}
+				if (PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento().equalsIgnoreCase(tipo) && cbxEstado.getSelectedItem().toString().equalsIgnoreCase("No Activo")) {
+					if (PlanificacionEvento.getInstance().getLosEventos().get(i).isEstado()==false) {
+						fila[0] = PlanificacionEvento.getInstance().getLosEventos().get(i).getIdentificador();
+						fila[1] = PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento();
+						fila[2] = PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento();
+					    
+					    fila[3] = formatter.format(PlanificacionEvento.getInstance().getLosEventos().get(i).getFechaEvento());
+					    fila[4] = "No Activo";
+					    model.addRow(fila);
+					}
+				}
+			}
+			
+				
+			
+			
+			
+		}
 	}
 
 }
