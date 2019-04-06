@@ -90,8 +90,11 @@ public class RegistrarComision extends JDialog {
 					cbxArea.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							loadPresidente();
-							loadTableLista("");
-							
+							listaJurado.removeAll(listaJurado);
+							elegirJurado.removeAll(elegirJurado);
+							elegirJurado.addAll(PlanificacionEvento.getInstance().getLasPersonas());
+						    loadTableLista("");
+							loadTableElegido("");
 						}
 					});
 					cbxArea.setBounds(226, 42, 182, 22);
