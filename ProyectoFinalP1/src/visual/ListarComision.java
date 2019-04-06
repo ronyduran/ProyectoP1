@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
 
 public class ListarComision extends JDialog {
 
@@ -37,22 +39,7 @@ public class ListarComision extends JDialog {
 	private String identificador = "";
 	private JComboBox cbxArea;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		try {
-			ListarComision dialog = new ListarComision();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-
-	/**
-	 * Create the dialog.
-	 */
+	
 	public ListarComision() {
 		setTitle("Listar Comisiones");
 		setResizable(false);
@@ -64,19 +51,19 @@ public class ListarComision extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(12, 13, 958, 404);
+		panel.setBounds(12, 13, 970, 404);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(12, 13, 934, 52);
+		panel_1.setBounds(12, 13, 946, 52);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JLabel lblCdigo = new JLabel("C\u00F3digo de la Comisi\u00F3n:");
 		lblCdigo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCdigo.setBounds(12, 13, 154, 16);
+		lblCdigo.setBounds(12, 13, 154, 22);
 		panel_1.add(lblCdigo);
 		
 		txtCodigo = new JTextField();
@@ -107,13 +94,14 @@ public class ListarComision extends JDialog {
 		panel_1.add(btnBuscar);
 		
 		JLabel label = new JLabel("Filtros:");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label.setBounds(415, 13, 43, 16);
+		label.setForeground(Color.RED);
+		label.setFont(new Font("Tahoma", Font.BOLD, 15));
+		label.setBounds(458, 14, 63, 16);
 		panel_1.add(label);
 		
 		JLabel lblTipo = new JLabel("\u00C1rea");
 		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTipo.setBounds(470, 13, 43, 16);
+		lblTipo.setBounds(533, 14, 43, 16);
 		panel_1.add(lblTipo);
 		
 		cbxArea = new JComboBox();
@@ -130,16 +118,16 @@ public class ListarComision extends JDialog {
 			}
 		});
 		cbxArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Fisica", "Biologia", "Quimica", "Informatica", "Matematica", "Geologia"}));
-		cbxArea.setBounds(525, 9, 116, 25);
+		cbxArea.setBounds(588, 10, 116, 25);
 		panel_1.add(cbxArea);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(12, 78, 934, 313);
+		panel_2.setBounds(12, 78, 946, 313);
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 934, 313);
+		scrollPane.setBounds(0, 0, 946, 313);
 		panel_2.add(scrollPane,BorderLayout.CENTER);
 		
 		String[] header = {"Código","Área","Presidente","Evento","Fecha de Creación"};		
@@ -153,6 +141,7 @@ public class ListarComision extends JDialog {
 		tableComisiones.setModel(model);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{

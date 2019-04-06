@@ -44,6 +44,7 @@ import com.toedter.calendar.JTextFieldDateEditor;
 
 import java.awt.Font;
 import javax.swing.UIManager;
+import javax.swing.border.EtchedBorder;
 
 public class CrearEvento extends JDialog {
 
@@ -53,6 +54,7 @@ public class CrearEvento extends JDialog {
 	private JComboBox cbxTipoEvento;
 	private JList jlistRecursos;
 	private JDateChooser dateChooser;
+	private JTextFieldDateEditor editor;
 	
 	
 	public CrearEvento() {
@@ -141,11 +143,12 @@ public class CrearEvento extends JDialog {
 			dateChooser.getCalendarButton().setMaximumSize(new Dimension(23, 17));
 			dateChooser.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 15));
 			dateChooser.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
 			dateChooser.setDateFormatString("dd-MMM-yyyy");
 			dateChooser.setBounds(69, 108, 293, 22);
 			panel.add(dateChooser);
 			dateChooser.setMinSelectableDate(new Date());
-			JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
+			 editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
 			editor.setEditable(false);
 			
 			
@@ -168,10 +171,12 @@ public class CrearEvento extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Crear");
+				okButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
@@ -208,6 +213,7 @@ public class CrearEvento extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Salir");
+				cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -221,7 +227,7 @@ public class CrearEvento extends JDialog {
 	
 	private void clean() {
 		txtCodigo.setText("Evento-"+PlanificacionEvento.getInstance().getCodEvento());
-		dateChooser.cleanup();
+		dateChooser.setCalendar(null);;
 		txtNombreEvento.setText("");
 		cbxTipoEvento.setSelectedIndex(0);
 		jlistRecursos.clearSelection();

@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -16,6 +17,7 @@ import java.text.AttributedString;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import logica.Participante;
 import logica.PlanificacionEvento;
@@ -26,11 +28,14 @@ import javax.swing.JRadioButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
+import javax.swing.border.EtchedBorder;
 
 public class ListarParticipante extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtBuscar;
+	private JFormattedTextField txtBuscar;
 	private JTable tableParticipante;
 	public static Object[] fila;
 	private static DefaultTableModel model;
@@ -54,20 +59,32 @@ public class ListarParticipante extends JDialog {
 		
 		{
 			JPanel panel = new JPanel();
-			panel.setBounds(12, 13, 958, 432);
+			panel.setBounds(12, 13, 970, 442);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_1.setBounds(12, 13, 934, 63);
+			panel_1.setBounds(12, 13, 946, 63);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
 			
-			txtBuscar = new JTextField();
-			txtBuscar.setBounds(200, 15, 116, 25);
-			panel_1.add(txtBuscar);
-			txtBuscar.setColumns(10);
+		
+			
+			try
+			{
+			   MaskFormatter mascara = new MaskFormatter("######");
+			   txtBuscar = new JFormattedTextField(mascara);
+			   txtBuscar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			   txtBuscar.setBounds(180, 15, 124, 25);
+			   panel_1.add(txtBuscar);
+			   
+			}
+			catch (Exception e)
+			{
+			  
+			}txtBuscar.setColumns(10);
+			
 			
 			JButton btnBuscar = new JButton("Buscar");
 			btnBuscar.addActionListener(new ActionListener() {
@@ -88,20 +105,22 @@ public class ListarParticipante extends JDialog {
 				}
 			});
 			btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			btnBuscar.setBounds(328, 15, 97, 25);
+			btnBuscar.setBounds(316, 15, 94, 25);
 			panel_1.add(btnBuscar);
 			
 			JLabel lblBuscarParticipante = new JLabel("C\u00E9dula del Participante:");
 			lblBuscarParticipante.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			lblBuscarParticipante.setBounds(12, 17, 176, 16);
+			lblBuscarParticipante.setBounds(12, 17, 176, 23);
 			panel_1.add(lblBuscarParticipante);
 			
 			JLabel lblFiltro = new JLabel("Filtros:");
-			lblFiltro.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			lblFiltro.setBounds(437, 17, 43, 16);
+			lblFiltro.setForeground(Color.RED);
+			lblFiltro.setFont(new Font("Tahoma", Font.BOLD, 15));
+			lblFiltro.setBounds(426, 17, 54, 23);
 			panel_1.add(lblFiltro);
 			
 			cbxSexo = new JComboBox();
+			cbxSexo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			cbxSexo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (cbxSexo.getSelectedIndex()>0 && cbxGrado.getSelectedIndex()==0) {
@@ -126,15 +145,16 @@ public class ListarParticipante extends JDialog {
 			
 			JLabel lblSexo = new JLabel("Sexo");
 			lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			lblSexo.setBounds(492, 17, 43, 16);
+			lblSexo.setBounds(492, 17, 43, 23);
 			panel_1.add(lblSexo);
 			
 			JLabel lblGradoAcadmico = new JLabel("Grado Acad\u00E9mico");
 			lblGradoAcadmico.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			lblGradoAcadmico.setBounds(675, 17, 116, 16);
+			lblGradoAcadmico.setBounds(690, 16, 116, 23);
 			panel_1.add(lblGradoAcadmico);
 			
 			cbxGrado = new JComboBox();
+			cbxGrado.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			cbxGrado.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (cbxGrado.getSelectedIndex()>0 && cbxSexo.getSelectedIndex()==0) {
@@ -153,18 +173,18 @@ public class ListarParticipante extends JDialog {
 				}
 			});
 			cbxGrado.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Bachiller", "Licenciado", "Mag\u00EDster", "Doctorado"}));
-			cbxGrado.setBounds(803, 15, 116, 25);
+			cbxGrado.setBounds(818, 15, 116, 25);
 			panel_1.add(cbxGrado);
 			
 			
 			
 			JPanel panel_2 = new JPanel();
-			panel_2.setBounds(12, 89, 934, 330);
+			panel_2.setBounds(12, 89, 946, 340);
 			panel.add(panel_2);
 			panel_2.setLayout(null);
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(0, 0, 934, 330);
+			scrollPane.setBounds(0, 0, 946, 340);
 			panel_2.add(scrollPane,BorderLayout.CENTER);
 			
 			String[] header = {"Cédula","Nombre","Sexo","Grado Académico","Teléfono","Dirección"};
@@ -182,10 +202,12 @@ public class ListarParticipante extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnLimpiar = new JButton("Limpiar");
+				btnLimpiar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnLimpiar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						txtBuscar.setText("");
@@ -200,6 +222,7 @@ public class ListarParticipante extends JDialog {
 			}
 			{
 				JButton btnCerrar = new JButton("Cerrar");
+				btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnCerrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

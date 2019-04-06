@@ -26,6 +26,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
 
 public class ListarEvento extends JDialog {
 
@@ -38,22 +40,7 @@ public class ListarEvento extends JDialog {
 	private JComboBox cbxTipo;
 	private JComboBox cbxEstado;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		try {
-			ListarEvento dialog = new ListarEvento();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-
-	/**
-	 * Create the dialog.
-	 */
+	
 	public ListarEvento() {
 		setTitle("Listar Eventos");
 		setResizable(false);
@@ -62,27 +49,28 @@ public class ListarEvento extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		{
 			JPanel panel = new JPanel();
-			panel.setBounds(12, 13, 958, 404);
+			panel.setBounds(12, 13, 970, 404);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JPanel panel_1 = new JPanel();
 				panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				panel_1.setBounds(12, 13, 934, 58);
+				panel_1.setBounds(12, 13, 946, 58);
 				panel.add(panel_1);
 				panel_1.setLayout(null);
 				{
 					JLabel lblCdigo = new JLabel("C\u00F3digo del Evento:");
 					lblCdigo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-					lblCdigo.setBounds(12, 13, 126, 16);
+					lblCdigo.setBounds(12, 21, 126, 21);
 					panel_1.add(lblCdigo);
 				}
 				{
 					txtBuscar = new JTextField();
 					txtBuscar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-					txtBuscar.setBounds(150, 9, 116, 25);
+					txtBuscar.setBounds(150, 17, 116, 25);
 					panel_1.add(txtBuscar);
 					txtBuscar.setColumns(10);
 				}
@@ -105,19 +93,20 @@ public class ListarEvento extends JDialog {
 							
 						}
 					});
-					btnBuscar.setBounds(278, 9, 97, 25);
+					btnBuscar.setBounds(278, 17, 97, 25);
 					panel_1.add(btnBuscar);
 				}
 				{
 					JLabel lblFilto = new JLabel("Filtros:");
-					lblFilto.setFont(new Font("Tahoma", Font.PLAIN, 15));
-					lblFilto.setBounds(387, 13, 43, 16);
+					lblFilto.setForeground(Color.RED);
+					lblFilto.setFont(new Font("Tahoma", Font.BOLD, 15));
+					lblFilto.setBounds(435, 21, 63, 16);
 					panel_1.add(lblFilto);
 				}
 				{
 					JLabel lblTipo = new JLabel("Tipo");
 					lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-					lblTipo.setBounds(442, 13, 43, 16);
+					lblTipo.setBounds(510, 21, 43, 16);
 					panel_1.add(lblTipo);
 				}
 				{
@@ -140,13 +129,13 @@ public class ListarEvento extends JDialog {
 					});
 					cbxTipo.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Congreso", "Jornada", "Mesa Redonda"}));
 					cbxTipo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-					cbxTipo.setBounds(497, 9, 116, 25);
+					cbxTipo.setBounds(565, 16, 126, 25);
 					panel_1.add(cbxTipo);
 				}
 				{
 					JLabel lblEstado = new JLabel("Estado");
 					lblEstado.setFont(new Font("Tahoma", Font.PLAIN, 15));
-					lblEstado.setBounds(625, 13, 53, 16);
+					lblEstado.setBounds(732, 21, 53, 16);
 					panel_1.add(lblEstado);
 				}
 				{
@@ -169,18 +158,18 @@ public class ListarEvento extends JDialog {
 					});
 					cbxEstado.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Activo", "No activo "}));
 					cbxEstado.setFont(new Font("Tahoma", Font.PLAIN, 15));
-					cbxEstado.setBounds(690, 9, 116, 25);
+					cbxEstado.setBounds(797, 17, 137, 25);
 					panel_1.add(cbxEstado);
 				}
 			}
 			{
 				JPanel panel_2 = new JPanel();
-				panel_2.setBounds(12, 84, 934, 307);
+				panel_2.setBounds(12, 84, 946, 307);
 				panel.add(panel_2);
 				panel_2.setLayout(null);
 				{
 					JScrollPane scrollPane = new JScrollPane();
-					scrollPane.setBounds(0, 0, 934, 307);
+					scrollPane.setBounds(0, 0, 946, 307);
 					panel_2.add(scrollPane, BorderLayout.CENTER);
 					{
 						String[] header = {"Código","Nombre","Tipo","Fecha","Estado"};		
@@ -198,10 +187,12 @@ public class ListarEvento extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnLimpiar = new JButton("Limpiar");
+				btnLimpiar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnLimpiar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						txtBuscar.setText("");
@@ -216,6 +207,7 @@ public class ListarEvento extends JDialog {
 			}
 			{
 				JButton btnCerrar = new JButton("Cerrar");
+				btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnCerrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

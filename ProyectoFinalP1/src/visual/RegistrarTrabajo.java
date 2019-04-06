@@ -2,13 +2,15 @@ package visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-
+import javax.swing.text.MaskFormatter;
 
 import logica.Comision;
 import logica.Evento;
@@ -30,13 +32,15 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EtchedBorder;
 
 public class RegistrarTrabajo extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombre;
 	private JTextField txtNombrePart;
-	private JTextField txtCedula;
+	private JFormattedTextField txtCedula;
 	private JTextField txtCodigo;
 	private JComboBox cbxArea;
 	private JComboBox cbxEvento;
@@ -46,7 +50,7 @@ public class RegistrarTrabajo extends JDialog {
 	public RegistrarTrabajo() {
 		setResizable(false);
 		setTitle("Registro de Trabajo");
-		setBounds(100, 100, 435, 549);
+		setBounds(100, 100, 403, 549);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -55,21 +59,36 @@ public class RegistrarTrabajo extends JDialog {
 		
 		{
 			JPanel panel = new JPanel();
-			panel.setBounds(5, 5, 412, 120);
+			panel.setBounds(5, 5, 385, 120);
 			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos Personales", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			
-			JLabel lblIdentificacionDelParticipante = new JLabel("Cedula");
+			JLabel lblIdentificacionDelParticipante = new JLabel("C\u00E9dula");
+			lblIdentificacionDelParticipante.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			lblIdentificacionDelParticipante.setBounds(12, 38, 134, 14);
 			panel.add(lblIdentificacionDelParticipante);
 			
-			txtCedula = new JTextField();
-			txtCedula.setBounds(124, 35, 182, 20);
-			panel.add(txtCedula);
+			
+			try
+			{
+			   MaskFormatter mascara = new MaskFormatter("######");
+			   txtCedula = new JFormattedTextField(mascara);
+			   txtCedula.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			   txtCedula.setBounds(99, 35, 178, 20);
+				panel.add(txtCedula);
+			   
+			}
+			catch (Exception e)
+			{
+			  
+			}
 			txtCedula.setColumns(10);
 			
+			
+			
 			JButton btnBuscar = new JButton("Buscar");
+			btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				
 			
 			btnBuscar.addActionListener(new ActionListener() {
@@ -106,51 +125,59 @@ public class RegistrarTrabajo extends JDialog {
 					}
 				}
 			});
-			btnBuscar.setBounds(318, 34, 77, 23);
+			btnBuscar.setBounds(289, 34, 84, 23);
 			panel.add(btnBuscar);
 			
-			JLabel lblNombreDelParticipante = new JLabel("Nombre del Participante");
-			lblNombreDelParticipante.setBounds(12, 81, 151, 14);
+			JLabel lblNombreDelParticipante = new JLabel("Participante");
+			lblNombreDelParticipante.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblNombreDelParticipante.setBounds(12, 81, 151, 17);
 			panel.add(lblNombreDelParticipante);
 			
 			txtNombrePart = new JTextField();
+			txtNombrePart.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			txtNombrePart.setEditable(false);
-			txtNombrePart.setBounds(156, 78, 182, 20);
+			txtNombrePart.setBounds(99, 78, 274, 20);
 			panel.add(txtNombrePart);
 			txtNombrePart.setColumns(10);
 		}
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Datos del trabajo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(5, 138, 412, 328);
+		panel.setBounds(5, 138, 385, 328);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblCodigo = new JLabel("Codigo");
-		lblCodigo.setBounds(12, 33, 44, 14);
+		JLabel lblCodigo = new JLabel("C\u00F3digo");
+		lblCodigo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblCodigo.setBounds(12, 33, 44, 17);
 		panel.add(lblCodigo);
 		
 		txtCodigo = new JTextField();
+		txtCodigo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtCodigo.setEditable(false);
-		txtCodigo.setBounds(148, 30, 108, 20);
+		txtCodigo.setBounds(164, 30, 102, 20);
 		panel.add(txtCodigo);
 		txtCodigo.setColumns(10);
 		txtCodigo.setText("t-"+PlanificacionEvento.getInstance().getCodTrabjo());
 		
 		JLabel lblNombreDelTrabajo = new JLabel("Nombre del Trabajo");
-		lblNombreDelTrabajo.setBounds(12, 73, 124, 14);
+		lblNombreDelTrabajo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNombreDelTrabajo.setBounds(12, 73, 134, 20);
 		panel.add(lblNombreDelTrabajo);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(148, 70, 222, 20);
+		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtNombre.setBounds(164, 70, 206, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		JLabel lblAreaDelTrabajo = new JLabel("Area del trabajo");
-		lblAreaDelTrabajo.setBounds(12, 113, 107, 14);
+		lblAreaDelTrabajo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblAreaDelTrabajo.setBounds(12, 113, 107, 17);
 		panel.add(lblAreaDelTrabajo);
 		
 		 cbxArea = new JComboBox();
+		 cbxArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		 cbxArea.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		if(cbxArea.getSelectedIndex()>0) {
@@ -163,14 +190,16 @@ public class RegistrarTrabajo extends JDialog {
 		 	}
 		 });
 		cbxArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Fisica", "Biologia", "Quimica", "Informatica", "Matematica", "Geologia"}));
-		cbxArea.setBounds(148, 110, 222, 20);
+		cbxArea.setBounds(164, 110, 206, 20);
 		panel.add(cbxArea);
 		
 		JLabel lblEventoAParticipar = new JLabel("Evento a participar");
-		lblEventoAParticipar.setBounds(12, 152, 107, 14);
+		lblEventoAParticipar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblEventoAParticipar.setBounds(12, 152, 124, 20);
 		panel.add(lblEventoAParticipar);
 		
 		cbxEvento = new JComboBox();
+		cbxEvento.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			
 		cbxEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -189,28 +218,33 @@ public class RegistrarTrabajo extends JDialog {
 			}
 		});
 		cbxEvento.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
-		cbxEvento.setBounds(148, 149, 222, 20);
+		cbxEvento.setBounds(164, 149, 206, 20);
 		panel.add(cbxEvento);
 		
-		JLabel lblComisionSupervisora = new JLabel("Comision supervisora");
-		lblComisionSupervisora.setBounds(12, 191, 124, 14);
+		JLabel lblComisionSupervisora = new JLabel("Comisi\u00F3n supervisora");
+		lblComisionSupervisora.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblComisionSupervisora.setBounds(12, 191, 140, 17);
 		panel.add(lblComisionSupervisora);
 		
 		cbxComision = new JComboBox();
+		cbxComision.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbxComision.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
-		cbxComision.setBounds(148, 188, 222, 20);
+		cbxComision.setBounds(164, 188, 206, 20);
 		panel.add(cbxComision);
 		
 		JLabel lblBreveDescripcin = new JLabel("Breve Descripci\u00F3n");
-		lblBreveDescripcin.setBounds(12, 218, 107, 16);
+		lblBreveDescripcin.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblBreveDescripcin.setBounds(12, 221, 124, 13);
 		panel.add(lblBreveDescripcin);
 		
 		txtDescripcion = new JTextArea();
+		txtDescripcion.setFont(new Font("Monospaced", Font.PLAIN, 15));
 		txtDescripcion.setBounds(12, 247, 358, 68);
 		panel.add(txtDescripcion);
 		setLocationRelativeTo(null);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -274,7 +308,6 @@ public class RegistrarTrabajo extends JDialog {
 	    		for (int i = 0; i < aux.getLasComisiones().size(); i++) {
 	    		
 	    		if(aux.getLasComisiones().get(i).getArea().equalsIgnoreCase(area)) {
-	    			System.out.println(aux.getLasComisiones().get(i).getArea());
 	    			encontrado=true;
 	    		}
 	    		

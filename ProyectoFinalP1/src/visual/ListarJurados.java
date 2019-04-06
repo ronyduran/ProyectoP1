@@ -187,7 +187,7 @@ public class ListarJurados extends JDialog {
 			 cbxArea = new JComboBox();
 			cbxArea.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (cbxArea.getSelectedIndex()>0&&cbxGrado.getSelectedIndex()==0 && cbxSexo.getSelectedIndex()==0) {
+					if (cbxArea.getSelectedIndex()>0 && cbxGrado.getSelectedIndex()==0 && cbxSexo.getSelectedIndex()==0) {
 						String area= cbxArea.getSelectedItem().toString();
 						loadTableJuradoFiltro("", "", area);
 					}
@@ -254,6 +254,7 @@ public class ListarJurados extends JDialog {
 						txtBuscar.setText("");
 						cbxGrado.setSelectedIndex(0);
 						cbxSexo.setSelectedIndex(0);
+						cbxArea.setSelectedIndex(0);
 						loadTableJurado();
 					}
 				});
@@ -336,7 +337,7 @@ public class ListarJurados extends JDialog {
 			    model.addRow(fila);
 				}}
 				if(sexo.equalsIgnoreCase("")&& grado.equalsIgnoreCase("")&& !area.equalsIgnoreCase("")) {
-					if(((Jurado)PlanificacionEvento.getInstance().getLasPersonas().get(i)).getArea().equalsIgnoreCase(area)) {
+				if(((Jurado)PlanificacionEvento.getInstance().getLasPersonas().get(i)).getArea().equalsIgnoreCase(area)) {
 				fila[0] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula();
 				fila[1] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre();
 				fila[2] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo();
@@ -346,10 +347,45 @@ public class ListarJurados extends JDialog {
 			    fila[6] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getDireccion();
 			    model.addRow(fila);
 				}}
+				if(!sexo.equalsIgnoreCase("")&& !grado.equalsIgnoreCase("")&& area.equalsIgnoreCase("")) {
+					if(PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico().equalsIgnoreCase(grado)&&PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo().equalsIgnoreCase(sexo)) {
+					fila[0] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula();
+					fila[1] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre();
+					fila[2] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo();
+				    fila[3] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico();
+				    fila[4] = ((Jurado)PlanificacionEvento.getInstance().getLasPersonas().get(i)).getArea();
+				    fila[5] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getTelefono();
+				    fila[6] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getDireccion();
+				    model.addRow(fila);
+					}}
 				
-				if(!sexo.equalsIgnoreCase("") || !grado.equalsIgnoreCase("") ||!area.equalsIgnoreCase("")) {
-					if(PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo().equalsIgnoreCase(sexo) &&PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico().equalsIgnoreCase(grado) ||((Jurado)PlanificacionEvento.getInstance().getLasPersonas().get(i)).getArea().equalsIgnoreCase(area)) {
-				fila[0] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula();
+				if(!sexo.equalsIgnoreCase("")&& grado.equalsIgnoreCase("")&& !area.equalsIgnoreCase("")) {
+					if( PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo().equalsIgnoreCase(sexo) &&((Jurado)PlanificacionEvento.getInstance().getLasPersonas().get(i)).getArea().equalsIgnoreCase(area)) {
+					fila[0] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula();
+					fila[1] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre();
+					fila[2] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo();
+				    fila[3] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico();
+				    fila[4] = ((Jurado)PlanificacionEvento.getInstance().getLasPersonas().get(i)).getArea();
+				    fila[5] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getTelefono();
+				    fila[6] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getDireccion();
+				    model.addRow(fila);
+					}}
+				
+				if(sexo.equalsIgnoreCase("")&& !grado.equalsIgnoreCase("")&& !area.equalsIgnoreCase("")) {
+					if(PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico().equalsIgnoreCase(grado) &&((Jurado)PlanificacionEvento.getInstance().getLasPersonas().get(i)).getArea().equalsIgnoreCase(area)) {
+					fila[0] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula();
+					fila[1] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre();
+					fila[2] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo();
+				    fila[3] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico();
+				    fila[4] = ((Jurado)PlanificacionEvento.getInstance().getLasPersonas().get(i)).getArea();
+				    fila[5] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getTelefono();
+				    fila[6] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getDireccion();
+				    model.addRow(fila);
+					}}
+				
+				if(!sexo.equalsIgnoreCase("") && !grado.equalsIgnoreCase("") && !area.equalsIgnoreCase("")) {
+					if(PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo().equalsIgnoreCase(sexo) &&PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico().equalsIgnoreCase(grado) &&((Jurado)PlanificacionEvento.getInstance().getLasPersonas().get(i)).getArea().equalsIgnoreCase(area)) {
+						fila[0] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getCedula();
 				fila[1] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getNombre();
 				fila[2] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getSexo();
 			    fila[3] = PlanificacionEvento.getInstance().getLasPersonas().get(i).getGradoAcademico();

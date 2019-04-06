@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Font;
+import javax.swing.border.EtchedBorder;
 
 public class RegistrarPersona extends JDialog {
 
@@ -32,7 +34,7 @@ public class RegistrarPersona extends JDialog {
 	//private JTextField txtCedula;
 	private JFormattedTextField txtCedula;
 	private JTextField txtNombre;
-	private JTextField txtTelefono;
+	private JFormattedTextField txtTelefono;
 	private JTextField txtDireccion;
 	private JRadioButton rdbtnMasc;
 	private JRadioButton rdbtnFem;
@@ -55,7 +57,7 @@ public class RegistrarPersona extends JDialog {
 			
 		}
 		
-		setBounds(100, 100, 300, 322);
+		setBounds(100, 100, 314, 353);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -63,20 +65,22 @@ public class RegistrarPersona extends JDialog {
 		
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Informaci\u00F3n General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(12, 13, 260, 227);
+		panel.setBounds(12, 13, 284, 255);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblCedula = new JLabel("C\u00E9dula:");
-		lblCedula.setBounds(12, 19, 56, 16);
+		lblCedula.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblCedula.setBounds(12, 33, 56, 16);
 		panel.add(lblCedula);
 		
 		
 		try
 		{
-		   MaskFormatter mascara = new MaskFormatter("###-###");
+		   MaskFormatter mascara = new MaskFormatter("######");
 		   txtCedula = new JFormattedTextField(mascara);
-			txtCedula.setBounds(129, 16, 116, 22);
+		   txtCedula.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			txtCedula.setBounds(101, 33, 166, 22);
 			panel.add(txtCedula);
 		   
 		}
@@ -87,41 +91,60 @@ public class RegistrarPersona extends JDialog {
 		txtCedula.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(12, 48, 56, 16);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNombre.setBounds(12, 62, 77, 16);
 		panel.add(lblNombre);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(129, 45, 116, 22);
+		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtNombre.setBounds(101, 62, 166, 22);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		JLabel lblSexo = new JLabel("Sexo:");
-		lblSexo.setBounds(12, 77, 56, 16);
+		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblSexo.setBounds(12, 91, 56, 16);
 		panel.add(lblSexo);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono:");
-		lblTelefono.setBounds(12, 106, 56, 16);
+		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTelefono.setBounds(12, 120, 77, 16);
 		panel.add(lblTelefono);
 		
-		txtTelefono = new JTextField();
-		txtTelefono.setBounds(129, 103, 116, 22);
-		panel.add(txtTelefono);
+		
+		try
+		{
+		   MaskFormatter mascara = new MaskFormatter("###-###-####");
+		   txtTelefono = new JFormattedTextField(mascara);
+		   txtTelefono.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		   txtTelefono.setBounds(101, 120, 166, 22);
+			panel.add(txtTelefono);
+		   
+		}
+		catch (Exception e)
+		{
+		  
+		}
 		txtTelefono.setColumns(10);
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
-		lblDireccin.setBounds(12, 135, 62, 16);
+		lblDireccin.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDireccin.setBounds(12, 149, 62, 16);
 		panel.add(lblDireccin);
 		
 		txtDireccion = new JTextField();
-		txtDireccion.setBounds(129, 132, 116, 22);
+		txtDireccion.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtDireccion.setBounds(101, 149, 166, 22);
 		panel.add(txtDireccion);
 		txtDireccion.setColumns(10);
 		
-		JLabel lblGradoAcademico = new JLabel("Grado Acad\u00E9mico:");
-		lblGradoAcademico.setBounds(12, 164, 105, 16);
+		JLabel lblGradoAcademico = new JLabel("Grado :");
+		lblGradoAcademico.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblGradoAcademico.setBounds(12, 178, 128, 16);
 		panel.add(lblGradoAcademico);
 		
 		rdbtnMasc = new JRadioButton("\u2642");
+		rdbtnMasc.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		rdbtnMasc.setSelected(true);
 		sexo = "Hombre";
 		rdbtnMasc.addActionListener(new ActionListener() {
@@ -132,10 +155,11 @@ public class RegistrarPersona extends JDialog {
 				sexo = "Hombre";
 			}
 		});
-		rdbtnMasc.setBounds(129, 73, 39, 25);
+		rdbtnMasc.setBounds(123, 90, 39, 25);
 		panel.add(rdbtnMasc);
 		
 		rdbtnFem = new JRadioButton("\u2640");
+		rdbtnFem.setFont(new Font("Tahoma", Font.BOLD, 15));
 		rdbtnFem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rdbtnFem.setSelected(true);
@@ -143,27 +167,30 @@ public class RegistrarPersona extends JDialog {
 				sexo = "Mujer";
 			}
 		});
-		rdbtnFem.setBounds(206, 73, 39, 25);
+		rdbtnFem.setBounds(199, 90, 39, 25);
 		panel.add(rdbtnFem);
 		
 		JLabel lblArea = new JLabel("Area:");
+		lblArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		lblArea.setBounds(12, 193, 56, 16);
+		lblArea.setBounds(12, 207, 56, 16);
 		panel.add(lblArea);
 		
 		cbxArea = new JComboBox();
+		cbxArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbxArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Fisica", "Biologia", "Quimica", "Informatica", "Matematica", "Geologia"}));
-		cbxArea.setBounds(129, 190, 116, 22);
+		cbxArea.setBounds(101, 207, 166, 22);
 		panel.add(cbxArea);
 		
 		cbxGradoAca = new JComboBox();
+		cbxGradoAca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		if(elec==1) {
 		cbxGradoAca.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Bachiller", "Licenciado", "Mag\u00EDster", "Doctorado"}));}
 		if(elec==2) {
 			cbxGradoAca.setModel(new DefaultComboBoxModel(new String[] {"Seleccione",  "Licenciado", "Mag\u00EDster", "Doctorado"}));
 			
 		}
-		cbxGradoAca.setBounds(129, 161, 116, 22);
+		cbxGradoAca.setBounds(101, 178, 166, 22);
 		panel.add(cbxGradoAca);
 		
 		if (elec==1) {
@@ -175,10 +202,12 @@ public class RegistrarPersona extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnRegistar = new JButton("Registrar");
+				btnRegistar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnRegistar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Persona aux = null;
@@ -229,6 +258,7 @@ public class RegistrarPersona extends JDialog {
 			}
 			{
 				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
