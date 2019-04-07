@@ -112,7 +112,7 @@ public class login extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Control.getInstance().confirmLogin(textField.getText(),textField_1.getText())){
-					Principal frame = new Principal();
+					PantallaPrincipal frame = new PantallaPrincipal();
 					dispose();
 					frame.setVisible(true);
 				};
