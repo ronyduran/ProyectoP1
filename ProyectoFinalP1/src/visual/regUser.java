@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.SystemColor;
+import javax.swing.UIManager;
 
 public class regUser extends JDialog {
 
@@ -49,7 +50,7 @@ public class regUser extends JDialog {
 		setBounds(100, 100, 450, 228);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(SystemColor.activeCaption);
+		contentPanel.setBackground(new Color(153, 204, 255));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
