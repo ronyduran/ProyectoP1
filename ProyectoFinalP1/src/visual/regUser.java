@@ -50,7 +50,7 @@ public class regUser extends JDialog {
 		setBounds(100, 100, 450, 228);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(153, 204, 255));
+		contentPanel.setBackground(new Color(176, 196, 222));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
