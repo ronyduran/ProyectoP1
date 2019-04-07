@@ -119,7 +119,7 @@ public class login extends JFrame {
 				
 			}
 		});
-		btnLogin.setBounds(39, 239, 89, 23);
+		btnLogin.setBounds(55, 250, 89, 23);
 		panel.add(btnLogin);
 	}
 }
