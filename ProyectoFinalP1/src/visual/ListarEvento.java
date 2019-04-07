@@ -308,8 +308,7 @@ public class ListarEvento extends JDialog {
 					    fila[4] = "Activo";
 					    model.addRow(fila);
 					}
-				}
-				if (cbxEstado.getSelectedItem().toString().equalsIgnoreCase("No Activo")) {
+				}else {
 					if (PlanificacionEvento.getInstance().getLosEventos().get(i).isEstado()==false) {
 						fila[0] = PlanificacionEvento.getInstance().getLosEventos().get(i).getIdentificador();
 						fila[1] = PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento();
@@ -335,8 +334,7 @@ public class ListarEvento extends JDialog {
 					    fila[4] = "Activo";
 					    model.addRow(fila);
 					}
-				}
-				if (PlanificacionEvento.getInstance().getLosEventos().get(i).getTipoEvento().equalsIgnoreCase(tipo) && cbxEstado.getSelectedItem().toString().equalsIgnoreCase("No Activo")) {
+				}else  {
 					if (PlanificacionEvento.getInstance().getLosEventos().get(i).isEstado()==false) {
 						fila[0] = PlanificacionEvento.getInstance().getLosEventos().get(i).getIdentificador();
 						fila[1] = PlanificacionEvento.getInstance().getLosEventos().get(i).getNombreEvento();
