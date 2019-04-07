@@ -302,11 +302,12 @@ public class RegistrarTrabajo extends JDialog {
 	    	
 		 
 		 	cbxEvento.removeAllItems();
-	    	boolean encontrado=false;
+	    	
 	    	cbxEvento.addItem(new String("Seleccione"));
 		 	for (Evento aux : PlanificacionEvento.getInstance().getLosEventos()) {
+		 		boolean encontrado=false;
 	    		for (int i = 0; i < aux.getLasComisiones().size(); i++) {
-	    		
+	    			
 	    		if(aux.getLasComisiones().get(i).getArea().equalsIgnoreCase(area)) {
 	    			encontrado=true;
 	    		}
