@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
+import java.awt.Toolkit;
 
 public class regUser extends JDialog {
 
@@ -46,6 +47,7 @@ public class regUser extends JDialog {
 	 * Create the dialog.
 	 */
 	public regUser() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(regUser.class.getResource("/Imagenes/Formulario.png")));
 		setTitle("Registrar Usuario");
 		setBounds(100, 100, 450, 228);
 		setLocationRelativeTo(null);

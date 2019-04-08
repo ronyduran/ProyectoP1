@@ -24,6 +24,7 @@ import logica.Jurado;
 import logica.PlanificacionEvento;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class ListarJurados extends JDialog {
 
@@ -39,6 +40,7 @@ public class ListarJurados extends JDialog {
 	private JComboBox cbxArea;
 	
 	public ListarJurados() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarJurados.class.getResource("/Imagenes/Trabajo.png")));
 		setTitle("Listar Jurados");
 		setBounds(100, 100, 1091, 534);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,6 +60,7 @@ public class ListarJurados extends JDialog {
 			panel.setLayout(null);
 			
 			JPanel panel_1 = new JPanel();
+			panel_1.setBackground(new Color(176, 196, 222));
 			panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel_1.setBounds(12, 13, 1037, 63);
 			panel.add(panel_1);
@@ -179,7 +182,7 @@ public class ListarJurados extends JDialog {
 			cbxGrado.setBounds(737, 16, 97, 25);
 			panel_1.add(cbxGrado);
 			
-			JLabel lblArea = new JLabel("Area");
+			JLabel lblArea = new JLabel("\u00C1rea");
 			lblArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			lblArea.setBounds(863, 19, 43, 16);
 			panel_1.add(lblArea);

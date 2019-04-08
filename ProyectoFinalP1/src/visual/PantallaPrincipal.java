@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Label;
+import java.awt.Toolkit;
 
 public class PantallaPrincipal extends JFrame implements Runnable  {
 
@@ -49,6 +50,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 	 * Create the frame.
 	 */
 	public PantallaPrincipal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaPrincipal.class.getResource("/Imagenes/Planificar.png")));
 		setTitle("Sistema de Planificaci\u00F3n de Eventos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 611, 437);

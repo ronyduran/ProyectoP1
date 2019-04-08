@@ -33,6 +33,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class RegistrarComision extends JDialog {
 
@@ -55,8 +56,9 @@ public class RegistrarComision extends JDialog {
 
 	
 	public RegistrarComision() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarComision.class.getResource("/Imagenes/Formulario.png")));
 		setFont(new Font("Dialog", Font.PLAIN, 14));
-		setTitle("Registro de Comision");
+		setTitle("Registro de Comisi\u00F3n");
 		setResizable(false);
 		setBounds(100, 100, 462, 400);
 		getContentPane().setLayout(new BorderLayout());
@@ -67,13 +69,15 @@ public class RegistrarComision extends JDialog {
 		elegirJurado.addAll(PlanificacionEvento.getInstance().getLasPersonas());
 		{
 			JPanel panel = new JPanel();
+			panel.setBackground(new Color(176, 196, 222));
 			panel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informaci\u00F3n General", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel.setBounds(12, 13, 432, 304);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(new Color(176, 196, 222));
 				panel_1.setBounds(12, 13, 408, 151);
 				panel.add(panel_1);
 				panel_1.setLayout(null);

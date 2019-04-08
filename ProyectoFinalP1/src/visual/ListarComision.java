@@ -28,6 +28,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class ListarComision extends JDialog {
 
@@ -41,6 +42,7 @@ public class ListarComision extends JDialog {
 
 	
 	public ListarComision() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarComision.class.getResource("/Imagenes/Trabajo.png")));
 		setTitle("Listar Comisiones");
 		setResizable(false);
 		setBounds(100, 100, 1000, 500);
@@ -56,6 +58,7 @@ public class ListarComision extends JDialog {
 		panel.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(176, 196, 222));
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(12, 13, 946, 52);
 		panel.add(panel_1);

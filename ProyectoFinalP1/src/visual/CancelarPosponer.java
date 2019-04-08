@@ -33,6 +33,7 @@ import javax.swing.event.AncestorListener;
 import javax.swing.event.AncestorEvent;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
+import java.awt.Toolkit;
 
 public class CancelarPosponer extends JDialog {
 
@@ -55,6 +56,7 @@ public class CancelarPosponer extends JDialog {
 
 	
 	public CancelarPosponer() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CancelarPosponer.class.getResource("/Imagenes/Evento.png")));
 		setTitle("Carcelar o Modificar Evento");
 		setBounds(100, 100, 458, 452);
 		getContentPane().setLayout(new BorderLayout());
@@ -70,6 +72,7 @@ public class CancelarPosponer extends JDialog {
 			panel.setLayout(null);
 			
 			JPanel panel_1 = new JPanel();
+			panel_1.setBackground(new Color(176, 196, 222));
 			panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel_1.setBounds(12, 13, 401, 44);
 			panel.add(panel_1);
@@ -128,6 +131,7 @@ public class CancelarPosponer extends JDialog {
 
 		
 			panelModificar = new JPanel();
+			panelModificar.setBackground(new Color(176, 196, 222));
 			panelModificar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panelModificar.setBounds(12, 70, 401, 277);
 			panel.add(panelModificar);

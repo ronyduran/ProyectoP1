@@ -27,6 +27,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+import java.awt.Toolkit;
 
 public class RegistrarPersona extends JDialog {
 
@@ -47,6 +49,8 @@ public class RegistrarPersona extends JDialog {
 	 */
 	
 	public RegistrarPersona(int elec) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarPersona.class.getResource("/Imagenes/Formulario.png")));
+		setTitle("Registrar Persona");
 		setResizable(false);
 		if (elec==1) {
 			setTitle("Registrar Participante");
@@ -64,6 +68,7 @@ public class RegistrarPersona extends JDialog {
 		contentPanel.setLayout(null);
 		
 		panel = new JPanel();
+		panel.setBackground(new Color(176, 196, 222));
 		panel.setBorder(new TitledBorder(null, "Informaci\u00F3n General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(12, 13, 284, 255);
 		contentPanel.add(panel);

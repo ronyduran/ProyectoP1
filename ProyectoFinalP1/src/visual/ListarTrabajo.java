@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
 
 public class ListarTrabajo extends JDialog {
 
@@ -46,6 +47,7 @@ public class ListarTrabajo extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarTrabajo() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarTrabajo.class.getResource("/Imagenes/Trabajo.png")));
 		setTitle("Listar Trabajos");
 		setResizable(false);
 		setBounds(100, 100, 1000, 500);
@@ -61,6 +63,7 @@ public class ListarTrabajo extends JDialog {
 		panel.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(176, 196, 222));
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(12, 13, 946, 60);
 		panel.add(panel_1);
@@ -68,7 +71,7 @@ public class ListarTrabajo extends JDialog {
 		
 		JLabel lblCdigo = new JLabel("C\u00F3digo:");
 		lblCdigo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCdigo.setBounds(12, 15, 56, 16);
+		lblCdigo.setBounds(14, 11, 56, 25);
 		panel_1.add(lblCdigo);
 		
 		txtCodigo = new JTextField();

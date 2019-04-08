@@ -31,6 +31,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
+import java.awt.Toolkit;
 
 public class ListarParticipante extends JDialog {
 
@@ -45,6 +46,7 @@ public class ListarParticipante extends JDialog {
 
 	
 	public ListarParticipante() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarParticipante.class.getResource("/Imagenes/Trabajo.png")));
 		setTitle("Listar Participante");
 		setBounds(100, 100, 1000, 540);
 		getContentPane().setLayout(new BorderLayout());
@@ -64,6 +66,7 @@ public class ListarParticipante extends JDialog {
 			panel.setLayout(null);
 			
 			JPanel panel_1 = new JPanel();
+			panel_1.setBackground(new Color(176, 196, 222));
 			panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel_1.setBounds(12, 13, 946, 63);
 			panel.add(panel_1);

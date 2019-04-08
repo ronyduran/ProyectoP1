@@ -34,6 +34,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
+import java.awt.Toolkit;
 
 public class RegistrarTrabajo extends JDialog {
 
@@ -48,6 +49,7 @@ public class RegistrarTrabajo extends JDialog {
 	private JTextArea txtDescripcion;
 	
 	public RegistrarTrabajo() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarTrabajo.class.getResource("/Imagenes/Trabajo.png")));
 		setResizable(false);
 		setTitle("Registro de Trabajo");
 		setBounds(100, 100, 403, 549);
@@ -59,6 +61,7 @@ public class RegistrarTrabajo extends JDialog {
 		
 		{
 			JPanel panel = new JPanel();
+			panel.setBackground(new Color(176, 196, 222));
 			panel.setBounds(5, 5, 385, 120);
 			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos Personales", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			contentPanel.add(panel);
@@ -142,6 +145,7 @@ public class RegistrarTrabajo extends JDialog {
 		}
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(176, 196, 222));
 		panel.setBorder(new TitledBorder(null, "Datos del trabajo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(5, 138, 385, 328);
 		contentPanel.add(panel);

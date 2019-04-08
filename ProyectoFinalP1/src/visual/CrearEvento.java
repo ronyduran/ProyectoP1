@@ -45,6 +45,7 @@ import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Font;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
+import java.awt.Toolkit;
 
 public class CrearEvento extends JDialog {
 
@@ -58,6 +59,7 @@ public class CrearEvento extends JDialog {
 	
 	
 	public CrearEvento() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CrearEvento.class.getResource("/Imagenes/Evento.png")));
 		setTitle("Crear Evento");
 		setBounds(100, 100, 404, 543);
 		getContentPane().setLayout(new BorderLayout());
@@ -68,6 +70,7 @@ public class CrearEvento extends JDialog {
 		setLocationRelativeTo(null);
 		{
 			JPanel panel = new JPanel();
+			panel.setBackground(new Color(176, 196, 222));
 			panel.setBorder(new TitledBorder(null, "Informaciones Generales", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBounds(12, 13, 374, 447);
 			contentPanel.add(panel);

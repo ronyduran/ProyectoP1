@@ -28,6 +28,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class ListarEvento extends JDialog {
 
@@ -42,6 +43,7 @@ public class ListarEvento extends JDialog {
 
 	
 	public ListarEvento() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarEvento.class.getResource("/Imagenes/Trabajo.png")));
 		setTitle("Listar Eventos");
 		setResizable(false);
 		setBounds(100, 100, 1000, 500);
@@ -57,6 +59,7 @@ public class ListarEvento extends JDialog {
 			panel.setLayout(null);
 			{
 				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(new Color(176, 196, 222));
 				panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 				panel_1.setBounds(12, 13, 946, 58);
 				panel.add(panel_1);
