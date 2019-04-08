@@ -1,11 +1,13 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import logica.Evento;
@@ -223,11 +225,19 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		JMenuItem mntmIngresarRecurso = new JMenuItem("Ingresar Recurso");
 		mntmIngresarRecurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
+				Label mensaje= new Label("Ingrese el nuevo recuerso");
 				
+				mensaje.setFont(new java.awt.Font("Tahoma", Font.PLAIN, 15));
+			
+				String recurso=(String) JOptionPane.showInputDialog(null,mensaje,"Registro de Recurso",JOptionPane.DEFAULT_OPTION, null, null, null);
+				if(!recurso.equalsIgnoreCase("")) {
+					PlanificacionEvento.getInstance().insertarRecuso(recurso);
+				}else {
+					
+					
+				}
 				
-				
-				JOptionPane.showInputDialog(null,"Ingrese el nuevo recuerso\n", "Registro de Recurso",JOptionPane.DEFAULT_OPTION, null, null, null);
-				//JOptionPane.showInputDialog("Ingrese el nuevo recuerso\n");
 			}
 		});
 		mntmIngresarRecurso.setFont(new Font("Segoe UI", Font.PLAIN, 17));

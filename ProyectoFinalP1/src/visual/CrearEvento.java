@@ -129,13 +129,18 @@ public class CrearEvento extends JDialog {
 			
 			jlistRecursos = new JList();
 			jlistRecursos.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			jlistRecursos.setBounds(12, 23, 326, 199);
-			panel_1.add(jlistRecursos);
+			//jlistRecursos.setBounds(12, 23, 326, 199);
+			//panel_1.add(jlistRecursos);
 			jlistRecursos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			//DefaultListCellRenderer cellRenderer = (DefaultListCellRenderer)jlistRecursos.getCellRenderer();
 			//cellRenderer.setHorizontalAlignment(SwingConstants .CENTER);
 			jlistRecursos.setModel(CargarJListRecursos());
 			jlistRecursos.setSelectionBackground(Color.LIGHT_GRAY);
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(12, 23, 326, 199);
+			scrollPane.setViewportView(jlistRecursos);
+			panel_1.add(scrollPane);
+			
 			
 			dateChooser = new JDateChooser();
 			dateChooser.getCalendarButton().setPreferredSize(new Dimension(22, 19));
