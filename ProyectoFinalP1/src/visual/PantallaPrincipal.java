@@ -14,9 +14,12 @@ import logica.PlanificacionEvento;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Label;
 
 public class PantallaPrincipal extends JFrame implements Runnable  {
 
@@ -200,6 +203,35 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		});
 		mntmListadosDeParticipantes.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnParticipantes.add(mntmListadosDeParticipantes);
+		
+		JMenu mnAdministrador = new JMenu("Administrador");
+		mnAdministrador.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		menuBar.add(mnAdministrador);
+		
+		JMenuItem mntmRegistrarUsuario = new JMenuItem("Registrar Usuario");
+		mntmRegistrarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				regUser ru = new regUser();
+				ru.setModal(true);
+				ru.setVisible(true);
+				
+			}
+		});
+		mntmRegistrarUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		mnAdministrador.add(mntmRegistrarUsuario);
+		
+		JMenuItem mntmIngresarRecurso = new JMenuItem("Ingresar Recurso");
+		mntmIngresarRecurso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				JOptionPane.showInputDialog(null,"Ingrese el nuevo recuerso\n", "Registro de Recurso",JOptionPane.DEFAULT_OPTION, null, null, null);
+				//JOptionPane.showInputDialog("Ingrese el nuevo recuerso\n");
+			}
+		});
+		mntmIngresarRecurso.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		mnAdministrador.add(mntmIngresarRecurso);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

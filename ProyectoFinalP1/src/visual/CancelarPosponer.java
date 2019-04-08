@@ -175,6 +175,7 @@ public class CancelarPosponer extends JDialog {
 			 panelModificar.add(CalendarioNuevo);
 			 
 			 txtFecha = new JTextField();
+			 txtFecha.setEditable(false);
 			 txtFecha.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			 txtFecha.setBounds(154, 68, 221, 22);
 			 panelModificar.add(txtFecha);
@@ -304,6 +305,7 @@ public class CancelarPosponer extends JDialog {
 										even1.setFechaEvento(fechaNueva);
 										even1.setJustificacion(justificacion);
 										JOptionPane.showMessageDialog(null, "Se ha pospuesto el evento", "Información", JOptionPane.INFORMATION_MESSAGE);
+										dispose();
 								}else {JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE); }
 							}
 							if(rdbtnCancelarEvento.isSelected()) {
@@ -313,7 +315,7 @@ public class CancelarPosponer extends JDialog {
 										even.setEstado(false);
 										JOptionPane.showMessageDialog(null, "El evento se ha calcelado", "Información", JOptionPane.INFORMATION_MESSAGE);
 							
-							
+							dispose();
 								}else {JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE); }}
 						}else {
 							
