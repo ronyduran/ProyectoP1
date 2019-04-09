@@ -284,7 +284,8 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		
 		JLabel lblFondo = new JLabel("");
 		lblFondo.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/Imagenes/Fond1.jpg")));
-		lblFondo.setBounds(0, 0, 1360, 663);
+		dim = super.getToolkit().getScreenSize();
+		lblFondo.setBounds(0, 0, dim.width, (dim.height-110));
 		contentPane.add(lblFondo);
 	}
 
