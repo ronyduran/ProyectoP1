@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import logica.Control;
@@ -30,8 +31,8 @@ import javax.swing.ImageIcon;
 public class login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField usuario;
+	private JPasswordField contraseña;
 
 	/**
 	 * Launch the application.
@@ -82,13 +83,15 @@ public class login extends JFrame {
 	 */
 	public login() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(login.class.getResource("/Imagenes/login.png")));
-		setTitle("Login Sistema Planificaci\u00F3n ");
+		setTitle("Login Usuario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 332, 321);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		setLocationRelativeTo(null);
+
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(176, 196, 222));
@@ -96,30 +99,32 @@ public class login extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblUsuario.setBounds(56, 98, 72, 19);
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblUsuario.setBounds(48, 97, 72, 19);
 		panel.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblContrasea.setBounds(56, 162, 105, 19);
+		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblContrasea.setBounds(48, 160, 105, 19);
 		panel.add(lblContrasea);
 		
-		textField = new JTextField();
-		textField.setBounds(56, 128, 191, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		usuario = new JTextField();
+		usuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		usuario.setBounds(48, 119, 199, 28);
+		panel.add(usuario);
+		usuario.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(56, 192, 191, 20);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		contraseña = new JPasswordField();
+		contraseña.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		contraseña.setBounds(48, 184, 199, 28);
+		panel.add(contraseña);
+		contraseña.setColumns(10);
 		
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Control.getInstance().confirmLogin(textField.getText(),textField_1.getText())){
+				if(Control.getInstance().confirmLogin(usuario.getText(),contraseña.getText())){
 					PantallaPrincipal frame = new PantallaPrincipal();
 					dispose();
 					frame.setVisible(true);
@@ -127,17 +132,19 @@ public class login extends JFrame {
 				
 			}
 		});
-		btnLogin.setBounds(56, 237, 89, 23);
+		btnLogin.setBounds(48, 225, 89, 23);
 		panel.add(btnLogin);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(login.class.getResource("/Imagenes/PUCMM.png")));
-		lblNewLabel.setBounds(66, 25, 174, 61);
-		panel.add(lblNewLabel);
-		
 		JButton btnCacelar = new JButton("Cacelar");
-		btnCacelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCacelar.setBounds(158, 238, 89, 23);
+		btnCacelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnCacelar.setBounds(158, 226, 89, 23);
 		panel.add(btnCacelar);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBackground(Color.WHITE);
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setIcon(new ImageIcon(login.class.getResource("/Imagenes/Marca PUCMM (Color) (1).png")));
+		lblNewLabel_1.setBounds(48, 13, 206, 61);
+		panel.add(lblNewLabel_1);
 	}
 }
