@@ -72,12 +72,12 @@ public class regUser extends JDialog {
 		contentPanel.add(txtContraseña);
 		txtContraseña.setColumns(10);
 		
-		JLabel lblPassword = new JLabel("Password:");
+		JLabel lblPassword = new JLabel("Contrase\u00F1a");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblPassword.setBounds(189, 26, 97, 14);
 		contentPanel.add(lblPassword);
 		
-		JLabel lblConfirmarPassword = new JLabel("Confirmar Password:");
+		JLabel lblConfirmarPassword = new JLabel("Confirmar contrase\u00F1a:");
 		lblConfirmarPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblConfirmarPassword.setBounds(189, 88, 167, 14);
 		contentPanel.add(lblConfirmarPassword);

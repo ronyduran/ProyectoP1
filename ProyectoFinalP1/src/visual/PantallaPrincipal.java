@@ -268,7 +268,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 				UI.put("Panel.background",new ColorUIResource(176, 196, 222)); 
 				UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 15));
 				UIManager.put("OptionPane.font",new Font("Tahoma", Font.PLAIN, 15));
-				Label mensaje= new Label("Ingrese el nuevo recuerso");
+				Label mensaje= new Label("Ingrese el nuevo recurso");
 				
 				
 				mensaje.setFont(new java.awt.Font("Tahoma", Font.PLAIN, 17));
