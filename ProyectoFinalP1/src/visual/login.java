@@ -25,6 +25,7 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class login extends JFrame {
 
@@ -81,9 +82,9 @@ public class login extends JFrame {
 	 */
 	public login() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(login.class.getResource("/Imagenes/login.png")));
-		setTitle("Login del sistema");
+		setTitle("Login Sistema Planificaci\u00F3n ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 324, 333);
+		setBounds(100, 100, 332, 321);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -96,21 +97,21 @@ public class login extends JFrame {
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblUsuario.setBounds(39, 98, 72, 19);
+		lblUsuario.setBounds(56, 98, 72, 19);
 		panel.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblContrasea.setBounds(39, 162, 105, 19);
+		lblContrasea.setBounds(56, 162, 105, 19);
 		panel.add(lblContrasea);
 		
 		textField = new JTextField();
-		textField.setBounds(39, 128, 191, 20);
+		textField.setBounds(56, 128, 191, 20);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(39, 192, 191, 20);
+		textField_1.setBounds(56, 192, 191, 20);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 		
@@ -126,7 +127,17 @@ public class login extends JFrame {
 				
 			}
 		});
-		btnLogin.setBounds(55, 250, 89, 23);
+		btnLogin.setBounds(56, 237, 89, 23);
 		panel.add(btnLogin);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(login.class.getResource("/Imagenes/PUCMM.png")));
+		lblNewLabel.setBounds(66, 25, 174, 61);
+		panel.add(lblNewLabel);
+		
+		JButton btnCacelar = new JButton("Cacelar");
+		btnCacelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnCacelar.setBounds(158, 238, 89, 23);
+		panel.add(btnCacelar);
 	}
 }
