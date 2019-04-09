@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.Font;
 
 public class login extends JFrame {
 
@@ -37,22 +38,22 @@ public class login extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				FileInputStream empresa;
-				FileOutputStream empresa2;
-				ObjectInputStream empresaRead;
-				ObjectOutputStream empresaWrite;
+				FileInputStream planiIn;
+				FileOutputStream planiOut;
+				ObjectInputStream planiRead;
+				ObjectOutputStream planiWrite;
 				try {
-					empresa = new FileInputStream ("BDusuarios.dat");
-					empresaRead = new ObjectInputStream(empresa);
-					Control temp = (Control)empresaRead.readObject();
+					planiIn = new FileInputStream ("BDusuarios.dat");
+					planiRead = new ObjectInputStream(planiIn);
+					Control temp = (Control)planiRead.readObject();
 					Control.setControl(temp);
 				} catch (FileNotFoundException e) {
 					try {
-						empresa2 = new  FileOutputStream("BDusuarios.dat");
-						empresaWrite = new ObjectOutputStream(empresa2);
-						User aux = new User("Administrador", "Admin", "Admin");
+						planiOut = new  FileOutputStream("BDusuarios.dat");
+						planiWrite = new ObjectOutputStream(planiOut);
+						User aux = new User("Administrador", "Admin", "123456");
 						Control.getInstance().regUser(aux);
-						empresaWrite.writeObject(Control.getInstance());
+						planiWrite.writeObject(Control.getInstance());
 					} catch (FileNotFoundException e1) {
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -94,11 +95,13 @@ public class login extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setBounds(39, 103, 46, 14);
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblUsuario.setBounds(39, 98, 72, 19);
 		panel.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(39, 162, 105, 14);
+		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblContrasea.setBounds(39, 162, 105, 19);
 		panel.add(lblContrasea);
 		
 		textField = new JTextField();
@@ -112,6 +115,7 @@ public class login extends JFrame {
 		textField_1.setColumns(10);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Control.getInstance().confirmLogin(textField.getText(),textField_1.getText())){

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import logica.Control;
 import logica.Evento;
 import logica.PlanificacionEvento;
 
@@ -19,6 +20,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Label;
@@ -50,6 +57,26 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 	 * Create the frame.
 	 */
 	public PantallaPrincipal() {
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				FileOutputStream planiIn;
+				ObjectOutputStream planiWrite;
+				try {
+					planiIn = new  FileOutputStream("BDusuarios.dat");
+					planiWrite = new ObjectOutputStream(planiIn);
+					planiWrite.writeObject(Control.getInstance());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaPrincipal.class.getResource("/Imagenes/Planificar.png")));
 		setTitle("Sistema de Planificaci\u00F3n de Eventos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,6 +85,9 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		dim = super.getToolkit().getScreenSize();
 		super.setSize(dim.width, (dim.height-50));
 		setLocationRelativeTo(null);
+		
+		
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
