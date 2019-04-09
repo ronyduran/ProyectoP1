@@ -18,6 +18,7 @@ import logica.Control;
 import logica.User;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -128,7 +129,10 @@ public class login extends JFrame {
 					PantallaPrincipal frame = new PantallaPrincipal();
 					dispose();
 					frame.setVisible(true);
-				};
+				}else {
+					
+					JOptionPane.showMessageDialog(null, "El Usurio/Contraseña no coinciden\nVuelva a inventarlo", "Validación", JOptionPane.WARNING_MESSAGE);
+				}
 				
 			}
 		});

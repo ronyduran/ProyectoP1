@@ -32,22 +32,7 @@ public class regUser extends JDialog {
 	private JTextField txtConfirmar;
 	private JComboBox cbxTipoUsuario;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			regUser dialog = new regUser();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
+	
 	public regUser() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(regUser.class.getResource("/Imagenes/Formulario.png")));
 		setTitle("Registrar Usuario");
@@ -112,7 +97,7 @@ public class regUser extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(cbxTipoUsuario.getSelectedIndex()>0 &&  !usuario.getText().equalsIgnoreCase("") && !txtContraseña.getText().equalsIgnoreCase("") && !txtConfirmar.getText().equalsIgnoreCase("") ) {
-						
+							if(!Control.getInstance().BuscarUsuarioPorNombre(usuario.getText())) {
 							
 								if(txtConfirmar.getText().equalsIgnoreCase(txtContraseña.getText())) {	
 									User user = new User(cbxTipoUsuario.getSelectedItem().toString(),usuario.getText(),txtContraseña.getText());
@@ -122,7 +107,12 @@ public class regUser extends JDialog {
 
 								}else {
 									JOptionPane.showMessageDialog(null, "Las Contraseñas no coinciden", "Validación", JOptionPane.WARNING_MESSAGE); 
-								}
+								}		
+							}else {
+								JOptionPane.showMessageDialog(null, "Este Usuario ya existe", "Validación", JOptionPane.WARNING_MESSAGE); 
+
+							}
+						
 						}else {
 							JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE); 
 					}

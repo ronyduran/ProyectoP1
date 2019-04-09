@@ -76,10 +76,10 @@ public class Control implements Serializable{
 		
 	}
 
-	public boolean confirmLogin(String text, String text2) {
+	public boolean confirmLogin(String usuario, String contraseña) {
 		boolean login = false;
 		for (User user : misUsers) {
-			if(user.getUserName().equals(text) && user.getPass().equals(text2) ){
+			if(user.getUserName().equals(usuario) && user.getPass().equals(contraseña) ){
 				loginUser = user;
 				login = true;
 			}
