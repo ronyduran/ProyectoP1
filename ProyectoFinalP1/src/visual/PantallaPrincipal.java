@@ -30,6 +30,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Label;
 import java.awt.Toolkit;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class PantallaPrincipal extends JFrame implements Runnable  {
 
@@ -90,6 +92,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(new Color(220, 220, 220));
 		setJMenuBar(menuBar);
 		
 		JMenu mnEvento = new JMenu("Evento");
@@ -276,8 +279,13 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mnAdministrador.add(mntmIngresarRecurso);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblFondo = new JLabel("");
+		lblFondo.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/Imagenes/Fond1.jpg")));
+		lblFondo.setBounds(0, 0, 1360, 663);
+		contentPane.add(lblFondo);
 	}
 
 	@Override
@@ -295,5 +303,4 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
         }
 		
 	}
-
 }
