@@ -26,6 +26,7 @@ import logica.PlanificacionEvento;
 
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EtchedBorder;
@@ -165,8 +166,12 @@ public class CancelarPosponer extends JDialog {
 			panelModificar.add(lblNuevaFecha);
 			
 			
-			 int dia= (new Date().getDay())+3;
-			 Date minifecha=new Date(new Date().getYear(), new Date().getMonth(), dia);
+			 /*int dia= (new Date().getDay())+3;
+			 Date minifecha=new Date(new Date().getYear(), new Date().getMonth(), dia);*/
+			 
+			 Calendar c = Calendar.getInstance();
+			 c.add(Calendar.DATE, +3);
+
 			 
 			CalendarioNuevo = new JDateChooser();
 		 	CalendarioNuevo.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -174,7 +179,7 @@ public class CancelarPosponer extends JDialog {
 			 JTextFieldDateEditor editor1 = (JTextFieldDateEditor) CalendarioNuevo.getDateEditor();
 			 CalendarioNuevo.setBounds(154, 108, 221, 22);
 			
-			 CalendarioNuevo.setMinSelectableDate(minifecha);
+			 CalendarioNuevo.setMinSelectableDate(c.getTime());
 			
 			 panelModificar.add(CalendarioNuevo);
 			 

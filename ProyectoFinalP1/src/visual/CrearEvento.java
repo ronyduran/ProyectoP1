@@ -31,6 +31,7 @@ import java.awt.event.MouseListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
@@ -145,6 +146,9 @@ public class CrearEvento extends JDialog {
 			panel_1.add(scrollPane);
 			
 			
+			 Calendar c = Calendar.getInstance();
+			 c.add(Calendar.DATE, +3);
+			
 			dateChooser = new JDateChooser();
 			dateChooser.getCalendarButton().setPreferredSize(new Dimension(22, 19));
 			dateChooser.getCalendarButton().setMinimumSize(new Dimension(23, 17));
@@ -156,6 +160,7 @@ public class CrearEvento extends JDialog {
 			dateChooser.setBounds(69, 108, 293, 22);
 			panel.add(dateChooser);
 			dateChooser.setMinSelectableDate(new Date());
+			dateChooser.setMinSelectableDate(c.getTime());
 			 editor = (JTextFieldDateEditor) dateChooser.getDateEditor();
 			editor.setEditable(false);
 			
