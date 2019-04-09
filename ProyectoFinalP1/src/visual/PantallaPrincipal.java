@@ -244,8 +244,12 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mnParticipantes.add(mntmListadosDeParticipantes);
 		
 		JMenu mnAdministrador = new JMenu("Administrador");
+		if(!Control.getLoginUser().getTipo().equalsIgnoreCase("Administrador")){
+			mnAdministrador.setEnabled(false);
+		}
 		mnAdministrador.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		menuBar.add(mnAdministrador);
+		
 		
 		JMenuItem mntmRegistrarUsuario = new JMenuItem("Registrar Usuario");
 		mntmRegistrarUsuario.addActionListener(new ActionListener() {
