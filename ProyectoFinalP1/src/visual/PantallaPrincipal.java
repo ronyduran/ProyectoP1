@@ -291,22 +291,18 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mntmIngresarRecurso.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnAdministrador.add(mntmIngresarRecurso);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblFondo = new JLabel("");
-		ImageIcon imageIcon = new ImageIcon(PantallaPrincipal.class.getResource("/Imagenes/fotoRed.png"));
+		/*ImageIcon imageIcon = new ImageIcon(PantallaPrincipal.class.getResource("/Imagenes/fotoRed.png"));
 		Image ima= imageIcon.getImage();
-		ima.getScaledInstance(dim.width-3, dim.height-115, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon imageIcon2 = new ImageIcon(ima);
-		lblFondo.setIcon(imageIcon2);
 		dim = super.getToolkit().getScreenSize();
+		ima.getScaledInstance(dim.width-3, dim.height-115, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon imageIcon2 = new ImageIcon(ima);*/
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		lblFondo.setBounds(0, 0, dim.width-3, (dim.height-115));
-		
-		
-		contentPane.add(lblFondo);
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/Imagenes/fotoRed.png")));
+		contentPane.add(lblNewLabel, BorderLayout.CENTER);
 	}
 
 	@Override

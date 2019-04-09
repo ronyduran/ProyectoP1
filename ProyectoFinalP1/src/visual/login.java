@@ -84,6 +84,7 @@ public class login extends JFrame {
 	 * Create the frame.
 	 */
 	public login() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(login.class.getResource("/Imagenes/login.png")));
 		setTitle("Login Usuario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
