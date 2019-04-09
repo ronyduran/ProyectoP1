@@ -12,6 +12,7 @@ import logica.Control;
 import logica.User;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -21,14 +22,15 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
 import java.awt.Toolkit;
+import java.awt.Font;
 
 public class regUser extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JComboBox comboBox;
+	private JTextField usuario;
+	private JTextField txtContraseña;
+	private JTextField txtConfirmar;
+	private JComboBox cbxTipoUsuario;
 
 	/**
 	 * Launch the application.
@@ -49,7 +51,7 @@ public class regUser extends JDialog {
 	public regUser() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(regUser.class.getResource("/Imagenes/Formulario.png")));
 		setTitle("Registrar Usuario");
-		setBounds(100, 100, 450, 228);
+		setBounds(100, 100, 372, 237);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(176, 196, 222));
@@ -58,50 +60,73 @@ public class regUser extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JLabel lblNombreUsuario = new JLabel("Nombre Usuario:");
-		lblNombreUsuario.setBounds(20, 26, 97, 14);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNombreUsuario.setBounds(20, 26, 127, 14);
 		contentPanel.add(lblNombreUsuario);
 		
-		textField = new JTextField();
-		textField.setBounds(20, 49, 127, 20);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		usuario = new JTextField();
+		usuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		usuario.setBounds(20, 49, 127, 20);
+		contentPanel.add(usuario);
+		usuario.setColumns(10);
 		
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Administrador", "Representante"}));
-		comboBox.setBounds(20, 113, 127, 20);
-		contentPanel.add(comboBox);
+		cbxTipoUsuario = new JComboBox();
+		cbxTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		cbxTipoUsuario.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Administrador", "Representante"}));
+		cbxTipoUsuario.setBounds(20, 113, 127, 20);
+		contentPanel.add(cbxTipoUsuario);
 		
 		JLabel lblTipo = new JLabel("Tipo:");
+		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTipo.setBounds(20, 88, 97, 14);
 		contentPanel.add(lblTipo);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(190, 49, 147, 20);
-		contentPanel.add(textField_1);
-		textField_1.setColumns(10);
+		txtContraseña = new JTextField();
+		txtContraseña.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtContraseña.setBounds(190, 49, 147, 20);
+		contentPanel.add(txtContraseña);
+		txtContraseña.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblPassword.setBounds(189, 26, 97, 14);
 		contentPanel.add(lblPassword);
 		
 		JLabel lblConfirmarPassword = new JLabel("Confirmar Password:");
+		lblConfirmarPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblConfirmarPassword.setBounds(189, 88, 167, 14);
 		contentPanel.add(lblConfirmarPassword);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(190, 113, 147, 20);
-		contentPanel.add(textField_2);
+		txtConfirmar = new JTextField();
+		txtConfirmar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtConfirmar.setColumns(10);
+		txtConfirmar.setBounds(190, 113, 147, 20);
+		contentPanel.add(txtConfirmar);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Registrar");
+				okButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						User user = new User(comboBox.getSelectedItem().toString(),textField.getText(),textField_1.getText());
-					    Control.getInstance().regUser(user);
+						if(cbxTipoUsuario.getSelectedIndex()>0 &&  !usuario.getText().equalsIgnoreCase("") && !txtContraseña.getText().equalsIgnoreCase("") && !txtConfirmar.getText().equalsIgnoreCase("") ) {
+						
+							
+								if(txtConfirmar.getText().equalsIgnoreCase(txtContraseña.getText())) {	
+									User user = new User(cbxTipoUsuario.getSelectedItem().toString(),usuario.getText(),txtContraseña.getText());
+									Control.getInstance().regUser(user);
+									JOptionPane.showMessageDialog(null, "Registro Realizado", "Información", JOptionPane.INFORMATION_MESSAGE);
+									dispose();
+
+								}else {
+									JOptionPane.showMessageDialog(null, "Las Contraseñas no coinciden", "Validación", JOptionPane.WARNING_MESSAGE); 
+								}
+						}else {
+							JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE); 
+					}
+						
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -110,6 +135,7 @@ public class regUser extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

@@ -136,6 +136,11 @@ public class login extends JFrame {
 		panel.add(btnLogin);
 		
 		JButton btnCacelar = new JButton("Cacelar");
+		btnCacelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCacelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCacelar.setBounds(158, 226, 89, 23);
 		panel.add(btnCacelar);

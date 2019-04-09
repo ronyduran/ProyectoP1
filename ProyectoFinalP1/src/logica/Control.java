@@ -62,6 +62,19 @@ public class Control implements Serializable{
 		Control.firstTime = firstTime;
 	}
 	
+	public boolean BuscarUsuarioPorNombre(String NombreUsuario) {
+		boolean encontrado =false;
+		
+		for (User aux : misUsers) {
+			if(aux.getUserName().equalsIgnoreCase(NombreUsuario)) {
+				encontrado=true;
+			}
+		}
+		
+		return encontrado;
+		
+		
+	}
 
 	public boolean confirmLogin(String text, String text2) {
 		boolean login = false;
