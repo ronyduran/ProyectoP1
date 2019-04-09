@@ -162,7 +162,7 @@ public class ListarParticipante extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					if (cbxGrado.getSelectedIndex()>0 && cbxSexo.getSelectedIndex()==0) {
 						String grado= cbxGrado.getSelectedItem().toString();
-						loadTableParticipanteFiltro("", "grado");
+						loadTableParticipanteFiltro("", grado);
 					}
 					if(cbxGrado.getSelectedIndex()>0 && cbxSexo.getSelectedIndex()>0) {
 						
