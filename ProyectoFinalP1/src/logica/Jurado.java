@@ -1,6 +1,12 @@
 package logica;
 
-public class Jurado extends Persona {
+import java.io.Serializable;
+
+public class Jurado extends Persona implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String area;
 
 	public Jurado(String cedula, String nombre, String telefono, String direccion, String sexo, String gradoAcademico, String area) {

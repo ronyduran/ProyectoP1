@@ -1,9 +1,14 @@
 package logica;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Trabajo {
+public class Trabajo implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombreTrabajo;
 	private String areaTrabajo;
 	private String descripcion;

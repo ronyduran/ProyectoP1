@@ -1,10 +1,11 @@
 package logica;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Comision {
+public class Comision implements Serializable{
 
 	private ArrayList<Jurado> misJurados;
 	private String area;

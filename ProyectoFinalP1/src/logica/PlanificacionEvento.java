@@ -1,5 +1,6 @@
 package logica;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,8 +8,12 @@ import java.util.Collection;
 
 import org.w3c.dom.ls.LSOutput;
 
-public class PlanificacionEvento {
+public class PlanificacionEvento implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Comision> lasComisiones;
 	private ArrayList<Persona> lasPersonas;
 	private ArrayList<Evento> losEventos;
@@ -18,6 +23,9 @@ public class PlanificacionEvento {
 	private int codTrabjo;
 	private int codComision;
 	private int codEvento;
+	private static User loginUser;
+	private static boolean firstTime;
+	private ArrayList<User> misUsers;
 	
 	
 	private  PlanificacionEvento() {
@@ -30,6 +38,8 @@ public class PlanificacionEvento {
 		this.codTrabjo=1;
 		this.codComision=1;
 		this.setCodEvento(1);
+		misUsers = new ArrayList<>();
+		
 		
 	}
 	
@@ -39,9 +49,17 @@ public class PlanificacionEvento {
 			laPlanificacion= new PlanificacionEvento();
 			
 		}
-		
-		
+
 		return laPlanificacion;
+	}
+	
+	
+	public static PlanificacionEvento getLaPlanificacion() {
+		return laPlanificacion;
+	}
+
+	public static void setLaPlanificacion(PlanificacionEvento laPlanificacion) {
+		PlanificacionEvento.laPlanificacion = laPlanificacion;
 	}
 	
 	public ArrayList<Comision> getLasComisiones() {
@@ -189,11 +207,65 @@ public class PlanificacionEvento {
 	public void setCodEvento(int codEvento) {
 		this.codEvento = codEvento;
 	}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
+	public ArrayList<User> getMisUsers() {
+		return misUsers;
+	}
+
+	public void setMisUsers(ArrayList<User> misUsers) {
+		this.misUsers = misUsers;
+	}
+	public static User getLoginUser() {
+		return loginUser;
+	}
+
+	public static void setLoginUser(User loginUser) {
+		PlanificacionEvento.loginUser = loginUser;
+	}
+
+	public void regUser(User user) {
+		misUsers.add(user);
+		
+	}
+
+	public static boolean isFirstTime() {
+		return firstTime;
+	}
+
+	public static void setFirstTime(boolean firstTime) {
+		PlanificacionEvento.firstTime = firstTime;
+	}
 	
+	public boolean BuscarUsuarioPorNombre(String NombreUsuario) {
+		boolean encontrado =false;
+		
+		for (User aux : misUsers) {
+			if(aux.getUserName().equalsIgnoreCase(NombreUsuario)) {
+				encontrado=true;
+			}
+		}
+		
+		return encontrado;
+		
+		
+	}
+
+	public boolean confirmLogin(String usuario, String contraseña) {
+		boolean login = false;
+		for (User user : misUsers) {
+			if(user.getUserName().equals(usuario) && user.getPass().equals(contraseña) ){
+				loginUser = user;
+				login = true;
+			}
+		}
+		return login;
+	}
+
 	
-	
-	
+
+
+
 	
 }

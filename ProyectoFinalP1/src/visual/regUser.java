@@ -8,7 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import logica.Control;
+
+import logica.PlanificacionEvento;
 import logica.User;
 
 import javax.swing.JLabel;
@@ -97,11 +98,11 @@ public class regUser extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(cbxTipoUsuario.getSelectedIndex()>0 &&  !usuario.getText().equalsIgnoreCase("") && !txtContraseña.getText().equalsIgnoreCase("") && !txtConfirmar.getText().equalsIgnoreCase("") ) {
-							if(!Control.getInstance().BuscarUsuarioPorNombre(usuario.getText())) {
+							if(!PlanificacionEvento.getInstance().BuscarUsuarioPorNombre(usuario.getText())) {
 							
 								if(txtConfirmar.getText().equalsIgnoreCase(txtContraseña.getText())) {	
 									User user = new User(cbxTipoUsuario.getSelectedItem().toString(),usuario.getText(),txtContraseña.getText());
-									Control.getInstance().regUser(user);
+									PlanificacionEvento.getInstance().regUser(user);
 									JOptionPane.showMessageDialog(null, "Registro Realizado", "Información", JOptionPane.INFORMATION_MESSAGE);
 									dispose();
 

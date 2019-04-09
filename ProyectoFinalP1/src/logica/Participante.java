@@ -1,9 +1,14 @@
 package logica;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Participante extends Persona {
+public class Participante extends Persona implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ArrayList<Trabajo> losTrabajos;
 
 	public Participante(String cedula, String nombre, String telefono, String direccion, String sexo,

@@ -11,7 +11,6 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ColorUIResource;
 
-import logica.Control;
 import logica.Evento;
 import logica.PlanificacionEvento;
 
@@ -67,9 +66,9 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 				FileOutputStream planiIn;
 				ObjectOutputStream planiWrite;
 				try {
-					planiIn = new  FileOutputStream("BDusuarios.dat");
+					planiIn = new  FileOutputStream("BDEvento.dat");
 					planiWrite = new ObjectOutputStream(planiIn);
-					planiWrite.writeObject(Control.getInstance());
+					planiWrite.writeObject(PlanificacionEvento.getInstance());
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -244,7 +243,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mnParticipantes.add(mntmListadosDeParticipantes);
 		
 		JMenu mnAdministrador = new JMenu("Administrador");
-		if(!Control.getLoginUser().getTipo().equalsIgnoreCase("Administrador")){
+		if(!PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")){
 			mnAdministrador.setEnabled(false);
 		}
 		mnAdministrador.setFont(new Font("Segoe UI", Font.BOLD, 17));

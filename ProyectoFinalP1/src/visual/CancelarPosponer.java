@@ -224,6 +224,7 @@ public class CancelarPosponer extends JDialog {
 			panelCancelar.setVisible(false);
 			panelCancelar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panelCancelar.setBounds(12, 70, 401, 277);
+			panelCancelar.setBackground(new Color(176, 196, 222));
 			panel.add(panelCancelar);
 			panelCancelar.setLayout(null);
 

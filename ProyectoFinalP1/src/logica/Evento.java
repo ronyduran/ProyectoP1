@@ -1,10 +1,15 @@
 package logica;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Evento {
+public class Evento implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Comision> lasComisiones;
 	private String tipoEvento;
 	private Date fechaEvento;

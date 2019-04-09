@@ -14,7 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import logica.Control;
+
+import logica.PlanificacionEvento;
 import logica.User;
 
 import javax.swing.JLabel;
@@ -46,17 +47,17 @@ public class login extends JFrame {
 				ObjectInputStream planiRead;
 				ObjectOutputStream planiWrite;
 				try {
-					planiIn = new FileInputStream ("BDusuarios.dat");
+					planiIn = new FileInputStream ("BDEvento.dat");
 					planiRead = new ObjectInputStream(planiIn);
-					Control temp = (Control)planiRead.readObject();
-					Control.setControl(temp);
+					PlanificacionEvento temp = (PlanificacionEvento)planiRead.readObject();
+					PlanificacionEvento.setLaPlanificacion(temp);
 				} catch (FileNotFoundException e) {
 					try {
-						planiOut = new  FileOutputStream("BDusuarios.dat");
+						planiOut = new  FileOutputStream("BDEvento.dat");
 						planiWrite = new ObjectOutputStream(planiOut);
 						User aux = new User("Administrador", "Admin", "123456");
-						Control.getInstance().regUser(aux);
-						planiWrite.writeObject(Control.getInstance());
+						PlanificacionEvento.getInstance().regUser(aux);
+						planiWrite.writeObject(PlanificacionEvento.getInstance());
 					} catch (FileNotFoundException e1) {
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -125,7 +126,7 @@ public class login extends JFrame {
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Control.getInstance().confirmLogin(usuario.getText(),contraseña.getText())){
+				if(PlanificacionEvento.getInstance().confirmLogin(usuario.getText(),contraseña.getText())){
 					PantallaPrincipal frame = new PantallaPrincipal();
 					dispose();
 					frame.setVisible(true);
