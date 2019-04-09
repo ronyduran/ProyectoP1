@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.ColorUIResource;
 
 import logica.Control;
 import logica.Evento;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Label;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
@@ -261,16 +263,24 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mntmIngresarRecurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
+				UIManager UI=new UIManager(); 
+				UI.put("OptionPane.background",new ColorUIResource(176, 196, 222)); 
+				UI.put("Panel.background",new ColorUIResource(176, 196, 222)); 
+				UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 15));
+				UIManager.put("OptionPane.font",new Font("Tahoma", Font.PLAIN, 15));
 				Label mensaje= new Label("Ingrese el nuevo recuerso");
 				
-				mensaje.setFont(new java.awt.Font("Tahoma", Font.PLAIN, 15));
-			
-				String recurso=(String) JOptionPane.showInputDialog(null,mensaje,"Registro de Recurso",JOptionPane.DEFAULT_OPTION, null, null, null);
-				if(!recurso.equalsIgnoreCase("")) {
-					PlanificacionEvento.getInstance().insertarRecuso(recurso);
-				}else {
+				
+				mensaje.setFont(new java.awt.Font("Tahoma", Font.PLAIN, 17));
+				String recurso=null;
+				if((recurso=((String)(JOptionPane.showInputDialog(null,mensaje,"Registro de Recurso",JOptionPane.DEFAULT_OPTION, null, null, null))))!= null) {
 					
-					
+						if(!recurso.equalsIgnoreCase("")) {
+							PlanificacionEvento.getInstance().insertarRecuso(recurso);
+						}else {
+						
+						
+						}
 				}
 				
 			}
@@ -283,7 +293,9 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		contentPane.setLayout(null);
 		
 		JLabel lblFondo = new JLabel("");
-		lblFondo.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/Imagenes/foto.png")));
+		ImageIcon imageIcon = new ImageIcon(PantallaPrincipal.class.getResource("/Imagenes/fotoRed.png"));
+		
+		lblFondo.setIcon(imageIcon);
 		dim = super.getToolkit().getScreenSize();
 		
 		lblFondo.setBounds(0, 0, dim.width-3, (dim.height-115));
