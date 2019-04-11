@@ -180,7 +180,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mntmRegistrarJurado.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mntmRegistrarJurado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarPersona regP = new RegistrarPersona(2,"");
+				RegistrarPersona regP = new RegistrarPersona(2,"",false);
 				regP.setModal(true);
 				regP.setLocationRelativeTo(null);
 				regP.setVisible(true);

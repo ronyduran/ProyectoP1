@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import logica.Jurado;
 import logica.Participante;
@@ -44,20 +45,31 @@ public class RegistrarPersona extends JDialog {
 	private JPanel panel;
 	private JComboBox cbxArea;
 	private JComboBox cbxGradoAca;
+	private Persona laPersona;
 	/**
 	 * Launch the application.
 	 */
 	
-	public RegistrarPersona(int elec,String ide) {
+	public RegistrarPersona(int elec,String ide, Boolean modificacion) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarPersona.class.getResource("/Imagenes/Formulario.png")));
+		setAlwaysOnTop(true);
 		setTitle("Registrar Persona");
 		setResizable(false);
-		if (elec==1) {
+		
+		if (elec==1&& modificacion==false) {
 			setTitle("Registrar Participante");
 			
 			
-		}else if (elec==2) {
+		}if (elec==2&& modificacion==false) {
 			setTitle("Registrar Jurado");
+			
+		}
+		if(elec==1 && modificacion==true) {
+			setTitle("Modificación Participante");
+			
+		}
+		if(elec==2 && modificacion==true) {
+			setTitle("Modificación Jurado");
 			
 		}
 		
@@ -66,6 +78,7 @@ public class RegistrarPersona extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		panel = new JPanel();
 		panel.setBackground(new Color(176, 196, 222));
@@ -73,6 +86,8 @@ public class RegistrarPersona extends JDialog {
 		panel.setBounds(12, 13, 284, 255);
 		contentPanel.add(panel);
 		panel.setLayout(null);
+		
+		laPersona=PlanificacionEvento.getInstance().buscarPersonaPorCedula(ide);
 		
 		JLabel lblCedula = new JLabel("C\u00E9dula:");
 		lblCedula.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -86,9 +101,17 @@ public class RegistrarPersona extends JDialog {
 		   txtCedula = new JFormattedTextField(mascara);
 		   txtCedula.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			txtCedula.setBounds(101, 33, 166, 22);
-			if(elec==1) {
+			if(elec==1 && modificacion==false) {
 				txtCedula.setText(ide);
 				txtCedula.setEditable(false);
+			}
+			if(modificacion==true){
+				txtCedula.setText(ide);
+				if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Representante")) {
+				txtCedula.setEditable(false);}
+				if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+					txtCedula.setEditable(true);
+				}
 			}
 			panel.add(txtCedula);
 		   
@@ -107,6 +130,16 @@ public class RegistrarPersona extends JDialog {
 		txtNombre = new JTextField();
 		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtNombre.setBounds(101, 62, 166, 22);
+		if(modificacion==true){
+			
+			txtNombre.setText(laPersona.getNombre());
+			if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Representante")) {
+			txtNombre.setEditable(false);}
+			if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+				txtNombre.setEditable(true);
+			}
+		}
+		
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
@@ -127,6 +160,15 @@ public class RegistrarPersona extends JDialog {
 		   txtTelefono = new JFormattedTextField(mascara);
 		   txtTelefono.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		   txtTelefono.setBounds(101, 120, 166, 22);
+		   if( modificacion==true){
+				txtTelefono.setText(laPersona.getTelefono());
+				if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Representante")) {
+				txtTelefono.setEditable(true);}
+				if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+					txtTelefono.setEditable(true);
+				}
+			}
+
 			panel.add(txtTelefono);
 		   
 		}
@@ -144,6 +186,14 @@ public class RegistrarPersona extends JDialog {
 		txtDireccion = new JTextField();
 		txtDireccion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtDireccion.setBounds(101, 149, 166, 22);
+		if(modificacion==true){
+			txtDireccion.setText(laPersona.getDireccion());
+			if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Representante")) {
+			txtDireccion.setEditable(true);}
+			if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+				txtDireccion.setEditable(true);
+			}
+		}
 		panel.add(txtDireccion);
 		txtDireccion.setColumns(10);
 		
@@ -164,6 +214,8 @@ public class RegistrarPersona extends JDialog {
 				sexo = "Hombre";
 			}
 		});
+		
+		
 		rdbtnMasc.setBounds(123, 90, 39, 25);
 		panel.add(rdbtnMasc);
 		
@@ -179,6 +231,22 @@ public class RegistrarPersona extends JDialog {
 		rdbtnFem.setBounds(199, 90, 39, 25);
 		panel.add(rdbtnFem);
 		
+		
+		if( modificacion==true){
+			if(laPersona.getSexo().equalsIgnoreCase("Mujer")) {
+				rdbtnFem.setSelected(true);
+				rdbtnMasc.setSelected(false);
+				rdbtnMasc.setEnabled(false);
+				
+			}if(laPersona.getSexo().equalsIgnoreCase("Hombre")) {
+				rdbtnMasc.setSelected(true);
+				rdbtnFem.setSelected(false);
+				rdbtnFem.setEnabled(false);
+				
+			}
+			}
+		
+		
 		JLabel lblArea = new JLabel("Area:");
 		lblArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
@@ -189,16 +257,108 @@ public class RegistrarPersona extends JDialog {
 		cbxArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbxArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Fisica", "Biologia", "Quimica", "Informatica", "Matematica", "Geologia"}));
 		cbxArea.setBounds(101, 207, 166, 22);
+		
+		if(elec==2 && modificacion==true) {
+			ArrayList<String> lasAreas= new ArrayList<>();
+			lasAreas.removeAll(lasAreas);
+			for (int j = 0; j < cbxArea.getItemCount(); j++) {
+			
+			lasAreas.add(cbxArea.getItemAt(j).toString());
+			}
+			for (int i = 0; i < lasAreas.size(); i++) {
+				if(lasAreas.get(i).equalsIgnoreCase(((Jurado)laPersona).getArea())) {
+					
+					cbxArea.setSelectedIndex(i);
+				}
+			}
+			
+			if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Representante")) {
+				cbxArea.setVisible(false);
+				JTextField txtArea=new JTextField();
+				txtArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				txtArea.setBounds(101, 207, 166, 22);
+				txtArea.setEditable(false);
+				txtArea.setText(((Jurado)laPersona).getArea());
+				panel.add(txtArea);
+				}
+			if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+				cbxArea.setEnabled(true);
+			}
+		}
+		
+			
+		
 		panel.add(cbxArea);
 		
 		cbxGradoAca = new JComboBox();
 		cbxGradoAca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		if(elec==1) {
-		cbxGradoAca.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Bachiller", "Licenciado", "Mag\u00EDster", "Doctorado"}));}
+		cbxGradoAca.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Bachiller", "Licenciado", "Mag\u00EDster", "Doctorado"}));
+		if(modificacion==true){
+			ArrayList<String> losGrados= new ArrayList<>();
+			losGrados.removeAll(losGrados);
+			for (int j = 0; j < cbxGradoAca.getItemCount(); j++) {
+			
+			losGrados.add(cbxGradoAca.getItemAt(j).toString());
+			}
+			for (int i = 0; i < losGrados.size(); i++) {
+				if(losGrados.get(i).equalsIgnoreCase(laPersona.getGradoAcademico())) {
+					
+					cbxGradoAca.setSelectedIndex(i);
+				}
+			}
+			
+			if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Representante")) {
+			cbxGradoAca.setVisible(false);
+			JTextField txtGrado=new JTextField();
+			txtGrado.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			txtGrado.setBounds(101, 178, 166, 22);
+			txtGrado.setEditable(false);
+			txtGrado.setText(laPersona.getGradoAcademico());
+			panel.add(txtGrado);
+			}
+			if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+				cbxGradoAca.setVisible(true);
+			}
+		}
+		
+		
+		}
 		if(elec==2) {
 			cbxGradoAca.setModel(new DefaultComboBoxModel(new String[] {"Seleccione",  "Licenciado", "Mag\u00EDster", "Doctorado"}));
 			
+			if(modificacion==true){
+				ArrayList<String> losGrados= new ArrayList<>();
+				losGrados.removeAll(losGrados);
+				for (int j = 0; j < cbxGradoAca.getItemCount(); j++) {
+				
+				losGrados.add(cbxGradoAca.getItemAt(j).toString());
+				}
+				for (int i = 0; i < losGrados.size(); i++) {
+					if(losGrados.get(i).equalsIgnoreCase(laPersona.getGradoAcademico())) {
+						
+						cbxGradoAca.setSelectedIndex(i);
+					}
+				}
+				
+				if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Representante")) {
+					cbxGradoAca.setVisible(false);
+					JTextField txtGrado=new JTextField();
+					txtGrado.setFont(new Font("Tahoma", Font.PLAIN, 15));
+					txtGrado.setBounds(101, 178, 166, 22);
+					txtGrado.setEditable(false);
+					txtGrado.setText(laPersona.getGradoAcademico());
+					panel.add(txtGrado);}
+				if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+					lblArea.setVisible(true);
+					cbxArea.setVisible(true);
+				}
+			}
+			
+			
 		}
+		
+		
 		cbxGradoAca.setBounds(101, 178, 166, 22);
 		panel.add(cbxGradoAca);
 		
@@ -226,9 +386,9 @@ public class RegistrarPersona extends JDialog {
 						String direccion = txtDireccion.getText();
 						String gradoAcademico = cbxGradoAca.getSelectedItem().toString();
 						
-						if (elec==1) {
+						if (elec==1 && modificacion==false) {
 							
-							if(!cedula.contentEquals("")&& !nombre.equalsIgnoreCase("")&& !telefono.equalsIgnoreCase("") && cbxGradoAca.getSelectedIndex() !=0) {
+							if(!cedula.contentEquals("")&& !nombre.equalsIgnoreCase("")&& !telefono.equalsIgnoreCase("") && cbxGradoAca.getSelectedIndex() !=0 && !direccion.equalsIgnoreCase("")) {
 							aux = new Participante(cedula, nombre, telefono, direccion, sexo, gradoAcademico);
 							if(PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula)==null) {
 							PlanificacionEvento.getInstance().insertarPersona(aux);
@@ -242,9 +402,9 @@ public class RegistrarPersona extends JDialog {
 								
 							}
 						}
-						if (elec==2) {
+						if (elec==2&& modificacion==false) {
 							String area = cbxArea.getSelectedItem().toString();
-							if(!cedula.contentEquals("")&& !nombre.equalsIgnoreCase("")&& !telefono.equalsIgnoreCase("") && cbxGradoAca.getSelectedIndex()!=0 &&cbxArea.getSelectedIndex()!=0) {
+							if(!cedula.contentEquals("")&& !nombre.equalsIgnoreCase("")&& !telefono.equalsIgnoreCase("") && cbxGradoAca.getSelectedIndex()!=0 &&cbxArea.getSelectedIndex()!=0&& !direccion.equalsIgnoreCase("")) {
 							aux = new Jurado(cedula, nombre, telefono, direccion, sexo, gradoAcademico, area);
 							if(PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula)==null) {
 							PlanificacionEvento.getInstance().insertarPersona(aux);
@@ -258,10 +418,82 @@ public class RegistrarPersona extends JDialog {
 							}
 						}
 						
+						if (elec==1 && modificacion==true) {
+							
+							if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Representante")) {
+								if(!telefono.equalsIgnoreCase("") && !direccion.equalsIgnoreCase("") ) {
+									laPersona.setDireccion(direccion);
+									laPersona.setTelefono(telefono);
+									JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+									dispose();
+								}else {
+									
+									JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
+
+								}
+							}
+							if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+								if(!nombre.equalsIgnoreCase("")&& !telefono.equalsIgnoreCase("") && cbxGradoAca.getSelectedIndex() !=0 && !direccion.equalsIgnoreCase("")) {
+									laPersona.setNombre(nombre);
+									laPersona.setGradoAcademico(gradoAcademico);
+									laPersona.setDireccion(direccion);
+									laPersona.setTelefono(telefono);
+									laPersona.setCedula(cedula);
+									
+									
+									JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+									dispose();}else {
+										JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
+
+													}
+								}
+							}
+						if (elec==2 && modificacion==true) {
+							
+							if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Representante")) {
+								if(!telefono.equalsIgnoreCase("") && !direccion.equalsIgnoreCase("") ) {
+									laPersona.setDireccion(direccion);
+									laPersona.setTelefono(telefono);
+									JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+									dispose();
+								}else {
+									
+									JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
+
+								}
+							}
+							if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
+								String area = cbxArea.getSelectedItem().toString();
+								if(!area.equalsIgnoreCase("")&&!nombre.equalsIgnoreCase("")&& !telefono.equalsIgnoreCase("") && cbxGradoAca.getSelectedIndex() !=0 && !direccion.equalsIgnoreCase("")) {
+									laPersona.setNombre(nombre);
+									laPersona.setGradoAcademico(gradoAcademico);
+									laPersona.setDireccion(direccion);
+									laPersona.setTelefono(telefono);
+									laPersona.setCedula(cedula);
+									((Jurado)laPersona).setArea(area);
+									
+									
+									JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+									dispose();}else {
+										JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
+
+													}
+								}
+							}
 						
-					}
+						
+						
+						
+						
+						
+						}
+							
+			
 				});
 				btnRegistar.setActionCommand("OK");
+				if(modificacion==true) {
+					btnRegistar.setText("Modificar");
+				}
 				buttonPane.add(btnRegistar);
 				getRootPane().setDefaultButton(btnRegistar);
 			}

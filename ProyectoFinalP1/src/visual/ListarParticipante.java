@@ -32,6 +32,8 @@ import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListarParticipante extends JDialog {
 
@@ -43,6 +45,7 @@ public class ListarParticipante extends JDialog {
 	private String identificador = "";
 	private JComboBox cbxSexo;
 	private JComboBox cbxGrado;
+	private JButton btnModificar;
 
 	
 	public ListarParticipante() {
@@ -198,6 +201,12 @@ public class ListarParticipante extends JDialog {
 			model.setColumnIdentifiers(header);
 			
 			tableParticipante = new JTable();
+			tableParticipante.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					btnModificar.setEnabled(true);
+				}
+			});
 			tableParticipante.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			
 			scrollPane.setViewportView(tableParticipante);
@@ -219,6 +228,29 @@ public class ListarParticipante extends JDialog {
 						loadTableParticipante();
 					}
 				});
+				
+				
+				
+				
+				
+				 btnModificar = new JButton("Modificar");
+				btnModificar.setEnabled(false);
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						int fila=	tableParticipante.getSelectedRow();
+						String id= (String) tableParticipante.getValueAt(fila, 0);
+						RegistrarPersona modPer= new RegistrarPersona(1, id,true);
+						modPer.setModal(true);
+						modPer.setVisible(true);
+						loadTableParticipante();
+						
+						
+					}
+				});
+				btnModificar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				btnModificar.setActionCommand("OK");
+				buttonPane.add(btnModificar);
 				btnLimpiar.setActionCommand("OK");
 				buttonPane.add(btnLimpiar);
 				getRootPane().setDefaultButton(btnLimpiar);

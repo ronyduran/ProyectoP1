@@ -28,6 +28,8 @@ import logica.PlanificacionEvento;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListarJurados extends JDialog {
 
@@ -41,6 +43,7 @@ public class ListarJurados extends JDialog {
 	private JComboBox cbxSexo;
 	private JComboBox cbxGrado;
 	private JComboBox cbxArea;
+	private JButton btnModificar;
 	
 	public ListarJurados() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarJurados.class.getResource("/Imagenes/Trabajo.png")));
@@ -73,6 +76,7 @@ public class ListarJurados extends JDialog {
 			try {
 				MaskFormatter mascara = new MaskFormatter("###########");
 				txtBuscar = new JFormattedTextField(mascara);
+				txtBuscar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				txtBuscar.setBounds(136, 16, 116, 25);
 				panel_1.add(txtBuscar);
 				txtBuscar.setColumns(10);
@@ -117,6 +121,7 @@ public class ListarJurados extends JDialog {
 			panel_1.add(lblFiltro);
 			
 			cbxSexo = new JComboBox();
+			cbxSexo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			cbxSexo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (cbxSexo.getSelectedIndex()>0&&cbxArea.getSelectedIndex()==0 && cbxGrado.getSelectedIndex()==0) {
@@ -146,7 +151,7 @@ public class ListarJurados extends JDialog {
 				}
 			}});
 			cbxSexo.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Hombre", "Mujer"}));
-			cbxSexo.setBounds(496, 16, 88, 25);
+			cbxSexo.setBounds(496, 16, 101, 25);
 			panel_1.add(cbxSexo);
 			
 			JLabel lblSexo = new JLabel("Sexo");
@@ -160,6 +165,7 @@ public class ListarJurados extends JDialog {
 			panel_1.add(lblGradoAcadmico);
 			
 			cbxGrado = new JComboBox();
+			cbxGrado.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			cbxGrado.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (cbxGrado.getSelectedIndex()>0&&cbxArea.getSelectedIndex()==0 && cbxSexo.getSelectedIndex()==0) {
@@ -199,6 +205,7 @@ public class ListarJurados extends JDialog {
 			panel_1.add(lblArea);
 			
 			 cbxArea = new JComboBox();
+			 cbxArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			cbxArea.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (cbxArea.getSelectedIndex()>0 && cbxGrado.getSelectedIndex()==0 && cbxSexo.getSelectedIndex()==0) {
@@ -252,6 +259,13 @@ public class ListarJurados extends JDialog {
 			model.setColumnIdentifiers(header);
 			
 			tableJurado = new JTable();
+			tableJurado.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					btnModificar.setEnabled(true);
+					
+				}
+			});
 			tableJurado.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			
 			scrollPane.setViewportView(tableJurado);
@@ -263,6 +277,7 @@ public class ListarJurados extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnLimpiar = new JButton("Limpiar");
+				btnLimpiar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnLimpiar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						txtBuscar.setText("");
@@ -272,12 +287,30 @@ public class ListarJurados extends JDialog {
 						loadTableJurado();
 					}
 				});
+				
+				btnModificar = new JButton("Modificar");
+				btnModificar.setEnabled(false);
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						int fila=	tableJurado.getSelectedRow();
+						String id= (String) tableJurado.getValueAt(fila, 0);
+						RegistrarPersona modPer= new RegistrarPersona(2, id,true);
+						modPer.setModal(true);
+						modPer.setVisible(true);
+						loadTableJurado();
+					}
+				});
+				btnModificar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				btnModificar.setActionCommand("OK");
+				buttonPane.add(btnModificar);
 				btnLimpiar.setActionCommand("OK");
 				buttonPane.add(btnLimpiar);
 				getRootPane().setDefaultButton(btnLimpiar);
 			}
 			{
 				JButton btnCerrar = new JButton("Cerrar");
+				btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnCerrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

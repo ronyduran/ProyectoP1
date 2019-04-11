@@ -47,6 +47,7 @@ public class RegistrarTrabajo extends JDialog {
 	private JComboBox cbxEvento;
 	private JComboBox cbxComision;
 	private JTextArea txtDescripcion;
+	private JButton okButton;
 	
 	public RegistrarTrabajo() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarTrabajo.class.getResource("/Imagenes/Trabajo.png")));
@@ -108,10 +109,18 @@ public class RegistrarTrabajo extends JDialog {
 						
 						txtNombrePart.setText(p1.getNombre());
 						txtCedula.setText(p1.getCedula());
+						txtCedula.setEditable(false);
+						btnBuscar.setEnabled(false);
+						txtNombre.setEditable(true);
+						cbxArea.setEnabled(true);
+						cbxComision.setEnabled(true);
+						cbxEvento.setEnabled(true);
+						txtDescripcion.setEditable(true);
+						okButton.setEnabled(true);
 						
 					}else {
 					if(JOptionPane.showConfirmDialog(null, "El Usuario no se ha encontrado\n¿Desea crear uno?", "Validación",JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE)==JOptionPane.YES_OPTION) {
-					RegistrarPersona regP = new RegistrarPersona(1,cedula);
+					RegistrarPersona regP = new RegistrarPersona(1,cedula,false);
 					regP.setModal(true);
 					regP.setLocationRelativeTo(null);
 					regP.setVisible(true);}}
@@ -120,7 +129,14 @@ public class RegistrarTrabajo extends JDialog {
 					
 					txtCedula.setText(p2.getCedula());
 					txtNombrePart.setText(p2.getNombre());
-					
+					txtCedula.setEditable(false);
+					btnBuscar.setEnabled(false);
+					txtNombre.setEditable(true);
+					cbxArea.setEnabled(true);
+					cbxComision.setEnabled(true);
+					cbxEvento.setEnabled(true);
+					txtDescripcion.setEditable(true);
+					okButton.setEnabled(true);
 					}
 					}else {
 						
@@ -170,6 +186,7 @@ public class RegistrarTrabajo extends JDialog {
 		panel.add(lblNombreDelTrabajo);
 		
 		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
 		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtNombre.setBounds(164, 70, 206, 20);
 		panel.add(txtNombre);
@@ -181,6 +198,7 @@ public class RegistrarTrabajo extends JDialog {
 		panel.add(lblAreaDelTrabajo);
 		
 		 cbxArea = new JComboBox();
+		 cbxArea.setEnabled(false);
 		 cbxArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		 cbxArea.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
@@ -203,6 +221,7 @@ public class RegistrarTrabajo extends JDialog {
 		panel.add(lblEventoAParticipar);
 		
 		cbxEvento = new JComboBox();
+		cbxEvento.setEnabled(false);
 		cbxEvento.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			
 		cbxEvento.addActionListener(new ActionListener() {
@@ -231,6 +250,7 @@ public class RegistrarTrabajo extends JDialog {
 		panel.add(lblComisionSupervisora);
 		
 		cbxComision = new JComboBox();
+		cbxComision.setEnabled(false);
 		cbxComision.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbxComision.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
 		cbxComision.setBounds(164, 188, 206, 20);
@@ -242,6 +262,7 @@ public class RegistrarTrabajo extends JDialog {
 		panel.add(lblBreveDescripcin);
 		
 		txtDescripcion = new JTextArea();
+		txtDescripcion.setEditable(false);
 		txtDescripcion.setFont(new Font("Monospaced", Font.PLAIN, 15));
 		txtDescripcion.setBounds(12, 247, 358, 68);
 		panel.add(txtDescripcion);
@@ -252,7 +273,8 @@ public class RegistrarTrabajo extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Registrar");
+				 okButton = new JButton("Registrar");
+				okButton.setEnabled(false);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 					String cedula=txtCedula.getText();
