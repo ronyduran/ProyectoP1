@@ -90,10 +90,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		dim = super.getToolkit().getScreenSize();
 		super.setSize(dim.width, (dim.height-50));
 		setLocationRelativeTo(null);
-		PanelImagen contentPane = new PanelImagen();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		
 		
 		
 		
@@ -306,6 +303,10 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		ImageIcon imageIcon2 = new ImageIcon(ima);*/
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
+		PanelImagen contentPane = new PanelImagen();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 		
 	}
 
