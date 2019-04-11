@@ -259,7 +259,48 @@ public class PlanificacionEvento implements Serializable {
 		}
 
 	}
-
+	
+	
+	public void ActualizarTrabajo(Trabajo t1) {
+		
+		
+			for (Evento auxEvento : losEventos) {
+				for (int i = 0; i < auxEvento.getLosTrabajos().size(); i++) {
+				
+					if(auxEvento.getLosTrabajos().get(i).getIdentificador().equalsIgnoreCase(t1.getIdentificador())) {
+						auxEvento.getLosTrabajos().set(i, t1);
+						
+					}
+				}
+			}
+			
+			for (Persona auxPersona : lasPersonas) {
+				if(auxPersona instanceof Participante) {
+				for (int i = 0; i < ((Participante)auxPersona).getLosTrabajos().size(); i++) {
+					if(((Participante)auxPersona).getLosTrabajos().get(i).getIdentificador().equalsIgnoreCase(t1.getIdentificador())) {
+						
+						((Participante)auxPersona).getLosTrabajos().set(i, t1);
+					}
+				}
+			}}
+			
+			for (Comision auxComision : lasComisiones) {
+				for (int i = 0; i < auxComision.getLosTrabajos().size(); i++) {
+					
+					if(auxComision.getLosTrabajos().get(i).getIdentificador().equalsIgnoreCase(t1.getIdentificador())) {
+						auxComision.getLosTrabajos().set(i, t1);
+						
+					}
+				}
+				
+				
+			}
+			
+			
+			
+	}
+		
+	
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	

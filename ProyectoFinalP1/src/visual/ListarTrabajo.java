@@ -150,7 +150,7 @@ public class ListarTrabajo extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")){
 					
-					btnBuscar.setEnabled(true);
+					btnModificar.setEnabled(true);
 				}
 				
 			}
@@ -177,9 +177,12 @@ public class ListarTrabajo extends JDialog {
 				btnModificar.setEnabled(false);
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
-						
-						
+						int fila=	tableTrabajos.getSelectedRow();
+						String id= (String) tableTrabajos.getValueAt(fila, 0);
+						RegistrarTrabajo rt=new RegistrarTrabajo(id, true);
+						rt.setModal(true);
+						rt.setVisible(true);
+						loadTableTrabajo();
 						
 					}
 				});

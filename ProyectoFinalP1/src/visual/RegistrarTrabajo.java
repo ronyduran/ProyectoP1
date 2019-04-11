@@ -31,10 +31,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.awt.event.ItemEvent;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RegistrarTrabajo extends JDialog {
 
@@ -48,17 +51,25 @@ public class RegistrarTrabajo extends JDialog {
 	private JComboBox cbxComision;
 	private JTextArea txtDescripcion;
 	private JButton okButton;
+	private Trabajo tra;
+	private JButton btnBuscar;
+	private int s=0;
 	
 	public RegistrarTrabajo(String codigo, boolean modificar) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarTrabajo.class.getResource("/Imagenes/Trabajo.png")));
 		setResizable(false);
-		setTitle("Registro de Trabajo");
+		if(modificar==false) {
+		setTitle("Registro de Trabajo");}
+		if(modificar==true) {
+			setTitle("Modificar Trabajo");
+		}
 		setBounds(100, 100, 403, 549);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		setLocationRelativeTo(null);
+		tra=PlanificacionEvento.getInstance().BuscarTrabajoPorCodigo(codigo);
 		
 		{
 			JPanel panel = new JPanel();
@@ -80,6 +91,11 @@ public class RegistrarTrabajo extends JDialog {
 			   txtCedula = new JFormattedTextField(mascara);
 			   txtCedula.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			   txtCedula.setBounds(99, 35, 178, 20);
+			   if(modificar==true) {
+				   txtCedula.setText(tra.getElParticipante().getCedula());
+				   txtCedula.setEditable(false);
+				   
+			   }
 				panel.add(txtCedula);
 			   
 			}
@@ -91,7 +107,7 @@ public class RegistrarTrabajo extends JDialog {
 			
 			
 			
-			JButton btnBuscar = new JButton("Buscar");
+			 btnBuscar = new JButton("Buscar");
 			btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				
 			
@@ -145,6 +161,10 @@ public class RegistrarTrabajo extends JDialog {
 					}
 				}
 			});
+			if(modificar==true) {
+				btnBuscar.setEnabled(false);
+				
+			}
 			btnBuscar.setBounds(289, 34, 84, 23);
 			panel.add(btnBuscar);
 			
@@ -158,6 +178,10 @@ public class RegistrarTrabajo extends JDialog {
 			txtNombrePart.setEditable(false);
 			txtNombrePart.setBounds(99, 78, 274, 20);
 			panel.add(txtNombrePart);
+			if(modificar==true) {
+				txtNombrePart.setText(tra.getElParticipante().getNombre());
+				
+			}
 			txtNombrePart.setColumns(10);
 		}
 		
@@ -179,7 +203,13 @@ public class RegistrarTrabajo extends JDialog {
 		txtCodigo.setBounds(164, 30, 102, 20);
 		panel.add(txtCodigo);
 		txtCodigo.setColumns(10);
+		if(modificar==false) {
 		txtCodigo.setText("T-"+PlanificacionEvento.getInstance().getCodTrabjo());
+		}if(modificar==true) {
+			
+			txtCodigo.setText(tra.getIdentificador());
+		}
+		
 		
 		JLabel lblNombreDelTrabajo = new JLabel("Nombre del Trabajo");
 		lblNombreDelTrabajo.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -191,6 +221,11 @@ public class RegistrarTrabajo extends JDialog {
 		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtNombre.setBounds(164, 70, 206, 20);
 		panel.add(txtNombre);
+		if(modificar==true) {
+			
+			txtNombre.setText(tra.getNombreTrabajo());
+			txtNombre.setEditable(true);
+		}
 		txtNombre.setColumns(10);
 		
 		JLabel lblAreaDelTrabajo = new JLabel("Area del trabajo");
@@ -199,21 +234,39 @@ public class RegistrarTrabajo extends JDialog {
 		panel.add(lblAreaDelTrabajo);
 		
 		 cbxArea = new JComboBox();
-		 cbxArea.setEnabled(false);
-		 cbxArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		 cbxArea.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-		 		if(cbxArea.getSelectedIndex()>0) {
-		 		String area= cbxArea.getSelectedItem().toString();
-		 		loadEvento(area);
-		 		
-				
-				
+		 		if(modificar==false) {
+		 			if(cbxArea.getSelectedIndex()>0) {
+		 			
+		 			
+			 		String area= cbxArea.getSelectedItem().toString();
+			 		loadEvento(area);}
+			 		}
+		 		if(modificar==true) {
+		 			
+		 			loadEvento(tra.getAreaTrabajo());
 		 		}
+		 		
 		 	}
 		 });
-		cbxArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Fisica", "Biologia", "Quimica", "Informatica", "Matematica", "Geologia"}));
+		
+		
+		 cbxArea.setEnabled(false);
+		 cbxArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			cbxArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Fisica", "Biologia", "Quimica", "Informatica", "Matematica", "Geologia"}));
+
+		 if(modificar==true) {
+			 cbxArea.setVisible(false);
+			 JTextField area= new JTextField();
+			 area.setText(tra.getAreaTrabajo());
+			 area.setBounds(164, 110, 206, 20);
+			area.setEditable(false);
+			area.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			panel.add(area);
+		}
 		cbxArea.setBounds(164, 110, 206, 20);
+
 		panel.add(cbxArea);
 		
 		JLabel lblEventoAParticipar = new JLabel("Evento a participar");
@@ -222,27 +275,63 @@ public class RegistrarTrabajo extends JDialog {
 		panel.add(lblEventoAParticipar);
 		
 		cbxEvento = new JComboBox();
-		cbxEvento.setEnabled(false);
-		cbxEvento.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			
 		cbxEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if(cbxArea.getSelectedIndex()>0 & cbxEvento.getSelectedIndex()>0) {
-			 		String area= cbxArea.getSelectedItem().toString();
-			 		String evento= cbxEvento.getSelectedItem().toString();
+				if(modificar==false) {
+				if(cbxArea.getSelectedIndex()>0 && cbxEvento.getSelectedIndex()>0) {
+			 		
+					String area=cbxArea.getSelectedItem().toString();
+
+					String evento= cbxEvento.getSelectedItem().toString();
 			 		String[] partes = evento.split("~~");
 					String id = partes[0]; 
 					Evento even=PlanificacionEvento.getInstance().BuscarEventoCodigo(id);
 			 		
+					
 					loadComisiones(area, even);
 					
-			 		}
+			 		}}
+				if(modificar==true) {
+					if(!tra.getAreaTrabajo().equalsIgnoreCase("") && cbxEvento.getSelectedIndex()>0) {
+						String evento= cbxEvento.getSelectedItem().toString();
+				 		String[] partes = evento.split("~~");
+						String id = partes[0]; 
+						Evento even=PlanificacionEvento.getInstance().BuscarEventoCodigo(id);
+						
+						if(s==1) {
+						loadComisiones(tra.getAreaTrabajo(), even);
+					}}
+					
+				}
 				
 			}
 		});
+		cbxEvento.setEnabled(false);
+		cbxEvento.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbxEvento.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
 		cbxEvento.setBounds(164, 149, 206, 20);
+		
+		if(modificar==true){
+			loadEvento(tra.getAreaTrabajo());
+			
+			ArrayList<String> losEventos= new ArrayList<>();
+			losEventos.removeAll(losEventos);
+			for (int j = 0; j < cbxEvento.getItemCount(); j++) {
+				String evento=cbxEvento.getItemAt(j).toString();
+				String[] partes = evento.split("~~");
+				String idEvento = partes[0]; 
+			
+			losEventos.add(idEvento);
+			}
+			for (int i = 0; i < losEventos.size(); i++) {
+				if(losEventos.get(i).equalsIgnoreCase(tra.getElEvento().getIdentificador())) {
+					
+					cbxEvento.setSelectedIndex(i);
+				}
+			}
+			cbxEvento.setEnabled(true);
+		}
+		
 		panel.add(cbxEvento);
 		
 		JLabel lblComisionSupervisora = new JLabel("Comisi\u00F3n supervisora");
@@ -255,6 +344,27 @@ public class RegistrarTrabajo extends JDialog {
 		cbxComision.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbxComision.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
 		cbxComision.setBounds(164, 188, 206, 20);
+		if(modificar==true){
+			
+			loadComisiones(tra.getAreaTrabajo(), tra.getElEvento());
+			ArrayList<String> lasComi= new ArrayList<>();
+			lasComi.removeAll(lasComi);
+			for (int j = 0; j < cbxComision.getItemCount(); j++) {
+				String comision=cbxComision.getItemAt(j).toString();
+				String[] partes = comision.split("~~");
+				String idComi = partes[0]; 
+			
+			lasComi.add(idComi);
+			}
+			for (int i = 0; i < lasComi.size(); i++) {
+				if(lasComi.get(i).equalsIgnoreCase(tra.getLaComision().getCodigo())) {
+					
+					cbxComision.setSelectedIndex(i);
+				}
+			}
+			cbxComision.setEnabled(true);
+		}
+		
 		panel.add(cbxComision);
 		
 		JLabel lblBreveDescripcin = new JLabel("Breve Descripci\u00F3n");
@@ -264,9 +374,15 @@ public class RegistrarTrabajo extends JDialog {
 		
 		txtDescripcion = new JTextArea();
 		txtDescripcion.setEditable(false);
-		txtDescripcion.setFont(new Font("Monospaced", Font.PLAIN, 15));
+		txtDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtDescripcion.setBounds(12, 247, 358, 68);
 		panel.add(txtDescripcion);
+		if(modificar==true) {
+			
+			txtDescripcion.setText(tra.getDescripcion());
+			txtDescripcion.setEditable(true);
+		}
+		
 		setLocationRelativeTo(null);
 		{
 			JPanel buttonPane = new JPanel();
@@ -278,6 +394,7 @@ public class RegistrarTrabajo extends JDialog {
 				okButton.setEnabled(false);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
 					String cedula=txtCedula.getText();
 					Persona p1= PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula);
 					String codigo=txtCodigo.getText();
@@ -293,6 +410,7 @@ public class RegistrarTrabajo extends JDialog {
 					Comision c1=PlanificacionEvento.getInstance().BuscarComisionPorCodigo(codigocomi);	
 					Evento e1= PlanificacionEvento.getInstance().BuscarEventoCodigo(codigoEven);
 					
+					if(modificar==false) {
 					if(p1!=null && !nombreTrab.equalsIgnoreCase("") && cbxArea.getSelectedIndex()>0 && c1!=null && e1!=null && !descripcion.equalsIgnoreCase("")) {
 					
 					Trabajo tr1=new Trabajo(nombreTrab, area, descripcion, e1, c1, codigo, p1);
@@ -307,8 +425,34 @@ public class RegistrarTrabajo extends JDialog {
 					}
 					
 					}
+					if(modificar==true) {
+						if(p1!=null && !nombreTrab.equalsIgnoreCase("")  && c1!=null && e1!=null && !descripcion.equalsIgnoreCase("")) {
+						
+							tra.setDescripcion(descripcion);
+							tra.setNombreTrabajo(nombreTrab);
+							tra.setLaComision(c1);
+							tra.setElEvento(e1);
+							PlanificacionEvento.getInstance().ActualizarTrabajo(tra);
+							JOptionPane.showMessageDialog(null, "Modificacion Exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+						}else {
+							JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);
+							
+						}
+					}
+					
+					
+					}
+					
+					
 				});
+				s=1;
 				okButton.setActionCommand("OK");
+				if(modificar==true) {
+					
+					okButton.setText("Modificar");
+					okButton.setEnabled(true);
+				}
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
@@ -327,7 +471,6 @@ public class RegistrarTrabajo extends JDialog {
 	}
 	 private void loadEvento(String area) {
 	    	
-		 
 		 	cbxEvento.removeAllItems();
 	    	
 	    	cbxEvento.addItem(new String("Seleccione"));
@@ -370,6 +513,8 @@ public class RegistrarTrabajo extends JDialog {
 		cbxArea.setSelectedIndex(0);
 		cbxComision.setSelectedIndex(0);
 		cbxEvento.setSelectedIndex(0);
+		txtCedula.setEditable(true);
+		btnBuscar.setEnabled(true);
 		
 	}
 }
