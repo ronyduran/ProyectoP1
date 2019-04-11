@@ -105,6 +105,7 @@ public class RegistrarTrabajo extends JDialog {
 						encontrado=true;
 					}
 	
+					
 					if(encontrado==true) {
 						
 						txtNombrePart.setText(p1.getNombre());
