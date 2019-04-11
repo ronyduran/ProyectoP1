@@ -249,7 +249,7 @@ public class ListarEvento extends JDialog {
 				        
 				        try {
 				        	escritor = new FileWriter(reporte);
-				        	escritor.write("Pontificie Universidad Católica Madre y Maestra");
+				        	escritor.write("Pontificia Universidad Católica Madre y Maestra");
 							escritor.write("\r\nSistema de Planificación de Eventos");
 							escritor.write("\r\n\r\nReporte del Evento");
 							escritor.write(linea1);
@@ -269,6 +269,15 @@ public class ListarEvento extends JDialog {
 							escritor.write(linea6);
 							escritor.write(linea7);
 							
+							if (aux.getRecursos().size()>0) {
+								escritor.write("\r\n\r\nRecursos Utilizados:\r\n");
+								for (int i = 0; i < aux.getRecursos().size(); i++) {
+								
+									escritor.write("\r\n-"+aux.getRecursos().get(i));
+									
+								}
+							}
+							
 							if (aux.getLosTrabajos().size()>0) {
 								escritor.write("\r\n\r\nDetalles de los Trabajos");
 								for (int i = 0; i < aux.getLosTrabajos().size(); i++) {
@@ -282,11 +291,11 @@ public class ListarEvento extends JDialog {
 									
 								}
 							}else {
-								escritor.write("\r\n\r\nActualmente no hay Trabajos Inscritos.");
+								escritor.write("\r\n\r\nNo hay Trabajos Inscritos.");
 							}
 							
 							escritor.close();
-							JOptionPane.showMessageDialog(null,"El archivo se ha creado");
+							JOptionPane.showMessageDialog(null,"El Reporte se ha Imprimido");
 						} catch (IOException e2) {
 							// TODO: handle exception
 							e2.printStackTrace();

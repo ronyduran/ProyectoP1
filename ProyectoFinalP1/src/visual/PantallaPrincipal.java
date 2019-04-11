@@ -163,66 +163,80 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 				if((codigo=((String)(JOptionPane.showInputDialog(null,mensaje,"Imprimir Reporte",JOptionPane.DEFAULT_OPTION, null, null, null))))!= null) {
 					
 						if(!codigo.equalsIgnoreCase("")) {
-							Evento aux =PlanificacionEvento.getInstance().BuscarEventoCodigo(codigo);
-							
-							SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss dd-MMM-yyyy");
-							SimpleDateFormat formatter1 = new SimpleDateFormat("dd-MMM-yyyy");
-							String linea1 = "\r\n\r\nFecha de solicitud: " +formatter.format(new Date());
-							String linea2 ="\r\nCódigo del Evento: "+aux.getIdentificador();
-							String linea3 ="\r\nNombre del Evento: "+aux.getNombreEvento();
-							String linea4 = "\r\nFecha del Evento: "+formatter1.format(aux.getFechaEvento());
-							
-							
-							String linea6 = "\r\nCantidad de Trabajos Inscritos: " + aux.getLosTrabajos().size();
-							String linea7 = "\r\nCantidad de Comisiones Inscritas: " + aux.getLasComisiones().size();
-							String linea8 = "\r\nNota Extra:\r\n "+ aux.getJustificacion();
-							File reporte = new File ("Reporte.txt");
-					        FileWriter escritor;
-					        
-					        try {
-					        	escritor = new FileWriter(reporte);
-					        	escritor.write("Pontificie Universidad Católica Madre y Maestra");
-								escritor.write("\r\nSistema de Planificación de Eventos");
-								escritor.write("\r\n\r\nReporte del Evento");
-								escritor.write(linea1);
-								escritor.write(linea2);
-								escritor.write(linea3);
-								escritor.write(linea4);
-								if (aux.isEstado()==true) {
-									escritor.write("\r\nEstado del Evento: Activo");
-								}else {
-									escritor.write("\r\nEstado del Evento: No Activo");
-									
-								}
-								if (aux.getJustificacion()!=null) {
-									escritor.write(linea8);
-								}
+							Evento aux = PlanificacionEvento.getInstance().BuscarEventoCodigo(codigo);
+							if (aux!=null) {
+								SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss dd-MMM-yyyy");
+								SimpleDateFormat formatter1 = new SimpleDateFormat("dd-MMM-yyyy");
+								String linea1 = "\r\n\r\nFecha de solicitud: " +formatter.format(new Date());
+								String linea2 ="\r\nCódigo del Evento: "+aux.getIdentificador();
+								String linea3 ="\r\nNombre del Evento: "+aux.getNombreEvento();
+								String linea4 = "\r\nFecha del Evento: "+formatter1.format(aux.getFechaEvento());
 								
-								escritor.write(linea6);
-								escritor.write(linea7);
 								
-								if (aux.getLosTrabajos().size()>0) {
-									escritor.write("\r\n\r\nDetalles de los Trabajos");
-									for (int i = 0; i < aux.getLosTrabajos().size(); i++) {
-										escritor.write("\r\n\r\nInformación del Trabajo:");
-										escritor.write("\r\nCódigo del Trabajo:"+aux.getLosTrabajos().get(i).getIdentificador());
-										escritor.write("\r\nNombre del Trabajo: "+aux.getLosTrabajos().get(i).getNombreTrabajo());
-										escritor.write("\r\nÁrea del Trabajo: "+aux.getLosTrabajos().get(i).getAreaTrabajo());
-										escritor.write("\r\nCédula del Participante:"+aux.getLosTrabajos().get(i).getElParticipante().getCedula());
-										escritor.write("\r\nNombre del Participante:"+aux.getLosTrabajos().get(i).getElParticipante().getNombre());
-										escritor.write("\r\nComisión Encargada:"+aux.getLosTrabajos().get(i).getLaComision().getCodigo());
+								String linea6 = "\r\nCantidad de Trabajos Inscritos: " + aux.getLosTrabajos().size();
+								String linea7 = "\r\nCantidad de Comisiones Inscritas: " + aux.getLasComisiones().size();
+								String linea8 = "\r\nNota Extra:\r\n "+ aux.getJustificacion();
+								File reporte = new File ("Reporte.txt");
+						        FileWriter escritor;
+						        
+						        try {
+						        	escritor = new FileWriter(reporte);
+						        	escritor.write("Pontificia Universidad Católica Madre y Maestra");
+									escritor.write("\r\nSistema de Planificación de Eventos");
+									escritor.write("\r\n\r\nReporte del Evento");
+									escritor.write(linea1);
+									escritor.write(linea2);
+									escritor.write(linea3);
+									escritor.write(linea4);
+									if (aux.isEstado()==true) {
+										escritor.write("\r\nEstado del Evento: Activo");
+									}else {
+										escritor.write("\r\nEstado del Evento: No Activo");
 										
 									}
-								}else {
-									escritor.write("\r\n\r\nActualmente no hay Trabajos Inscritos.");
+									if (aux.getJustificacion()!=null) {
+										escritor.write(linea8);
+									}
+									
+									escritor.write(linea6);
+									escritor.write(linea7);
+									
+									if (aux.getRecursos().size()>0) {
+										escritor.write("\r\n\r\nRecursos Utilizados:\r\n");
+										for (int i = 0; i < aux.getRecursos().size(); i++) {
+										
+											escritor.write("\r\n-"+aux.getRecursos().get(i));
+											
+										}
+									}
+									
+									if (aux.getLosTrabajos().size()>0) {
+										escritor.write("\r\n\r\nDetalles de los Trabajos");
+										for (int i = 0; i < aux.getLosTrabajos().size(); i++) {
+											escritor.write("\r\n\r\nInformación del Trabajo:");
+											escritor.write("\r\nCódigo del Trabajo:"+aux.getLosTrabajos().get(i).getIdentificador());
+											escritor.write("\r\nNombre del Trabajo: "+aux.getLosTrabajos().get(i).getNombreTrabajo());
+											escritor.write("\r\nÁrea del Trabajo: "+aux.getLosTrabajos().get(i).getAreaTrabajo());
+											escritor.write("\r\nCédula del Participante:"+aux.getLosTrabajos().get(i).getElParticipante().getCedula());
+											escritor.write("\r\nNombre del Participante:"+aux.getLosTrabajos().get(i).getElParticipante().getNombre());
+											escritor.write("\r\nComisión Encargada:"+aux.getLosTrabajos().get(i).getLaComision().getCodigo());
+											
+										}
+									}else {
+										escritor.write("\r\n\r\nNo hay Trabajos Inscritos.");
+									}
+									
+									escritor.close();
+									JOptionPane.showMessageDialog(null,"El Reporte se ha Imprimido");
+								} catch (IOException e2) {
+									// TODO: handle exception
+									e2.printStackTrace();
 								}
 								
-								escritor.close();
-								JOptionPane.showMessageDialog(null,"El archivo se ha creado");
-							} catch (IOException e2) {
-								// TODO: handle exception
-								e2.printStackTrace();
+							}else {
+								JOptionPane.showMessageDialog(null, "No se ha encontrado el Evento", "Validación", JOptionPane.WARNING_MESSAGE);
 							}
+							
 					        
 						}else {
 						
