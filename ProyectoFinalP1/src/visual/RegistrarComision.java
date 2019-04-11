@@ -53,9 +53,10 @@ public class RegistrarComision extends JDialog {
 	private JButton btnEliminar;
 	private JComboBox cbxPresidente;
 	private JComboBox cbxEvento;
+	private Comision c1;
 
 	
-	public RegistrarComision(String codigo, boolean modificar) {
+	public RegistrarComision() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarComision.class.getResource("/Imagenes/Formulario.png")));
 		setFont(new Font("Dialog", Font.PLAIN, 14));
 		setTitle("Registro de Comisi\u00F3n");
@@ -65,6 +66,7 @@ public class RegistrarComision extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		elegirJurado.addAll(PlanificacionEvento.getInstance().getLasPersonas());
 		{
@@ -101,6 +103,8 @@ public class RegistrarComision extends JDialog {
 							loadTableElegido("");
 						}
 					});
+					
+					
 					cbxArea.setBounds(226, 42, 182, 22);
 					panel_1.add(cbxArea);
 				}
