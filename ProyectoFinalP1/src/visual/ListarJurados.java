@@ -5,11 +5,13 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import logica.Jurado;
 import logica.PlanificacionEvento;
@@ -30,7 +33,7 @@ public class ListarJurados extends JDialog {
 
 	
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtBuscar;
+	private JFormattedTextField txtBuscar;
 	private JTable tableJurado;
 	public static Object[] fila;
 	private static DefaultTableModel model;
@@ -66,10 +69,18 @@ public class ListarJurados extends JDialog {
 			panel.add(panel_1);
 			panel_1.setLayout(null);
 			
-			txtBuscar = new JTextField();
-			txtBuscar.setBounds(136, 16, 116, 25);
-			panel_1.add(txtBuscar);
-			txtBuscar.setColumns(10);
+		
+			try {
+				MaskFormatter mascara = new MaskFormatter("###########");
+				txtBuscar = new JFormattedTextField(mascara);
+				txtBuscar.setBounds(136, 16, 116, 25);
+				panel_1.add(txtBuscar);
+				txtBuscar.setColumns(10);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			
 			JButton btnBuscar = new JButton("Buscar");
 			btnBuscar.addActionListener(new ActionListener() {

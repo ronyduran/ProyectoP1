@@ -48,7 +48,7 @@ public class RegistrarPersona extends JDialog {
 	 * Launch the application.
 	 */
 	
-	public RegistrarPersona(int elec) {
+	public RegistrarPersona(int elec,String ide) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarPersona.class.getResource("/Imagenes/Formulario.png")));
 		setTitle("Registrar Persona");
 		setResizable(false);
@@ -82,10 +82,14 @@ public class RegistrarPersona extends JDialog {
 		
 		try
 		{
-		   MaskFormatter mascara = new MaskFormatter("######");
+		   MaskFormatter mascara = new MaskFormatter("###########");
 		   txtCedula = new JFormattedTextField(mascara);
 		   txtCedula.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			txtCedula.setBounds(101, 33, 166, 22);
+			if(elec==1) {
+				txtCedula.setText(ide);
+				txtCedula.setEditable(false);
+			}
 			panel.add(txtCedula);
 		   
 		}

@@ -75,7 +75,7 @@ public class RegistrarTrabajo extends JDialog {
 			
 			try
 			{
-			   MaskFormatter mascara = new MaskFormatter("######");
+			   MaskFormatter mascara = new MaskFormatter("###########");
 			   txtCedula = new JFormattedTextField(mascara);
 			   txtCedula.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			   txtCedula.setBounds(99, 35, 178, 20);
@@ -111,7 +111,7 @@ public class RegistrarTrabajo extends JDialog {
 						
 					}else {
 					if(JOptionPane.showConfirmDialog(null, "El Usuario no se ha encontrado\n¿Desea crear uno?", "Validación",JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE)==JOptionPane.YES_OPTION) {
-					RegistrarPersona regP = new RegistrarPersona(1);
+					RegistrarPersona regP = new RegistrarPersona(1,cedula);
 					regP.setModal(true);
 					regP.setLocationRelativeTo(null);
 					regP.setVisible(true);}}
@@ -162,7 +162,7 @@ public class RegistrarTrabajo extends JDialog {
 		txtCodigo.setBounds(164, 30, 102, 20);
 		panel.add(txtCodigo);
 		txtCodigo.setColumns(10);
-		txtCodigo.setText("t-"+PlanificacionEvento.getInstance().getCodTrabjo());
+		txtCodigo.setText("T-"+PlanificacionEvento.getInstance().getCodTrabjo());
 		
 		JLabel lblNombreDelTrabajo = new JLabel("Nombre del Trabajo");
 		lblNombreDelTrabajo.setFont(new Font("Tahoma", Font.PLAIN, 15));

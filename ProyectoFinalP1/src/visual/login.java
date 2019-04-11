@@ -88,7 +88,7 @@ public class login extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(login.class.getResource("/Imagenes/login.png")));
 		setTitle("Login Usuario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 332, 321);
+		setBounds(100, 100, 322, 321);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -113,13 +113,13 @@ public class login extends JFrame {
 		
 		usuario = new JTextField();
 		usuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		usuario.setBounds(48, 119, 199, 28);
+		usuario.setBounds(48, 119, 203, 28);
 		panel.add(usuario);
 		usuario.setColumns(10);
 		
 		contraseña = new JPasswordField();
 		contraseña.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		contraseña.setBounds(48, 184, 199, 28);
+		contraseña.setBounds(48, 184, 203, 28);
 		panel.add(contraseña);
 		contraseña.setColumns(10);
 		
@@ -148,14 +148,14 @@ public class login extends JFrame {
 			}
 		});
 		btnCacelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnCacelar.setBounds(158, 226, 89, 23);
+		btnCacelar.setBounds(162, 225, 89, 23);
 		panel.add(btnCacelar);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBackground(Color.WHITE);
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setIcon(new ImageIcon(login.class.getResource("/Imagenes/Marca PUCMM (Color) (1).png")));
-		lblNewLabel_1.setBounds(48, 13, 206, 61);
+		lblNewLabel_1.setBounds(46, 13, 206, 61);
 		panel.add(lblNewLabel_1);
 	}
 }

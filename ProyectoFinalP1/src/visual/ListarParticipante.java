@@ -76,7 +76,7 @@ public class ListarParticipante extends JDialog {
 			
 			try
 			{
-			   MaskFormatter mascara = new MaskFormatter("######");
+			   MaskFormatter mascara = new MaskFormatter("###########");
 			   txtBuscar = new JFormattedTextField(mascara);
 			   txtBuscar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			   txtBuscar.setBounds(180, 15, 124, 25);
