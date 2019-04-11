@@ -80,6 +80,8 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 			}
 		});
 		
+		
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaPrincipal.class.getResource("/Imagenes/Planificar.png")));
 		setTitle("Sistema de Planificaci\u00F3n de Eventos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,6 +90,10 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		dim = super.getToolkit().getScreenSize();
 		super.setSize(dim.width, (dim.height-50));
 		setLocationRelativeTo(null);
+		PanelImagen contentPane = new PanelImagen();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 		
 		
 		
@@ -290,7 +296,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		});
 		mntmIngresarRecurso.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnAdministrador.add(mntmIngresarRecurso);
-		contentPane = new JPanel();
+		/*contentPane = new JPanel();*/
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		/*ImageIcon imageIcon = new ImageIcon(PantallaPrincipal.class.getResource("/Imagenes/fotoRed.png"));
@@ -300,9 +306,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		ImageIcon imageIcon2 = new ImageIcon(ima);*/
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/Imagenes/fotoRed.png")));
-		contentPane.add(lblNewLabel, BorderLayout.CENTER);
+		
 	}
 
 	@Override
