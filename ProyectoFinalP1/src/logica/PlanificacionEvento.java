@@ -104,8 +104,31 @@ public class PlanificacionEvento implements Serializable {
 		this.recursos = recursos;
 	}
 
-	
+	public int getCodTrabjo() {
+		return codTrabjo;
+	}
 
+	public void setCodTrabjo(int codTrabjo) {
+		this.codTrabjo = codTrabjo;
+	}
+
+	public int getCodComision() {
+		return codComision;
+	}
+
+	public void setCodComision(int codComision) {
+		this.codComision = codComision;
+	}
+
+	public int getCodEvento() {
+		return codEvento;
+	}
+
+	public void setCodEvento(int codEvento) {
+		this.codEvento = codEvento;
+	}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void insertarPersona(Persona p1) {
 		
 		lasPersonas.add(p1);
@@ -183,30 +206,61 @@ public class PlanificacionEvento implements Serializable {
 		
 		return elTrabajo;
 	}
+	
+	public void ActualizarParticipante(String cedula, Persona p1) {
+	
+		for (Trabajo auxTrabajo : losTrabajos) {
+			if(auxTrabajo.getElParticipante().getCedula().equalsIgnoreCase(cedula)) {
+				
+				auxTrabajo.setElParticipante(p1);
+					
+			}
+			for (Evento auxEvento : losEventos) {
+				for (int i = 0; i < auxEvento.getLosTrabajos().size(); i++) {
+				
+					if(auxEvento.getLosTrabajos().get(i).getIdentificador().equalsIgnoreCase(auxTrabajo.getIdentificador())) {
+						auxEvento.getLosTrabajos().get(i).setElParticipante(p1);
+						
+					}
+				}
+			}
+		
+		}
 
-	public int getCodTrabjo() {
-		return codTrabjo;
 	}
 
-	public void setCodTrabjo(int codTrabjo) {
-		this.codTrabjo = codTrabjo;
+
+	public void ActualizarJurado(String cedula, Persona p1) {
+	
+		for (Comision auxComision : lasComisiones) {
+			if(auxComision.getPresidente().getCedula().equalsIgnoreCase(cedula)) {
+				
+				auxComision.setPresidente((Jurado)p1);
+					
+			}
+			for (int i = 0; i < auxComision.getMisJurados().size(); i++) {
+				
+				if(auxComision.getMisJurados().get(i).getCedula().equalsIgnoreCase(cedula)) {
+					
+					auxComision.getMisJurados().set(i, (Jurado)p1);
+				}
+				
+			}
+			for (Evento auxEvento : losEventos) {
+				for (int i = 0; i < auxEvento.getLasComisiones().size(); i++) {
+				
+					if(auxEvento.getLasComisiones().get(i).getCodigo().equalsIgnoreCase(auxComision.getCodigo())) {
+						auxEvento.getLasComisiones().set(i, auxComision);
+						
+					}
+				}
+			}
+		
+		}
+
 	}
 
-	public int getCodComision() {
-		return codComision;
-	}
-
-	public void setCodComision(int codComision) {
-		this.codComision = codComision;
-	}
-
-	public int getCodEvento() {
-		return codEvento;
-	}
-
-	public void setCodEvento(int codEvento) {
-		this.codEvento = codEvento;
-	}
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	

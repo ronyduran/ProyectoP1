@@ -99,7 +99,7 @@ public class RegistrarTrabajo extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					String cedula=txtCedula.getText();
 					Boolean encontrado= false;
-					if(!cedula.equalsIgnoreCase("")) {
+					if(txtCedula.getValue()!=null) {
 					Persona p1=PlanificacionEvento.getInstance().buscarPersonaPorCedula(cedula);
 					if(p1!=null) {
 						encontrado=true;

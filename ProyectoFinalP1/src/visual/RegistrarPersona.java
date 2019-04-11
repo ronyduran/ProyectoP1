@@ -52,7 +52,7 @@ public class RegistrarPersona extends JDialog {
 	
 	public RegistrarPersona(int elec,String ide, Boolean modificacion) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarPersona.class.getResource("/Imagenes/Formulario.png")));
-		setAlwaysOnTop(true);
+		//setAlwaysOnTop(true);
 		setTitle("Registrar Persona");
 		setResizable(false);
 		
@@ -424,6 +424,8 @@ public class RegistrarPersona extends JDialog {
 								if(!telefono.equalsIgnoreCase("") && !direccion.equalsIgnoreCase("") ) {
 									laPersona.setDireccion(direccion);
 									laPersona.setTelefono(telefono);
+									PlanificacionEvento.getInstance().ActualizarParticipante(ide, laPersona);
+
 									JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 									dispose();
 								}else {
@@ -440,7 +442,8 @@ public class RegistrarPersona extends JDialog {
 									laPersona.setTelefono(telefono);
 									laPersona.setCedula(cedula);
 									
-									
+									PlanificacionEvento.getInstance().ActualizarParticipante(ide, laPersona);
+
 									JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 									dispose();}else {
 										JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
@@ -454,6 +457,7 @@ public class RegistrarPersona extends JDialog {
 								if(!telefono.equalsIgnoreCase("") && !direccion.equalsIgnoreCase("") ) {
 									laPersona.setDireccion(direccion);
 									laPersona.setTelefono(telefono);
+									PlanificacionEvento.getInstance().ActualizarJurado(ide, laPersona);
 									JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 									dispose();
 								}else {
@@ -472,7 +476,7 @@ public class RegistrarPersona extends JDialog {
 									laPersona.setCedula(cedula);
 									((Jurado)laPersona).setArea(area);
 									
-									
+									PlanificacionEvento.getInstance().ActualizarJurado(ide, laPersona);
 									JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 									dispose();}else {
 										JOptionPane.showMessageDialog(null, "Revise los datos", "Validación", JOptionPane.WARNING_MESSAGE);	
