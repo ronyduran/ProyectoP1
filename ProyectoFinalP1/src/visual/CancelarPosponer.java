@@ -57,6 +57,7 @@ public class CancelarPosponer extends JDialog {
 
 	
 	public CancelarPosponer() {
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CancelarPosponer.class.getResource("/Imagenes/Evento.png")));
 		setTitle("Carcelar o Modificar Evento");
 		setBounds(100, 100, 458, 452);

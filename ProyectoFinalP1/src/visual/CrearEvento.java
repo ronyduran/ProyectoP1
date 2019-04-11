@@ -60,6 +60,7 @@ public class CrearEvento extends JDialog {
 	
 	
 	public CrearEvento() {
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CrearEvento.class.getResource("/Imagenes/Evento.png")));
 		setTitle("Crear Evento");
 		setBounds(100, 100, 404, 543);
