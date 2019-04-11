@@ -282,12 +282,12 @@ public class ListarEvento extends JDialog {
 								escritor.write("\r\n\r\nDetalles de los Trabajos");
 								for (int i = 0; i < aux.getLosTrabajos().size(); i++) {
 									escritor.write("\r\n\r\nInformación del Trabajo:");
-									escritor.write("\r\nCódigo del Trabajo:"+aux.getLosTrabajos().get(i).getIdentificador());
+									escritor.write("\r\nCódigo del Trabajo: "+aux.getLosTrabajos().get(i).getIdentificador());
 									escritor.write("\r\nNombre del Trabajo: "+aux.getLosTrabajos().get(i).getNombreTrabajo());
 									escritor.write("\r\nÁrea del Trabajo: "+aux.getLosTrabajos().get(i).getAreaTrabajo());
-									escritor.write("\r\nCédula del Participante:"+aux.getLosTrabajos().get(i).getElParticipante().getCedula());
-									escritor.write("\r\nNombre del Participante:"+aux.getLosTrabajos().get(i).getElParticipante().getNombre());
-									escritor.write("\r\nComisión Encargada:"+aux.getLosTrabajos().get(i).getLaComision().getCodigo());
+									escritor.write("\r\nCédula del Participante: "+aux.getLosTrabajos().get(i).getElParticipante().getCedula());
+									escritor.write("\r\nNombre del Participante: "+aux.getLosTrabajos().get(i).getElParticipante().getNombre());
+									escritor.write("\r\nComisión Encargada: "+aux.getLosTrabajos().get(i).getLaComision().getCodigo());
 									
 								}
 							}else {
