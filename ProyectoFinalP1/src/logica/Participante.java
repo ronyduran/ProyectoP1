@@ -3,6 +3,7 @@ package logica;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
 public class Participante extends Persona implements Serializable {
 	
 	/**
@@ -29,5 +30,6 @@ public class Participante extends Persona implements Serializable {
 		
 		losTrabajos.add(t1);
 	}
-
+	
+	
 }
