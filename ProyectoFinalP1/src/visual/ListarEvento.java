@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.JComboBox;
@@ -29,6 +30,12 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.awt.Component;
 
 public class ListarEvento extends JDialog {
 
@@ -40,6 +47,8 @@ public class ListarEvento extends JDialog {
 	private JTextField txtBuscar;
 	private JComboBox cbxTipo;
 	private JComboBox cbxEstado;
+	private JButton btnImprimir;
+	
 
 	
 	public ListarEvento() {
@@ -180,6 +189,17 @@ public class ListarEvento extends JDialog {
 						model.setColumnIdentifiers(header);
 						
 						tableEventos = new JTable();
+						tableEventos.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								if(tableEventos.getSelectedRow()>=0){
+									
+									btnImprimir.setEnabled(true);
+									
+					
+								}
+							}
+						});
 						tableEventos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 						
 						scrollPane.setViewportView(tableEventos);
@@ -204,6 +224,79 @@ public class ListarEvento extends JDialog {
 						loadTableEvento();
 					}
 				});
+				
+				btnImprimir = new JButton("Imprimir");
+				btnImprimir.setAlignmentX(Component.CENTER_ALIGNMENT);
+				btnImprimir.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				btnImprimir.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int fila = tableEventos.getSelectedRow();
+						String codigo = (String)tableEventos.getValueAt(fila, 0);
+						Evento aux = PlanificacionEvento.getInstance().BuscarEventoCodigo(codigo);
+						SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss dd-MMM-yyyy");
+						SimpleDateFormat formatter1 = new SimpleDateFormat("dd-MMM-yyyy");
+						String linea1 = "\r\n\r\nFecha de solicitud: " +formatter.format(new Date());
+						String linea2 ="\r\nCódigo del Evento: "+aux.getIdentificador();
+						String linea3 ="\r\nNombre del Evento: "+aux.getNombreEvento();
+						String linea4 = "\r\nFecha del Evento: "+formatter1.format(aux.getFechaEvento());
+						
+						
+						String linea6 = "\r\nCantidad de Trabajos Inscritos: " + aux.getLosTrabajos().size();
+						String linea7 = "\r\nCantidad de Comisiones Inscritas: " + aux.getLasComisiones().size();
+						String linea8 = "\r\nNota Extra:\r\n "+ aux.getJustificacion();
+						File reporte = new File ("Reporte.txt");
+				        FileWriter escritor;
+				        
+				        try {
+				        	escritor = new FileWriter(reporte);
+				        	escritor.write("Pontificie Universidad Católica Madre y Maestra");
+							escritor.write("\r\nSistema de Planificación de Eventos");
+							escritor.write("\r\n\r\nReporte del Evento");
+							escritor.write(linea1);
+							escritor.write(linea2);
+							escritor.write(linea3);
+							escritor.write(linea4);
+							if (aux.isEstado()==true) {
+								escritor.write("\r\nEstado del Evento: Activo");
+							}else {
+								escritor.write("\r\nEstado del Evento: No Activo");
+								
+							}
+							if (aux.getJustificacion()!=null) {
+								escritor.write(linea8);
+							}
+							
+							escritor.write(linea6);
+							escritor.write(linea7);
+							
+							if (aux.getLosTrabajos().size()>0) {
+								escritor.write("\r\n\r\nDetalles de los Trabajos");
+								for (int i = 0; i < aux.getLosTrabajos().size(); i++) {
+									escritor.write("\r\n\r\nInformación del Trabajo:");
+									escritor.write("\r\nCódigo del Trabajo:"+aux.getLosTrabajos().get(i).getIdentificador());
+									escritor.write("\r\nNombre del Trabajo: "+aux.getLosTrabajos().get(i).getNombreTrabajo());
+									escritor.write("\r\nÁrea del Trabajo: "+aux.getLosTrabajos().get(i).getAreaTrabajo());
+									escritor.write("\r\nCédula del Participante:"+aux.getLosTrabajos().get(i).getElParticipante().getCedula());
+									escritor.write("\r\nNombre del Participante:"+aux.getLosTrabajos().get(i).getElParticipante().getNombre());
+									escritor.write("\r\nComisión Encargada:"+aux.getLosTrabajos().get(i).getLaComision().getCodigo());
+									
+								}
+							}else {
+								escritor.write("\r\n\r\nActualmente no hay Trabajos Inscritos.");
+							}
+							
+							escritor.close();
+							JOptionPane.showMessageDialog(null,"El archivo se ha creado");
+						} catch (IOException e2) {
+							// TODO: handle exception
+							e2.printStackTrace();
+						}
+				        
+					
+						
+					}
+				});
+				buttonPane.add(btnImprimir);
 				btnLimpiar.setActionCommand("OK");
 				buttonPane.add(btnLimpiar);
 				getRootPane().setDefaultButton(btnLimpiar);
@@ -356,5 +449,4 @@ public class ListarEvento extends JDialog {
 			
 		}
 	}
-
 }
