@@ -55,7 +55,7 @@ public class RegistrarComision extends JDialog {
 	private JComboBox cbxEvento;
 
 	
-	public RegistrarComision() {
+	public RegistrarComision(String codigo, boolean modificar) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarComision.class.getResource("/Imagenes/Formulario.png")));
 		setFont(new Font("Dialog", Font.PLAIN, 14));
 		setTitle("Registro de Comisi\u00F3n");

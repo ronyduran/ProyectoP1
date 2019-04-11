@@ -301,7 +301,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mntmRegistrarComisin.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mntmRegistrarComisin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarComision RegC = new RegistrarComision();
+				RegistrarComision RegC = new RegistrarComision("",false);
 				RegC.setModal(true);
 				RegC.setLocationRelativeTo(null);
 				RegC.setVisible(true);

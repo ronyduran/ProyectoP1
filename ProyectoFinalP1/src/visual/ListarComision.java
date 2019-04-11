@@ -29,6 +29,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ListarComision extends JDialog {
 
@@ -39,6 +41,7 @@ public class ListarComision extends JDialog {
 	private static DefaultTableModel model;
 	private String identificador = "";
 	private JComboBox cbxArea;
+	private JButton btnModificar;
 
 	
 	public ListarComision() {
@@ -138,6 +141,17 @@ public class ListarComision extends JDialog {
 		model.setColumnIdentifiers(header);
 		
 		tableComisiones = new JTable();
+		tableComisiones.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+				
+				if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")){
+					
+					btnModificar.setEnabled(true);
+				}
+			}
+		});
 		tableComisiones.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		scrollPane.setViewportView(tableComisiones);
@@ -156,6 +170,23 @@ public class ListarComision extends JDialog {
 						loadTableComisiones();
 					}
 				});
+				
+				btnModificar = new JButton("Modificar");
+				btnModificar.setEnabled(false);
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int fila=	tableComisiones.getSelectedRow();
+						String id= (String) tableComisiones.getValueAt(fila, 0);
+						RegistrarComision rc= new RegistrarComision(id,true);
+						rc.setModal(true);
+						rc.setVisible(true);
+						
+						
+					}
+				});
+				btnModificar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				btnModificar.setActionCommand("OK");
+				buttonPane.add(btnModificar);
 				btnLimpiar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnLimpiar.setActionCommand("OK");
 				buttonPane.add(btnLimpiar);
