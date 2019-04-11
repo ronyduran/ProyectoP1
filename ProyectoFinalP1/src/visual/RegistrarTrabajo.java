@@ -49,7 +49,7 @@ public class RegistrarTrabajo extends JDialog {
 	private JTextArea txtDescripcion;
 	private JButton okButton;
 	
-	public RegistrarTrabajo() {
+	public RegistrarTrabajo(String codigo, boolean modificar) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrarTrabajo.class.getResource("/Imagenes/Trabajo.png")));
 		setResizable(false);
 		setTitle("Registro de Trabajo");

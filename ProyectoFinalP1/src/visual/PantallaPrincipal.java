@@ -152,7 +152,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		mntmRegistrarTrabajo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				RegistrarTrabajo rt = new RegistrarTrabajo();
+				RegistrarTrabajo rt = new RegistrarTrabajo("",false);
 				rt.setModal(true);
 				rt.setVisible(true);
 				

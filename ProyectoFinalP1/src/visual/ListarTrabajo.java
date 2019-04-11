@@ -29,6 +29,8 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListarTrabajo extends JDialog {
 
@@ -38,6 +40,7 @@ public class ListarTrabajo extends JDialog {
 	public static Object[] fila;
 	private static DefaultTableModel model;
 	private String identificador = "";
+	private JButton btnModificar;
 
 	/**
 	 * Launch the application.
@@ -142,6 +145,16 @@ public class ListarTrabajo extends JDialog {
 		model.setColumnIdentifiers(header);
 		
 		tableTrabajos = new JTable();
+		tableTrabajos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")){
+					
+					btnBuscar.setEnabled(true);
+				}
+				
+			}
+		});
 		tableTrabajos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane.setViewportView(tableTrabajos);
 		tableTrabajos.setModel(model);
@@ -151,6 +164,7 @@ public class ListarTrabajo extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnLimpiar = new JButton("Limpiar");
+				btnLimpiar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnLimpiar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						cbxArea.setSelectedIndex(0);
@@ -158,12 +172,27 @@ public class ListarTrabajo extends JDialog {
 						loadTableTrabajo();
 					}
 				});
+				
+				btnModificar = new JButton("Modificar");
+				btnModificar.setEnabled(false);
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						
+						
+						
+					}
+				});
+				btnModificar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				btnModificar.setActionCommand("OK");
+				buttonPane.add(btnModificar);
 				btnLimpiar.setActionCommand("OK");
 				buttonPane.add(btnLimpiar);
 				getRootPane().setDefaultButton(btnLimpiar);
 			}
 			{
 				JButton btnCerrar = new JButton("Cerrar");
+				btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				btnCerrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
