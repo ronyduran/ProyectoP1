@@ -40,7 +40,7 @@ public class Grafica extends JDialog {
 			
 			setTitle("Estad\u00EDsticas de los eventos");
 			
-			setBounds(100, 100, 940, 562);
+			setBounds(100, 100, 948, 595);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
@@ -49,9 +49,6 @@ public class Grafica extends JDialog {
 			JScrollPane scrollPane = new JScrollPane();
 			contentPane.add(scrollPane);
 			setLocationRelativeTo(null);
-			
-			              
-			       
 			
 			init("");
 			
@@ -64,8 +61,6 @@ public class Grafica extends JDialog {
 	        panel = new JPanel();
 	        getContentPane().add(panel);
 	        // Fuente de Datos
-	        
-	   
 	        
 	        DefaultPieDataset data = new DefaultPieDataset();
 	        int hombre=0;
@@ -139,7 +134,7 @@ public class Grafica extends JDialog {
 		       panel.add(btnGrficoDelGrado);
 		       
 		       JPanel buttonPane = new JPanel();
-				buttonPane.setBounds(5, 485, 914, 33);
+				buttonPane.setBounds(0, 513, 922, 33);
 				buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 				panel.add(buttonPane);
 				{
