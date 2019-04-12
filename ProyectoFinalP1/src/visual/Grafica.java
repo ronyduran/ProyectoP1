@@ -195,7 +195,7 @@ public class Grafica extends JDialog {
 		       		Grafica01(Codigo);
 		       	}
 		       });
-		       btnGrficaDeGenero.setBounds(149, 123, 204, 52);
+		       btnGrficaDeGenero.setBounds(35, 123, 204, 52);
 		       panel.add(btnGrficaDeGenero);
 		       
 		       JButton btnGrficoDelGrado = new JButton("Gr\u00E1fico del Grado Acad.");
@@ -205,25 +205,17 @@ public class Grafica extends JDialog {
 		       		Grafica02(Codigo);
 		       	}
 		       });
-		       btnGrficoDelGrado.setBounds(149, 203, 204, 52);
+		       btnGrficoDelGrado.setBounds(35, 203, 204, 52);
 		       panel.add(btnGrficoDelGrado);
-		       
-		       JPanel buttonPane = new JPanel();
-				buttonPane.setBounds(0, 513, 922, 33);
-				buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-				panel.add(buttonPane);
-				{
-					JButton okButton = new JButton("OK");
-					okButton.setActionCommand("OK");
-					buttonPane.add(okButton);
-					getRootPane().setDefaultButton(okButton);
-				}
-				{
-					JButton cancelButton = new JButton("Cancel");
-					cancelButton.setActionCommand("Cancel");
-					buttonPane.add(cancelButton);
-				}
+				
+				JButton btnCerrarGrafico = new JButton("Cerrar Gr\u00E1fico");
+				btnCerrarGrafico.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					}
+				});
+				btnCerrarGrafico.setBounds(294, 166, 122, 52);
+				panel.add(btnCerrarGrafico);
 
 		}
-		
 	}
