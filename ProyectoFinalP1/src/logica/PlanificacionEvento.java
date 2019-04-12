@@ -361,6 +361,30 @@ public class PlanificacionEvento implements Serializable {
 	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
+	
+	
+public int[] buscarGeneroPorEventoGeneral() {
+		
+		int cantHombre=0;
+		int cantMujer=0;
+		for (Evento aux : losEventos) {
+			for (int i = 0; i < aux.getLosTrabajos().size(); i++) {
+				if (aux.getLosTrabajos().get(i).getElParticipante().getSexo().equalsIgnoreCase("Hombre")) {
+					cantHombre++;
+				}
+				if (aux.getLosTrabajos().get(i).getElParticipante().getSexo().equalsIgnoreCase("Mujer")) {
+					cantMujer++;
+				}
+			}
+			}
+		
+		
+		
+
+		int [] genero = {cantHombre, cantMujer};
+		
+		return genero;
+	}
 
 	public int[] buscarGeneroPorEvento(String Codigo) {
 		
@@ -380,7 +404,7 @@ public class PlanificacionEvento implements Serializable {
 		System.out.println(cantHombre);
 		System.out.println(cantMujer);
 
-		int [] genero = {cantHombre, cantMujer};
+		int [] genero = {cantHombre+20, cantMujer+50};
 		
 		return genero;
 	}
