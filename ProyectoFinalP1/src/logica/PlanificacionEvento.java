@@ -265,7 +265,8 @@ public class PlanificacionEvento implements Serializable {
 	
 	public void ActualizarTrabajo(Trabajo t1) {
 		
-		
+			Evento e=t1.getElEvento();
+			e.getLosTrabajos().add(t1);
 			for (Evento auxEvento : losEventos) {
 				for (int i = 0; i < auxEvento.getLosTrabajos().size(); i++) {
 				

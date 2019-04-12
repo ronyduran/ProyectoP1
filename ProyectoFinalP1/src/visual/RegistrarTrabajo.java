@@ -427,7 +427,9 @@ public class RegistrarTrabajo extends JDialog {
 					}
 					if(modificar==true) {
 						if(p1!=null && !nombreTrab.equalsIgnoreCase("")  && c1!=null && e1!=null && !descripcion.equalsIgnoreCase("")) {
-						
+							Evento eveb=tra.getElEvento();
+							eveb.getLosTrabajos().remove(tra);
+							
 							tra.setDescripcion(descripcion);
 							tra.setNombreTrabajo(nombreTrab);
 							tra.setLaComision(c1);
