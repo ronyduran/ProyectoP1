@@ -41,6 +41,7 @@ public class PlanificacionEvento implements Serializable {
 		misUsers = new ArrayList<>();
 		
 		
+		
 	}
 	
 	public static PlanificacionEvento getInstance() { 
@@ -128,6 +129,7 @@ public class PlanificacionEvento implements Serializable {
 		this.codEvento = codEvento;
 	}
 
+	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void insertarPersona(Persona p1) {
 		
@@ -360,14 +362,54 @@ public class PlanificacionEvento implements Serializable {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 
-	public int cantidadDeHombres() {
-		int cant=0;
-		for (int i = 0; i < lasPersonas.size(); i++) {
-			if(lasPersonas.get(i).getSexo().equals("Hombre")) {
-				cant++;
+	public int[] buscarGeneroPorEvento(String Codigo) {
+		
+		int cantHombre=0;
+		int cantMujer=0;
+		Evento aux = BuscarEventoCodigo(Codigo);
+		System.out.println(aux.getIdentificador());
+		if(aux!=null) {
+		for (int i = 0; i < aux.getLosTrabajos().size(); i++) {
+			if (aux.getLosTrabajos().get(i).getElParticipante().getSexo().equalsIgnoreCase("Hombre")) {
+				cantHombre++;
+			}
+			if (aux.getLosTrabajos().get(i).getElParticipante().getSexo().equalsIgnoreCase("Mujer")) {
+				cantMujer++;
+			}
+		}}
+		System.out.println(cantHombre);
+		System.out.println(cantMujer);
+
+		int [] genero = {cantHombre, cantMujer};
+		
+		return genero;
+	}
+
+	public int[] buscarGradoPorEvento(String Codigo) {
+		
+		int cantBachiller=0;
+		int cantLicenciado=0;
+		int cantMagi=0;
+		int cantDoctorado=0;
+		Evento aux = BuscarEventoCodigo(Codigo);
+		for (int i = 0; i < aux.getLosTrabajos().size(); i++) {
+			if (aux.getLosTrabajos().get(i).getElParticipante().getGradoAcademico().equalsIgnoreCase("Bachiller")) {
+				cantBachiller++;
+			}
+			if (aux.getLosTrabajos().get(i).getElParticipante().getGradoAcademico().equalsIgnoreCase("Licenciado")) {
+				cantLicenciado++;
+			}
+			if (aux.getLosTrabajos().get(i).getElParticipante().getGradoAcademico().equalsIgnoreCase("Mag\\u00EDster")) {
+				cantMagi++;
+			}
+			if (aux.getLosTrabajos().get(i).getElParticipante().getGradoAcademico().equalsIgnoreCase("Doctorado")) {
+				cantDoctorado++;
 			}
 		}
-		return cant;
+		
+		int [] grado = {cantBachiller, cantLicenciado, cantMagi, cantDoctorado};
+		
+		return grado;
 	}
 
 	

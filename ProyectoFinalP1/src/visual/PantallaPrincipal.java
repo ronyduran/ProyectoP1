@@ -407,7 +407,8 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		JMenuItem mntmGraficar = new JMenuItem("Gr\u00E1ficas de eventos");
 		mntmGraficar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Graficas gf = new Graficas();
+				Grafica gf = new Grafica();
+				gf.setModal(true);
 				gf.setVisible(true);
 			}
 		});
