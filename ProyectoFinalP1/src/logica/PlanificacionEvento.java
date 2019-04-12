@@ -358,15 +358,7 @@ public class PlanificacionEvento implements Serializable {
 		return login;
 	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	public int cantidadDeMujeres() {
-		int cant=0;
-		for (int i = 0; i < lasPersonas.size(); i++) {
-			if(lasPersonas.get(i).getSexo().equals("Mujer")) {
-				cant++;
-			}
-		}
-		return cant;
-	}
+	
 
 	public int cantidadDeHombres() {
 		int cant=0;

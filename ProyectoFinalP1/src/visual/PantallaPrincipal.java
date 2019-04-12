@@ -399,6 +399,20 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 		});
 		mntmIngresarRecurso.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnAdministrador.add(mntmIngresarRecurso);
+		
+		JMenu mnGraficas = new JMenu("Gr\u00E1ficas");
+		mnGraficas.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		menuBar.add(mnGraficas);
+		
+		JMenuItem mntmGraficar = new JMenuItem("Gr\u00E1ficas de eventos");
+		mntmGraficar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Graficas gf = new Graficas();
+				gf.setVisible(true);
+			}
+		});
+		mntmGraficar.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		mnGraficas.add(mntmGraficar);
 		/*contentPane = new JPanel();*/
 		//contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		//setContentPane(contentPane);
