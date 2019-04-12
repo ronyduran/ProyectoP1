@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,8 +20,13 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 import logica.Evento;
@@ -40,7 +47,7 @@ public class Grafica extends JDialog {
 			
 			setTitle("Estad\u00EDsticas de los eventos");
 			
-			setBounds(100, 100, 948, 595);
+			setBounds(100, 100, 523, 359);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
@@ -50,63 +57,112 @@ public class Grafica extends JDialog {
 			contentPane.add(scrollPane);
 			setLocationRelativeTo(null);
 			
-			init("");
+			init();
 			
-		
+			
 
-
+	        
 		}
 		
-		private void init(String Codigo) {
-	        panel = new JPanel();
-	        getContentPane().add(panel);
-	        // Fuente de Datos
-	        
+		
+		
+		
+		
+		
+		private void Grafica01(String Codigo) {
+			 // Fuente de Datos
 	        DefaultPieDataset data = new DefaultPieDataset();
-	        int hombre=0;
-	        int mujer=0;
-	        if(!Codigo.equalsIgnoreCase("")) {
-	        hombre=PlanificacionEvento.getInstance().buscarGeneroPorEvento(Codigo)[0];
-	         mujer=PlanificacionEvento.getInstance().buscarGeneroPorEvento(Codigo)[1];}
-	        else {
-	        	
-	        	 hombre=PlanificacionEvento.getInstance().buscarGeneroPorEventoGeneral()[0];
-		         mujer=PlanificacionEvento.getInstance().buscarGeneroPorEventoGeneral()[1];
-	        	
-	        }
-	        System.out.println(hombre);
-	        System.out.println(mujer);
+	        
+	        int hombre=PlanificacionEvento.getInstance().buscarGeneroPorEvento(Codigo)[0];
+	        int mujer=PlanificacionEvento.getInstance().buscarGeneroPorEvento(Codigo)[1];
+
 	        data.setValue("Mujeres", mujer);
 	        data.setValue("Hombres", hombre);
-	       
-	 
+	        
+	        	 
 	        // Creando el Grafico
 	        JFreeChart chart = ChartFactory.createPieChart(
-	         "Cantidad de participantes por sexo", 
+	         "Participantes por género", 
 	         data, 
 	         true, 
 	         true, 
 	         false);
-		       panel.setLayout(null);
+	 
+	        // Mostrar Grafico
+	        ChartFrame JDialog = new ChartFrame("Gáfica por género", chart);
 	        
-	     // Crear el Panel del Grafico con ChartPanel
-		       ChartPanel chartPanel = new ChartPanel(chart);
-		       chartPanel.setBounds(224, 82, 680, 420);
-		       panel.add(chartPanel);
-		       
-		       JPanel panel_1 = new JPanel();
+	        try {
+				ChartUtilities.saveChartAsJPEG(new File("grafico por genero.jpg"), chart, 500, 500);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	     
+	        JDialog.pack();
+	        JDialog.setVisible(true);
+	    
+	    }
+		
+		private void Grafica02(String Codigo) {
+			 // Fuente de Datos
+			DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+	        
+	        int bachiller= PlanificacionEvento.getInstance().buscarGradoPorEvento(Codigo)[0];
+	        int licenciado= PlanificacionEvento.getInstance().buscarGradoPorEvento(Codigo)[1];
+	        int magister= PlanificacionEvento.getInstance().buscarGradoPorEvento(Codigo)[2];
+	        int doctorado= PlanificacionEvento.getInstance().buscarGradoPorEvento(Codigo)[3];
+	        
+
+	           dataset.setValue(bachiller, "Bachiller", "Bachiller");
+	           dataset.setValue(licenciado, "Licenciado", "Licenciado");
+	           dataset.setValue(magister, "Magíster", "Magíaster");
+	           dataset.setValue(doctorado, "Doctorado", "Doctorado");
+	        
+	        	 
+	        // Creando el Grafico
+	           JFreeChart chart = ChartFactory.createBarChart3D
+	           ("Grado académico por participante","Genero", "Cantidad", 
+	           dataset, PlotOrientation.VERTICAL, true,true, false);
+	           chart.setBackgroundPaint(Color.gray);
+	           chart.getTitle().setPaint(Color.black); 
+	           CategoryPlot p = chart.getCategoryPlot(); 
+	           p.setRangeGridlinePaint(Color.red); 
+	 
+	        // Mostrar Grafico
+	        ChartFrame JDialog = new ChartFrame("Grado académico por participante", chart);
+	        
+	        try {
+				ChartUtilities.saveChartAsJPEG(new File("grafico por grado.jpg"), chart, 500, 500);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	     
+	        JDialog.pack();
+	        JDialog.setVisible(true);
+	    
+	    }
+		
+		private void init() {
+			
+			panel = new JPanel();
+	        getContentPane().add(panel);
+	        panel.setLayout(null);
+	        
+			
+			JPanel panel_1 = new JPanel();
 		       panel_1.setBackground(new Color(176, 196, 222));
-		       panel_1.setBounds(10, 11, 894, 60);
+		       panel_1.setBounds(10, 11, 477, 60);
 		       panel.add(panel_1);
 		       panel_1.setLayout(null);
 		       
 		       JLabel lblCodigoEvento = new JLabel("Ingresar c\u00F3digo del evento:");
 		       lblCodigoEvento.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		       lblCodigoEvento.setBounds(195, 17, 186, 22);
+		       lblCodigoEvento.setBounds(10, 15, 186, 22);
 		       panel_1.add(lblCodigoEvento);
 		       
 		       JTextField textField = new JTextField();
-		       textField.setBounds(385, 17, 116, 22);
+		       textField.setBounds(191, 17, 116, 22);
 		       panel_1.add(textField);
 		       textField.setColumns(10);
 		       
@@ -115,22 +171,39 @@ public class Grafica extends JDialog {
 		       	public void actionPerformed(ActionEvent e) {
 		       		
 		       		String Codigo=textField.getText();
-		       		
-		       		init(Codigo);
-		       		
-		       	
+		       		if (!Codigo.equalsIgnoreCase("")) {
+						Evento e1 = PlanificacionEvento.getInstance().BuscarEventoCodigo(Codigo);
+						if(e1!=null) {
+							System.out.println(1);
+						}else {
+							JOptionPane.showMessageDialog(null, "Este evento no existe", "Validación", JOptionPane.WARNING_MESSAGE);}
+					}
 		       	}
-		       });
+		       		
+		       	      		
+		          });
 		       btnBuscarEvento.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		       btnBuscarEvento.setBounds(522, 17, 139, 23);
+		       btnBuscarEvento.setBounds(331, 15, 139, 23);
 		       panel_1.add(btnBuscarEvento);
 		       
 		       JButton btnGrficaDeGenero = new JButton("Gr\u00E1fica de G\u00E9nero");
-		       btnGrficaDeGenero.setBounds(10, 220, 204, 52);
+		       btnGrficaDeGenero.addActionListener(new ActionListener() {
+		       	public void actionPerformed(ActionEvent e) {
+		       		String Codigo=textField.getText();
+		       		Grafica01(Codigo);
+		       	}
+		       });
+		       btnGrficaDeGenero.setBounds(149, 123, 204, 52);
 		       panel.add(btnGrficaDeGenero);
 		       
 		       JButton btnGrficoDelGrado = new JButton("Gr\u00E1fico del Grado Acad.");
-		       btnGrficoDelGrado.setBounds(10, 300, 204, 52);
+		       btnGrficoDelGrado.addActionListener(new ActionListener() {
+		       	public void actionPerformed(ActionEvent e) {
+		       		String Codigo=textField.getText();
+		       		Grafica02(Codigo);
+		       	}
+		       });
+		       btnGrficoDelGrado.setBounds(149, 203, 204, 52);
 		       panel.add(btnGrficoDelGrado);
 		       
 		       JPanel buttonPane = new JPanel();
@@ -148,7 +221,7 @@ public class Grafica extends JDialog {
 					cancelButton.setActionCommand("Cancel");
 					buttonPane.add(cancelButton);
 				}
-		       
-	    }
+
+		}
 		
 	}

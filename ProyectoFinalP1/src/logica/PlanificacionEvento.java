@@ -405,7 +405,7 @@ public int[] buscarGeneroPorEventoGeneral() {
 		System.out.println(cantHombre);
 		System.out.println(cantMujer);
 
-		int [] genero = {cantHombre+20, cantMujer+50};
+		int [] genero = {cantHombre, cantMujer};
 		
 		return genero;
 	}
