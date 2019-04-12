@@ -130,7 +130,9 @@ public class Grafica extends JDialog {
 	 
 	        // Mostrar Grafico
 	        ChartFrame JDialog = new ChartFrame("Grado académico por participante", chart);
-	        
+	      
+	           
+	           
 	        try {
 				ChartUtilities.saveChartAsJPEG(new File("grafico por grado.jpg"), chart, 500, 500);
 			} catch (IOException e) {
@@ -174,7 +176,7 @@ public class Grafica extends JDialog {
 		       		if (!Codigo.equalsIgnoreCase("")) {
 						Evento e1 = PlanificacionEvento.getInstance().BuscarEventoCodigo(Codigo);
 						if(e1!=null) {
-							System.out.println(1);
+							JOptionPane.showMessageDialog(null, "El evento fué encontrado!", "Información", JOptionPane.INFORMATION_MESSAGE);
 						}else {
 							JOptionPane.showMessageDialog(null, "Este evento no existe", "Validación", JOptionPane.WARNING_MESSAGE);}
 					}
