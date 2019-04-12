@@ -148,10 +148,13 @@ public class ListarTrabajo extends JDialog {
 		tableTrabajos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				int fila=	tableTrabajos.getSelectedRow();
+				String id= (String) tableTrabajos.getValueAt(fila, 0);
 				if(PlanificacionEvento.getLoginUser().getTipo().equalsIgnoreCase("Administrador")){
+					if(PlanificacionEvento.getInstance().BuscarTrabajoPorCodigo(id).getElEvento().isEstado()==true) {
 					
 					btnModificar.setEnabled(true);
-				}
+				}}
 				
 			}
 		});

@@ -227,7 +227,7 @@ public class PantallaPrincipal extends JFrame implements Runnable  {
 									}
 									
 									escritor.close();
-									JOptionPane.showMessageDialog(null,"El Reporte se ha Imprimido");
+									JOptionPane.showMessageDialog(null,"El Reporte se ha generado");
 								} catch (IOException e2) {
 									// TODO: handle exception
 									e2.printStackTrace();

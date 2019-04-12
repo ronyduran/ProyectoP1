@@ -427,8 +427,15 @@ public class RegistrarTrabajo extends JDialog {
 					}
 					if(modificar==true) {
 						if(p1!=null && !nombreTrab.equalsIgnoreCase("")  && c1!=null && e1!=null && !descripcion.equalsIgnoreCase("")) {
-							Evento eveb=tra.getElEvento();
-							eveb.getLosTrabajos().remove(tra);
+							for (Evento auxEvento : PlanificacionEvento.getInstance().getLosEventos()) {
+								for (int i = 0; i < auxEvento.getLosTrabajos().size(); i++) {
+								
+									if(auxEvento.getLosTrabajos().get(i).getIdentificador().equalsIgnoreCase(tra.getIdentificador())) {
+										auxEvento.getLosTrabajos().remove(i);
+										
+									}
+								}
+							}
 							
 							tra.setDescripcion(descripcion);
 							tra.setNombreTrabajo(nombreTrab);

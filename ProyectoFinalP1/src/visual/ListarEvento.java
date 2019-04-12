@@ -295,7 +295,7 @@ public class ListarEvento extends JDialog {
 							}
 							
 							escritor.close();
-							JOptionPane.showMessageDialog(null,"El Reporte se ha Imprimido");
+							JOptionPane.showMessageDialog(null,"El Reporte se ha Generado");
 						} catch (IOException e2) {
 							// TODO: handle exception
 							e2.printStackTrace();
